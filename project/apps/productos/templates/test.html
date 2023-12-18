@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 search">
+                <form method="get">
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control" placeholder="Buscar..." name="buscar">
+                            <span class="input-group-list">
+                                
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <h1>Lista de Productos</h1>
+
+    <ul>
+        {% for producto in productos %}
+            <li>{{ producto.nombre }} - Precio: {{ producto.precio_formateado }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Ignora el entorno virtual
+.venv
+
+# Ignora la carpeta pycache que crea Python al importar módulos
+**/__pycache__/
+
+# Ignora todas las migraciones creadas, excepto __init__.py
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Ignora la base de datos
+**/db.sqlite3
