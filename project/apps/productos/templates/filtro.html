@@ -1,0 +1,10 @@
+<form method="get" action="">
+    <select name="categoria">
+        <option value="" {% if not categoria_seleccionada %}selected{% endif %}>Todas las categorías</option>
+        {% for categoria in categorias %}
+            <option value="{{ categoria.id|stringformat:"s" }}" {% if categoria_seleccionada == categoria.id|stringformat:"s" %}selected{% endif %}>{{ categoria.nombre }}</option>
+        {% endfor %}
+    </select>
+    <input type="text" name="buscar" placeholder="Buscar..." value="{{ queryset }}">
+    <button type="submit">Aplicar</button>
+</form>

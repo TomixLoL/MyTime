@@ -6,6 +6,7 @@ admin.site.site_title = "Administracion"
 admin.site.site_header = "MyTime"
 
 
+
 @admin.register(models.ProductoCategoria)
 class ProductoCategoriaAdmin(admin.ModelAdmin):
     """

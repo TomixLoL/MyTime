@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Productos</title>
+</head>
+
+
+
+    <h1>Lista de Productos</h1>
+
+    {% include 'filtro.html' %}
+
+    <ul>
+        {% for producto in object_list %}
+            <li>{{ producto.nombre }} - Precio: {{ producto.precio_formateado }}</li>
+        {% endfor %}
+    </ul>
+
+{% block filter %}
+    
+{% endblock filter %}
+
+</body>
+</html>

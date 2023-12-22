@@ -9,8 +9,8 @@ class ProductoCategoria(models.Model):
     imagen_categoria = models.ImageField(upload_to="apps/productos/categoria-imagen/", verbose_name="imagen")
 
     class Meta:
-        verbose_name = "categoría de productos"
-        verbose_name_plural = "categorías de productos"
+        verbose_name = "categoria"
+        verbose_name_plural = "categorias"
 
     def __str__(self):
         """Representa una instancia de la clase como una cadena de texto."""
@@ -23,7 +23,7 @@ class Producto(models.Model):
     categoria = models.ForeignKey(ProductoCategoria, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="categoría")
     nombre = models.CharField(max_length=100)
     cantidad = models.FloatField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    precio = models.IntegerField()
     descripcion = models.CharField(max_length=250, blank=True, null=True, verbose_name="descripción")
     imagen_producto = models.ImageField(upload_to="apps/productos/producto-imagen/", verbose_name="imagen")
 
@@ -37,3 +37,4 @@ class Producto(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.precio_formateado()}"
+
