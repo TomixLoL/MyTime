@@ -12,7 +12,13 @@
 
     <ul>
         {% for producto in object_list %}
+
             <li>{{ producto.nombre }} - Precio: {{ producto.precio_formateado }}</li>
+            <img src="{{ producto.imagen_producto.url }}" alt="Portada">
+
+            {% for imagen in producto.imagenes.all %}
+                <img src="{{ imagen.imagenes.url }}" alt="Imagenes del Producto">
+            {% endfor %}
         {% endfor %}
     </ul>
 

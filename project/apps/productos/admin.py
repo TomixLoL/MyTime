@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.contrib import admin
 from . import models
+from .models import ImagenProducto
 
 admin.site.site_title = "Administracion"
 admin.site.site_header = "MyTime"
 
-
+class ImagenProductoAdmin(admin.TabularInline):
+    model = ImagenProducto
 
 @admin.register(models.ProductoCategoria)
 class ProductoCategoriaAdmin(admin.ModelAdmin):
@@ -38,3 +40,6 @@ class ProductoAdmin(admin.ModelAdmin):
         "nombre",
     )
     list_filter = ("categoria",)
+    inlines = [
+        ImagenProductoAdmin
+    ]
