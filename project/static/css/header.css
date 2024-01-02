@@ -1,0 +1,148 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+
+:root{
+    --primario: #f69bd6;
+    --secundario: rgb(255, 255, 255);
+    --terciario: #262626;
+    --cuarto: #bebfc000;
+    --quinto: #6FD1E7;
+}
+
+header{
+    background-color: var(--primario);
+    display: flex;
+    padding: 15px 20px;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--secundario);
+    z-index: 400;
+}
+
+header h1{
+    font-family: 'Nunito';
+    font-size: 36px;
+    z-index: 500;
+}
+
+header img {
+    width: 80px;
+    height: 80px;
+    box-shadow: 0PX 0px 1px var(--primario);
+    z-index: 500;
+}
+
+header svg{
+    width: 30px;
+    height: 30px;
+    fill: var(--secundario);
+    box-shadow: 0PX 0px 1px var(--primario);
+    z-index: 500;
+}
+
+header img{
+    width: 35px;
+    height: 30px;
+    z-index: 500;
+}
+
+div.carrito{
+    width: 15%;
+    display: flex;
+    justify-content: end;
+    z-index: 500;
+}
+
+.circulo{
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Nunito";
+    background-color: red;
+    border-radius: 50%;
+    font-size: 10px;
+    z-index: 500;
+}
+
+
+footer{
+    background-color: var(--primario);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+footer img{
+    width: 30px;
+    height: 30px;
+}
+
+footer h6{
+    color: white;
+    font-size: 24px;
+    font-family: 'Sora', sans-serif;
+}
+
+footer a{
+    color: white;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: 'Sora';
+    display: flex;
+    align-items: center;
+
+}
+
+footer div.contacto{
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 15px    ;
+}
+
+.aside-menu{
+    background-color: var(--primario);
+    display: flex;
+    padding: 10px 20px;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    display: none;
+}
+
+.aside-menu ul{
+    font-family: 'Nunito';
+    font-size: 18px;
+    color: var(--secundario);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 15px;
+}
+
+.aside-menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.aside-menu ul li details summary {
+    list-style: none;
+    z-index: 200;
+    cursor: pointer; /* cambia el cursor del puntero */
+}
+
+.aside-menu ul li details summary {
+    list-style: none;
+    z-index: 200;
+    cursor: pointer; /* cambia el cursor del puntero */
+}
+

@@ -13,7 +13,7 @@ from . import forms, models
 class ProductoListView(ListView):
     # Define la clase para mostrar una lista de productos
     model = Producto  # Utiliza el modelo Producto para esta vista
-    template_name = "index.html"  # La plantilla HTML asociada a esta vista
+    template_name = "base.html"  # La plantilla HTML asociada a esta vista
 
     def get_queryset(self):
         # Método que retorna el conjunto de datos (QuerySet) de productos a mostrar

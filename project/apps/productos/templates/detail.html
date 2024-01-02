@@ -1,0 +1,90 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+<body>
+    <div class="MensajeCarrito" id="MODAL">
+        <p>El producto fue agregado al carrito</p>
+    </div>
+
+    <main>
+        <div class="container">
+        <ul class="slider">
+            <li id="slide1">
+                <img src="../img/prod1.png" />
+            </li>
+            <li id="slide2">
+                <img src="../img/prod2.png" />
+            </li>
+            <li id="slide3">
+                <img src="../img/prod3.png" alt="">
+            </li>
+        </ul>
+        <ul class="menu">
+            <li>
+                <a href="#slide1"><img src="../img/prod1.png" alt=""></a>
+            </li>
+            <li>
+                <a href="#slide2"><img src="../img/prod2.png" alt=""></a>
+            </li>
+            <li>
+                <a href="#slide3"><img src="../img/prod3.png" alt=""></a>
+            </li>
+        </ul>
+        </div>
+    <div class="info">
+    <h2 id="nameProd">
+        Nombre del producto
+    </h2>
+    <p class="precio">
+        $9.999
+    </p>
+    <h3>Descripción</h3>
+    <p class="descripcion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi perspiciatis veniam ex
+        quaerat nemo? Assumenda delectus ad error asperiores molestias hic earum omnis iusto, eligendi deleniti quam
+        nulla sapiente laborum.</p>
+
+    <h3>Opciones</h3>
+    <form class="opciones" id="formulario">
+        <input name="producto" type="text" value="Billetera (xEjemplo)" style="display: none;">
+        <div class="cantidades">
+        <h4>Cantidad</h4>
+        <button id="restarCant">-</button>
+        <input name="Cantidad" id="cant" class="cantidad" value="1" type="number" max="10" min="1">
+        <button id="sumarCant">+</button>
+        </div>
+        <div class="opcion">
+        <h4>Color</h4>
+        <div class="especifico">
+            <label>
+            Rojo
+            <input value="Rojo" required type="radio" name="Color">
+            </label>
+            <label>
+            Azul
+            <input value="Azul" type="radio" name="Color">
+            </label>
+            <label>
+            Amarillo
+            <input value="Amarillo" type="radio" name="Color">
+            </label>
+            <label>
+            Verde
+            <input value="Verde" type="radio" name="Color">
+            </label>
+            <label>
+            Naranja
+            <input value="Naranja" type="radio" name="Color">
+            </label>
+
+        </div>
+        </div>
+        <input id="enviar" class="enviar" type="submit" value="Añadir al carrito">
+    </form>
+    </div>
+</main>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

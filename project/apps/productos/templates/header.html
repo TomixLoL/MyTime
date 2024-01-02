@@ -1,0 +1,34 @@
+{% load static %}
+
+    <header>
+        <div style="width: 40px;" id="svg">
+            <svg id="menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="60px" height="60px">
+                <path id="path"
+                d="M 3 7 A 1.0001 1.0001 0 1 0 3 9 L 27 9 A 1.0001 1.0001 0 1 0 27 7 L 3 7 z M 3 14 A 1.0001 1.0001 0 1 0 3 16 L 27 16 A 1.0001 1.0001 0 1 0 27 14 L 3 14 z M 3 21 A 1.0001 1.0001 0 1 0 3 23 L 27 23 A 1.0001 1.0001 0 1 0 27 21 L 3 21 z" />
+            </svg>
+        </div>
+        <h1>My Time</h1>
+        <div class="carrito">
+            <img src="{% static 'img/carrito.png' %}" alt="carrito" srcset="">
+            <span class="circulo">0</span>
+        </div>
+
+    </header>
+
+    
+    <div class="aside-menu token-menu" id="aside">
+        <ul class="token-menu">
+        <li class="token-menu"><a href="{% url 'productos:index' %}">Inicio</a></li>
+        <li class="token-menu">
+            <Details class="token-menu">
+            <summary class="token-menu">Categorias</summary>
+            {% for categoria in categorias %}
+                <p class="token-menu">
+                    <a href="{% url 'productos:index' %}?categoria={{ categoria.id }}">{{ categoria.nombre }}</a>
+                </p>
+            {% endfor %}
+            </Details>
+        </li>
+        <li class="token-menu"><a href="#footer">Contacto</a></li>
+        </ul>
+    </div>    
