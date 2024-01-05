@@ -153,7 +153,7 @@ footer div.contacto{
 .aside-menu ul li details summary {
     list-style: none;
     z-index: 200;
-    margin-bottom: 7px;
+    /* margin-bottom: 7px; Hace que el punto "Categoria" ocupe mas espacio. */
     cursor: pointer; /* cambia el cursor del puntero */
 }
 

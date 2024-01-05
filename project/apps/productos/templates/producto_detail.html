@@ -1,18 +1,15 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
-{% include 'head.html' %}
-{% include 'header.html' %}
+{% block message %}
+        <div class="MensajeCarrito" id="MODAL">
+            <p>El producto fue agregado al carrito</p>
+        </div>
+{% endblock message %}
 
-
-<link rel="stylesheet" href="{% static 'css/detail.css' %}">
-
-<body>
-    <div class="MensajeCarrito" id="MODAL">
-        <p>El producto fue agregado al carrito</p>
-    </div>
-
-    <main>
-        <div class="container">
+{% block content %}
+    <div class="container">
         <ul class="slider">
             {% for imagen in producto.imagenes.all %}
                 <li id="slide{{ forloop.counter }}">
@@ -27,59 +24,52 @@
                 </li>
             {% endfor %}
         </ul> 
-        </div>
-    <div class="info">
-    <h2 id="nameProd">
-        {{ producto.nombre }}
-    </h2>
-    <p class="precio">
-        {{ producto.precio_formateado }}
-    </p>
-    <h3>Descripción</h3>
-    <p class="descripcion">{{ producto.descripcion }}</p>
-
-    <h3>Opciones</h3>
-    <form class="opciones" id="formulario">
-        <input name="producto" type="text" value="Billetera (xEjemplo)" style="display: none;">
-        <div class="cantidades">
-        <h4>Cantidad</h4>
-        <button id="restarCant">-</button>
-        <input name="Cantidad" id="cant" class="cantidad" value="1" type="number" max="10" min="1">
-        <button id="sumarCant">+</button>
-        </div>
-        <div class="opcion">
-        <h4>Color</h4>
-        <div class="especifico">
-            <label>
-            Rojo
-            <input value="Rojo" required type="radio" name="Color">
-            </label>
-            <label>
-            Azul
-            <input value="Azul" type="radio" name="Color">
-            </label>
-            <label>
-            Amarillo
-            <input value="Amarillo" type="radio" name="Color">
-            </label>
-            <label>
-            Verde
-            <input value="Verde" type="radio" name="Color">
-            </label>
-            <label>
-            Naranja
-            <input value="Naranja" type="radio" name="Color">
-            </label>
-        </div>
-        </div>
-        <input id="enviar" class="enviar" type="submit" value="Añadir al carrito">
-    </form>
     </div>
-</main>
+    <div class="info">
+        <h2 id="nameProd">
+            {{ producto.nombre }}
+        </h2>
+        <p class="precio">
+            {{ producto.precio_formateado }}
+        </p>
+        <h3>Descripción</h3>
+        <p class="descripcion">{{ producto.descripcion }}</p>
 
-{% include 'footer.html' %}
-
-<script src="{% static 'js/detail.js' %}"></script>
-
-</body>
-</html>
+        <h3>Opciones</h3>
+        <form class="opciones" id="formulario">
+            <input name="producto" type="text" value="Billetera (xEjemplo)" style="display: none;">
+            <div class="cantidades">
+                <h4>Cantidad</h4>
+                <button id="restarCant">-</button>
+                <input name="Cantidad" id="cant" class="cantidad" value="1" type="number" max="10" min="1">
+                <button id="sumarCant">+</button>
+            </div>
+            <div class="opcion">
+                <h4>Color</h4>
+                <div class="especifico">
+                    <label>
+                        Rojo
+                        <input value="Rojo" required type="radio" name="Color">
+                    </label>
+                    <label>
+                        Azul
+                        <input value="Azul" type="radio" name="Color">
+                    </label>
+                    <label>
+                        Amarillo
+                        <input value="Amarillo" type="radio" name="Color">
+                    </label>
+                    <label>
+                        Verde
+                        <input value="Verde" type="radio" name="Color">
+                    </label>
+                    <label>
+                        Naranja
+                        <input value="Naranja" type="radio" name="Color">
+                    </label>
+                </div>
+            </div>
+            <input id="enviar" class="enviar" type="submit" value="Añadir al carrito">
+        </form>
+    </div>
+{% endblock content %}

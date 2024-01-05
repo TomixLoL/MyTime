@@ -1,25 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Productos</title>
-</head>
+{% extends 'base.html' %}
 
+{% load static %}
 
+{% block content %}
 
-    <h1>Lista de Productos</h1>
+    <section class="bienvenida">
+        <!-- Filtro y buscador -->
+        <form method="get" action="">
 
-    {% include 'filtro.html' %}
+            <!-- Buscador -->
+            <div class="buscador">
+                <input id="bienvenida-buscador" type="text" name="buscar" placeholder="¿Qué buscas?" value="{{ queryset }}">
+                <button id= "bienvenida-encontrar" type="submit">Buscar</button>
+            </div>
 
-    <ul>
+            <!-- Filtro -->
+            <select name="categoria" id="categoria" class="categorias-select" onchange="this.form.submit()">
+                <option value="" {% if not categoria_seleccionada %}selected{% endif %}>Todas las categorías</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id|stringformat:"s" }}" {% if categoria_seleccionada == categoria.id|stringformat:"s" %}selected{% endif %}>{{ categoria.nombre }}</option>
+                {% endfor %}
+            </select>
+        </form>
+        
+        <!-- Productos destacados -->
+        <h2>¡ Productos más comprados !</h2>
+        <div class="productos-destacados">
+            <div class="producto-destacado">
+                <img src="{% static 'img/billetera.png' %}" alt="">
+                <div price="$9.000" class="producto-destacado-info">
+                    <h5>PRODUCTO <br>DESTACADO</h5>
+                    <p class="descripcion">Descripción o nombre del producto colocado, en lo posible que contenga un
+                        maximo</p>
+                    <button>Comprar</button>
+                </div>
+            </div>
+            <div class="producto-destacado">
+                <img src="{% static 'img/neceser.png' %}" alt="">
+                <div class="producto-destacado-info">
+                    <h5>PRODUCTO <br>DESTACADO</h5>
+                    <p class="descripcion">Descripción o nombre del producto colocado, en lo posible que contenga un
+                        maximo</p>
+                    <button>Comprar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos generales -->
+    <section class="todosProd">
         {% for producto in object_list %}
-
-            <li>{{ producto.nombre }} - Precio: {{ producto.precio_formateado }}</li>
-            <img src="{{ producto.imagen_producto.url }}" alt="Portada">
-
-            {% for imagen in producto.imagenes.all %}
-                <img src="{{ imagen.imagenes.url }}" alt="Imagenes del Producto">
-            {% endfor %}
+            <a href="{% url 'productos:producto_detail' producto.id %}">
+                <div class="producto">
+                    <img src="{{ producto.imagen_producto.url }}" alt="Portada">
+                    <div class="card">
+                        <h5>{{ producto.nombre }}</h5>
+                        <p>{{ producto.precio_formateado }}</p>
+                        <button>Añadir</button>
+                </div>
+            </div>
+            </a>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </section>
+
+{% endblock content%}
