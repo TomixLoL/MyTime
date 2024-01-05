@@ -1,14 +1,14 @@
-from typing import Any
-from django.shortcuts import render
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
-from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.views.generic import DetailView
 from .models import Producto, ProductoCategoria
 from django.db.models import Q
 
-from . import forms, models
+from . import models
 
+
+class ProductoDetail(DetailView):
+    model = models.Producto
+    template_name = 'producto_detail.html'
 
 class ProductoListView(ListView):
     # Define la clase para mostrar una lista de productos

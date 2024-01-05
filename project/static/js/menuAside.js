@@ -1,3 +1,5 @@
+
+
 let button = document.getElementById("menu");
 let aside = document.getElementById("aside");
 let path = document.getElementById("path");
@@ -12,7 +14,7 @@ window.addEventListener('load', ()=>{
   clicked = false;
 })
 
-window.addEventListener("click", (e) => {
+window.addEventListener("click", (e) => {                                 
 
   if (!clicked) {
     if (e.target == button || e.target == path) {

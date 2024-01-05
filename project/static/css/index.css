@@ -11,10 +11,6 @@
     --quinto: #6FD1E7;
 }
 
-body, html{ 
-    scroll-behavior: smooth;
-}
-
 main{
     width: 95%;
     margin: auto;
@@ -26,8 +22,6 @@ main{
 }
 
 
-
-
 @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
 
 section.bienvenida{
@@ -37,6 +31,8 @@ section.bienvenida{
     flex-direction: column;
     align-items: center;
     background-color: #fbfbfb;
+    border-bottom: 2px dotted var(--primario);
+    padding-bottom: 20px;
 }
 
 h2{
@@ -48,6 +44,10 @@ h2{
     text-align: center;
 }
 
+.bienvenida h2{
+    margin-top: 25px;
+}
+
 div.buscador{
     width: 100%;
     display: flex;
@@ -57,13 +57,9 @@ div.buscador{
     margin-bottom: 20px;
 }
 
-div.buscador button{
+div.buscador input, div.buscador button{
     height: 100%;
     box-shadow: 0px 0px 1px var(--primario);
-}
-
-.bienvenida h2{ 
-    margin-top: 25px; 
 }
 
 #bienvenida-buscador{
@@ -80,6 +76,7 @@ div.buscador button{
     border: none;
     color: white;
     font-family: "Nunito";
+
     font-weight: bold;
     box-sizing: content-box;
     box-shadow: 0px 0px 1px var(--primario);
@@ -96,7 +93,8 @@ div.productos-destacados{
     gap: 25px;
 } 
 
-div.producto-destacado{
+.producto-destacado{
+    text-decoration: none;
     width: 100%;
     height: 180px;
     display: flex;
@@ -104,9 +102,10 @@ div.producto-destacado{
     justify-content: center;
     background-color: var(--cuarto);
     font-family: 'Cantarell' ;
+    
 }
 
-div.producto-destacado-info{
+.producto-destacado-info{
     height: 90%;
     width: 40%;
     display: flex;
@@ -115,20 +114,21 @@ div.producto-destacado-info{
     
 }
 
-div.producto-destacado img{
+.producto-destacado img{
     width: 180px;
     height: 90%;
     margin-right: 10px;
 }
 
-div.producto-destacado h5{
+.producto-destacado h5{
     font-size: 18px;
+    color: var(--terciario);
     font-family: 'Cantarell';
     letter-spacing: 2px;
 
 }
 
-div.producto-destacado p.descripcion{
+.producto-destacado p.descripcion{
     margin-top: 2px;
     font-size: 14px;
     font-family: 'Cantarell';
@@ -146,7 +146,7 @@ p.precio{
 }
 
 
-div.producto-destacado button{
+.producto-destacado button{
     margin-top: 10px;
     background-color: transparent;
     outline: none;
@@ -187,7 +187,6 @@ section.todosProd{
     align-items: center;
     justify-content: space-evenly;
     flex-wrap: wrap;    
-    gap: 10px;
 }
 
 div.producto{
@@ -201,17 +200,21 @@ div.producto{
     flex-direction: column;
     align-items: center;
     padding-bottom: 15px;
+    padding-top: 15px;
     border: none;
+    margin-bottom: 15px;
     box-shadow: 0px 0px 4px var(--primario);
 }
 
 div.producto img{
     overflow: visible !important;
-    width: 100%;
-    height: 150px;
+    object-fit:fill;
     vertical-align:auto;
     box-sizing: content-box;
     overflow-clip-margin: content-box;
+    max-height: 130px;
+    min-height: 130px;
+    width: 80%;
 }
 
 div.card {
@@ -247,3 +250,62 @@ div.card h5{
     margin-top: 10px;
 }
 
+@media (min-width:870px) {
+    div.productos-destacados{
+        flex-direction: row;
+        margin-bottom: 50px;
+    
+    }
+    
+    section.bienvenida{
+        border-bottom: 5px dotted var(--primario);
+    }
+
+    div.producto{
+        min-width: 0%;
+        max-width: 20%;
+    }
+    div.producto img{
+        max-height: 150px;
+        min-height: 150px;
+        width: 80%;
+    }
+    a.producto-destacado img{
+        width: 250px;
+        height: 100%;
+    }
+    
+
+}
+
+
+@media (max-width:760px) {
+    div.producto{
+        min-width: 40%;
+        max-width: 40%;
+    } 
+}
+
+@media (max-width:500px) {
+    div.producto{
+        min-width: 48%;
+        max-width: 48%;
+    } 
+}
+
+@media (max-width:380px) {
+    a.producto-destacado img{
+        width: 150px;
+        height: 75%;
+    }
+
+
+    div.producto{
+        min-width: 80%;
+        max-width: 80%;
+        margin-bottom: 15px;
+    } 
+    h2{
+        font-size: 20px;
+    }
+}

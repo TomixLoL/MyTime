@@ -3,19 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Time</title>
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
-    </style>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
-    </style>
-</head>
+{% include 'head.html' %}
 
 <body>
     {% include 'header.html' %}
@@ -67,20 +55,22 @@
         <!-- Productos generales -->
         <section class="todosProd">
             {% for producto in object_list %}
-                <div class="producto">
-                    <img src="{{ producto.imagen_producto.url }}" alt="Portada">
-                    <div class="card">
-                        <h5>{{ producto.nombre }}</h5>
-                        <p>{{ producto.precio_formateado }}</p>
-                        <button>Añadir</button>
+                <a href="{% url 'productos:producto_detail' producto.id %}">
+                    <div class="producto">
+                        <img src="{{ producto.imagen_producto.url }}" alt="Portada">
+                        <div class="card">
+                            <h5>{{ producto.nombre }}</h5>
+                            <p>{{ producto.precio_formateado }}</p>
+                            <button>Añadir</button>
+                        </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         </section>
     </main>
 
     {% include 'footer.html' %}
-    <script src="{% static 'js/menuAside.js' %}"></script>
+
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 *{
     box-sizing: border-box;
     margin: 0;
+
 }
 
 
@@ -23,9 +24,17 @@ header{
     z-index: 400;
 }
 
+
+
+#svg{
+    width: 30%;
+}
+
 header h1{
     font-family: 'Nunito';
     font-size: 36px;
+    width: 30%;
+    text-align: center;
     z-index: 500;
 }
 
@@ -51,7 +60,7 @@ header img{
 }
 
 div.carrito{
-    width: 15%;
+    /*width: 30%;  BORRAR. Caga el centrado del "My Time"*/
     display: flex;
     justify-content: end;
     z-index: 500;
@@ -127,6 +136,7 @@ footer div.contacto{
     height: 100%;
     width: 100%;
     gap: 15px;
+    list-style:disc !important; 
 }
 
 .aside-menu ul li a {
@@ -143,6 +153,25 @@ footer div.contacto{
 .aside-menu ul li details summary {
     list-style: none;
     z-index: 200;
+    margin-bottom: 7px;
     cursor: pointer; /* cambia el cursor del puntero */
 }
 
+.aside-menu ul li details p {
+    margin-bottom: 4px;
+
+}
+
+
+
+@media (max-width:530px) {
+    #svg{
+        width: 20%;
+    }
+    header h1{
+        width: 60%;
+    }
+    div.carrito{
+        width: 20%;
+    }
+}
