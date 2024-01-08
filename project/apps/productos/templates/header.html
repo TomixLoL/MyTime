@@ -14,8 +14,10 @@
         </div>
         <h1>My Time</h1>
         <div class="carrito">
-            <img src="{% static 'img/carrito.png' %}" alt="carrito" srcset="">
-            <span class="circulo">0</span>
+            <a href= "{% url 'carrito:carrito' %}">
+                <img src="{% static 'img/carrito.png' %}" alt="carrito" srcset="">
+                <span class="circulo">0</span>
+            </a>
         </div>
     </header>
     

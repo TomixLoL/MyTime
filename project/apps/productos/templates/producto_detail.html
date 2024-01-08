@@ -69,7 +69,10 @@
                     </label>
                 </div>
             </div>
-            <input id="enviar" class="enviar" type="submit" value="Añadir al carrito">
+            
+            <a href="{% url 'carrito:Add' producto.id %}">
+                <input id="enviar" class="enviar" type="submit" value="Añadir al carrito">
+            </a>
         </form>
     </div>
 {% endblock content %}

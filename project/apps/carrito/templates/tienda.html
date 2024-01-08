@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="es">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
+{% extends 'productos/base.html' %}
 
-    <title>Bienvenido a la Tienda</title>
-</head>
-<body>
-    <div class="container">
+{% load static %}
+
+{% block content %}
+        <div class="container">
         <div class="row">
             <div class="col-12 align-self-center"><h1 class="display-1">TIENDA</h1></div>
         </div>
@@ -38,5 +33,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock content %}
