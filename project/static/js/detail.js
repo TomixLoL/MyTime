@@ -1,31 +1,3 @@
-let button = document.getElementById("menu");
-let aside = document.getElementById("aside");
-let path = document.getElementById("path");
-let svg = document.getElementById("svg");
-let clicked = false;
-
-
-window.addEventListener("click", (e) => {
-
-  if (!clicked) {
-    if (e.target == button || e.target == path) {
-      console.log(clicked);
-      aside.style.display = "block"
-      aside.style.display = "flex"
-      clicked = !clicked
-    }
-  } else if (clicked) {
-    if (!e.target.classList.contains("token-menu")) {
-      console.log(clicked);
-      clicked = !clicked
-      aside.style.display = "none"
-    } else if (e.target == button || e.target == button) {
-      console.log(clicked);
-      clicked = !clicked
-      aside.style.display = "none"
-    }
-  }
-})
 
 const butPlus = document.getElementById("sumarCant")
 const butLess = document.getElementById("restarCant")
@@ -73,4 +45,14 @@ formulario.addEventListener("submit", (e)=>{
     setTimeout(() => {
       modal.style.display = "none "
     }, 2000);
+})
+
+
+const imgP = document.getElementById("prodImg")
+  
+window.addEventListener("click", (e)=>{
+    if(e.target.classList.contains("posibleImg")){
+        let imag = e.target.src 
+        imgP.src = imag;
+    }
 })

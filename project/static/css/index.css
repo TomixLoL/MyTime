@@ -49,7 +49,7 @@ h2{
 }
 
 div.buscador{
-    width: 100%;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,6 +67,7 @@ div.buscador input, div.buscador button{
     padding: 0px 10px;
     outline: none;
     border: none;
+    font-size: 18px;
 }
 
 #bienvenida-encontrar{
@@ -76,10 +77,27 @@ div.buscador input, div.buscador button{
     border: none;
     color: white;
     font-family: "Nunito";
-
+    font-size: 20px;
     font-weight: bold;
     box-sizing: content-box;
     box-shadow: 0px 0px 1px var(--primario);
+}
+
+select.categorias-select{
+    display: flex;
+    width: 80%;
+    height: 50px;
+    font-family: 'Nunito';
+    color: var(--secundario);
+    background-color: var(--primario);
+    padding: 2px 10px;
+    border: 1px solid #f69bd6;
+    outline: none;
+    font-size: 20px;
+}
+
+select.categorias-select::-ms-expand{
+    outline: none;
 }
 
 div.productos-destacados{
@@ -165,21 +183,6 @@ section.todosProd{
     margin-bottom: 100px;
 }
 
-select.categorias-select{
-    display: flex;
-    width: 100%;
-    height: 50px;
-    font-family: 'Nunito';
-    color: var(--secundario);
-    background-color: var(--primario);
-    padding: 2px 10px;
-    border: 1px solid #f69bd6;
-    outline: none;
-}
-
-select.categorias-select::-ms-expand{
-    outline: none;
-}
 
 section.todosProd{
     width: 100%;
@@ -226,11 +229,11 @@ div.card {
     text-align: center;
     margin-top: 15px    ;
     color: var(--primario);
-
+    width: 100%;
 }
 
 div.card h5{
-    width: 140px;
+    width: 80%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -250,50 +253,27 @@ div.card h5{
     margin-top: 10px;
 }
 
-@media (min-width:870px) {
-    div.productos-destacados{
-        flex-direction: row;
-        margin-bottom: 50px;
-    
-    }
-    
-    section.bienvenida{
-        border-bottom: 5px dotted var(--primario);
-    }
 
-    div.producto{
-        min-width: 0%;
-        max-width: 20%;
-    }
+
+
+@media (max-width:840px) {
+
+    
+
     div.producto img{
         max-height: 150px;
         min-height: 150px;
-        width: 80%;
     }
-    a.producto-destacado img{
-        width: 250px;
-        height: 100%;
-    }
-    
-
-}
-
-
-@media (max-width:760px) {
     div.producto{
+        max-height: 270px;
+        min-height: 270px;
         min-width: 40%;
         max-width: 40%;
-    } 
+    }
+
 }
 
-@media (max-width:500px) {
-    div.producto{
-        min-width: 48%;
-        max-width: 48%;
-    } 
-}
-
-@media (max-width:380px) {
+@media (max-width:420px) {
     a.producto-destacado img{
         width: 150px;
         height: 75%;
@@ -304,8 +284,102 @@ div.card h5{
         min-width: 80%;
         max-width: 80%;
         margin-bottom: 15px;
+        min-height: 270px;
     } 
     h2{
         font-size: 20px;
+    }
+}
+
+@media (max-width:760px) {
+    div.producto{
+        min-width: 40%;
+        max-width: 40%;
+    } 
+}
+
+@media (max-width:530px) {
+    div.producto{
+        min-width: 48%;
+        max-width: 48%;
+    } 
+}
+
+
+@media (min-width:870px) {
+
+    main{
+        padding: 20px 20px;
+    }
+
+    div.productos-destacados{
+        flex-direction: row;
+        margin-bottom: 50px;
+    }
+    
+    section.bienvenida{
+        border-bottom: 5px dotted var(--primario);
+    }
+
+    div.producto{
+        min-width: 0%;
+        max-width: 20%;
+        min-height: 290px;
+        max-height: 290px;
+    }
+    div.producto img{
+        max-height: 160px;
+        min-height: 160px;
+        width: 80%;
+    }
+    a.producto-destacado{
+        gap: 16px;
+    }
+
+    a.producto-destacado img{
+        width: 250px;
+        height: 110%;
+    }
+}
+
+@media (min-width:1670px) {
+
+    main{
+        padding: 20px 20px;
+    }
+
+    div.productos-destacados{
+        flex-direction: row;
+        margin-bottom: 50px;
+    }
+    
+    section.bienvenida{
+        border-bottom: 5px dotted var(--primario);
+    }
+
+    div.producto{
+        min-width: 0%;
+        max-width: 20%;
+        min-height: 320px;
+        max-height: 320px;
+        font-size: 22px;
+    }
+
+    .card h5{
+        font-size: 25px !important;
+    }
+
+    div.producto img{
+        max-height: 190px;
+        min-height: 190px;
+        width: 80%;
+    }
+    a.producto-destacado{
+        gap: 16px;
+    }
+
+    a.producto-destacado img{
+        width: 250px;
+        height: 110%;
     }
 }

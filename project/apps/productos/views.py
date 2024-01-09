@@ -47,5 +47,6 @@ class ProductoListView(ListView):
         context['queryset'] = self.request.GET.get('buscar', '')  # Valor de 'buscar'
         context['categoria_seleccionada'] = self.request.GET.get('categoria', '')  # Valor de 'categoria'
         context['categorias'] = ProductoCategoria.objects.all()  # Todas las categorías disponibles
+        context['productos_destacados'] = Producto.objects.filter(destacado=True)
 
         return context  # Retorna el contexto actualizado con las variables adicionales

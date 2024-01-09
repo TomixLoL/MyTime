@@ -26,6 +26,7 @@ class Producto(models.Model):
     precio = models.IntegerField()
     descripcion = models.CharField(max_length=250, blank=True, null=True, verbose_name="descripción")
     imagen_producto = models.ImageField(upload_to="imagen-producto/", verbose_name="imagen")
+    destacado = models.BooleanField(default=False, verbose_name="destacado")
 
     class Meta:
         verbose_name = "producto"

@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.db.models import Count
+from django.shortcuts import render, redirect
 from babel.numbers import format_currency
 import locale
 
@@ -43,4 +44,4 @@ def tienda(request):
     total_carrito = carrito.calcular_total()
     total_carrito = format_currency(total_carrito, 'ARS', locale='es_AR')
 
-    return render(request, "carrito.html", {'productos': productos, 'total_carrito': total_carrito})
+    return render(request, "carrito.html", {'productos': productos, 'total_carrito': total_carrito,})

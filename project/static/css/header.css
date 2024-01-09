@@ -2,7 +2,7 @@
 *{
     box-sizing: border-box;
     margin: 0;
-
+    scroll-behavior: smooth;
 }
 
 
@@ -17,7 +17,7 @@
 header{
     background-color: var(--primario);
     display: flex;
-    padding: 15px 20px;
+    padding: 15px 30px;
     align-items: center;
     justify-content: space-between;
     color: var(--secundario);
@@ -60,7 +60,7 @@ header img{
 }
 
 div.carrito{
-    /*width: 30%;  BORRAR. Caga el centrado del "My Time"*/
+    width: 30%;
     display: flex;
     justify-content: end;
     z-index: 500;
@@ -153,7 +153,6 @@ footer div.contacto{
 .aside-menu ul li details summary {
     list-style: none;
     z-index: 200;
-    /* margin-bottom: 7px; Hace que el punto "Categoria" ocupe mas espacio. */
     cursor: pointer; /* cambia el cursor del puntero */
 }
 
@@ -173,5 +172,9 @@ footer div.contacto{
     }
     div.carrito{
         width: 20%;
+    }
+
+    footer a{
+        font-size: 16px;
     }
 }

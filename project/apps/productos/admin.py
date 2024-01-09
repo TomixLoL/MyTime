@@ -32,14 +32,16 @@ class ProductoAdmin(admin.ModelAdmin):
         "cantidad",
         "precio",
         "descripcion",
+        "destacado",
     )
     list_display_links = ("nombre",)
     search_fields = ("nombre",)
     ordering = (
+        "destacado",
         "categoria",
         "nombre",
     )
-    list_filter = ("categoria",)
+    list_filter = ("categoria", "destacado")
     inlines = [
         ImagenProductoAdmin
     ]

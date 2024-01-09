@@ -24,42 +24,39 @@
         </form>
         
         <!-- Productos destacados -->
-        <h2>¡ Productos más comprados !</h2>
+        {% if productos_destacados %}
+        <h2>¡Productos destacados!</h2>
         <div class="productos-destacados">
-            <div class="producto-destacado">
-                <img src="{% static 'img/billetera.png' %}" alt="">
-                <div price="$9.000" class="producto-destacado-info">
-                    <h5>PRODUCTO <br>DESTACADO</h5>
-                    <p class="descripcion">Descripción o nombre del producto colocado, en lo posible que contenga un
-                        maximo</p>
-                    <button>Comprar</button>
-                </div>
-            </div>
-            <div class="producto-destacado">
-                <img src="{% static 'img/neceser.png' %}" alt="">
-                <div class="producto-destacado-info">
-                    <h5>PRODUCTO <br>DESTACADO</h5>
-                    <p class="descripcion">Descripción o nombre del producto colocado, en lo posible que contenga un
-                        maximo</p>
-                    <button>Comprar</button>
-                </div>
-            </div>
+            {% for producto_destacado in productos_destacados %}
+                <a href="{% url 'productos:producto_detail' producto_destacado.id %}">
+                    <div class="producto-destacado">
+                        <img src="{{ producto_destacado.imagen_producto.url }}" alt="{{ producto_destacado.nombre }}">
+                        <div class="producto-destacado-info">
+                            <h5>{{ producto_destacado.nombre }}</h5>
+                            <p class="descripcion">{{ producto_destacado.descripcion }}</p>
+                            <p class="precio">${{ producto_destacado.precio }}</p>
+                            <button>Comprar</button>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
-    </section>
+    {% endif %}
 
     <!-- Productos generales -->
     <section class="todosProd">
         {% for producto in object_list %}
-            <a href="{% url 'productos:producto_detail' producto.id %}">
-                <div class="producto">
+            <div class="producto">
+                <a href="{% url 'productos:producto_detail' producto.id %}">
                     <img src="{{ producto.imagen_producto.url }}" alt="Portada">
                     <div class="card">
                         <h5>{{ producto.nombre }}</h5>
                         <p>{{ producto.precio_formateado }}</p>
                         <button>Añadir</button>
-                </div>
+                    </div>
+                </a>
             </div>
-            </a>
+            
         {% endfor %}
     </section>
 
