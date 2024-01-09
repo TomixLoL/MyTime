@@ -11,13 +11,14 @@
 {% block content %}
     <div class="container">
         <ul class="slider">
-            {% for imagen in producto.imagenes.all %}
-                <li id="slide{{ forloop.counter }}">
-                    <img id="prodImg" src="{{ imagen.imagenes.url }}" alt="PRODUCTO" />
-                </li>
-            {% endfor %}
+            <li id="slide1">
+                <img id="prodImg" src="{{ producto.imagen_producto.url }}" alt="PRODUCTO" />
+            </li>
         </ul>
         <ul id="getImg" class="menu">
+            <li>
+                <a><img class="posibleImg" src="{{ producto.imagen_producto.url }}" alt=""></a>
+            </li>
             {% for imagen in producto.imagenes.all %}
                 <li>
                     <a><img class="posibleImg" src="{{ imagen.imagenes.url }}" alt=""></a>
@@ -75,4 +76,7 @@
             </a>
         </form>
     </div>
+
+<script src="{% static 'js/detail.js' %}"></script>
+
 {% endblock content %}

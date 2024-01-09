@@ -59,11 +59,18 @@ header img{
     z-index: 500;
 }
 
-div.carrito{
+.carrito{
     width: 30%;
     display: flex;
     justify-content: end;
     z-index: 500;
+    color: white;
+
+}
+
+.carrito span{
+    color: white;
+    text-decoration: none;
 }
 
 .circulo{

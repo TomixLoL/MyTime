@@ -35,7 +35,7 @@ formulario.addEventListener("submit", (e)=>{
     // capturamos los datos del formulario
     var formData = new FormData(formulario);
     let datos = [];
-  
+
     // Mostramos las [claves, valores] capturados en consola
     for(var pair of formData.entries()) {
         datos.push(pair[0]+ ': '+ pair[1])
@@ -43,13 +43,13 @@ formulario.addEventListener("submit", (e)=>{
     
     modal.style.display = "flex"
     setTimeout(() => {
-      modal.style.display = "none "
+    modal.style.display = "none "
     }, 2000);
 })
 
 
 const imgP = document.getElementById("prodImg")
-  
+
 window.addEventListener("click", (e)=>{
     if(e.target.classList.contains("posibleImg")){
         let imag = e.target.src 

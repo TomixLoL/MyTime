@@ -13,12 +13,10 @@
             </svg>
         </div>
         <h1>My Time</h1>
-        <div class="carrito">
-            <a href= "{% url 'carrito:carrito' %}">
-                <img src="{% static 'img/carrito.png' %}" alt="carrito" srcset="">
-                <span class="circulo">{{ request.session.carrito.items|length }}</span>
-            </a>
-        </div>
+        <a class="carrito" href= "{% url 'carrito:carrito' %}">
+            <img src="{% static 'img/carrito.png' %}" alt="carrito" srcset="">
+            <span class="circulo">{{ request.session.carrito.items|length }}</span>
+        </a>
     </header>
     
     <div class="aside-menu token-menu" id="aside">

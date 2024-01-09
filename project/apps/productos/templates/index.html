@@ -6,7 +6,7 @@
 
     <section class="bienvenida">
         <!-- Filtro y buscador -->
-        <form method="get" action="">
+        <form class="buscador-form" method="get" action="">
 
             <!-- Buscador -->
             <div class="buscador">
@@ -28,8 +28,7 @@
         <h2>¡Productos destacados!</h2>
         <div class="productos-destacados">
             {% for producto_destacado in productos_destacados %}
-                <a href="{% url 'productos:producto_detail' producto_destacado.id %}">
-                    <div class="producto-destacado">
+                <a class="producto-destacado" href="{% url 'productos:producto_detail' producto_destacado.id %}">
                         <img src="{{ producto_destacado.imagen_producto.url }}" alt="{{ producto_destacado.nombre }}">
                         <div class="producto-destacado-info">
                             <h5>{{ producto_destacado.nombre }}</h5>
@@ -37,17 +36,16 @@
                             <p class="precio">${{ producto_destacado.precio }}</p>
                             <button>Comprar</button>
                         </div>
-                    </div>
                 </a>
             {% endfor %}
         </div>
     {% endif %}
+    </section>
 
     <!-- Productos generales -->
     <section class="todosProd">
         {% for producto in object_list %}
-            <div class="producto">
-                <a href="{% url 'productos:producto_detail' producto.id %}">
+                <a href="{% url 'productos:producto_detail' producto.id %}" class="producto">
                     <img src="{{ producto.imagen_producto.url }}" alt="Portada">
                     <div class="card">
                         <h5>{{ producto.nombre }}</h5>
@@ -55,7 +53,6 @@
                         <button>Añadir</button>
                     </div>
                 </a>
-            </div>
             
         {% endfor %}
     </section>
