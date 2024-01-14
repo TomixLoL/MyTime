@@ -46,7 +46,7 @@
     <section class="todosProd">
         {% for producto in object_list %}
                 <a href="{% url 'productos:producto_detail' producto.id %}" class="producto">
-                    <img src="{{ producto.imagen_producto.url }}" alt="Portada">
+                    <img src="{{ producto.imagen_producto.url }}" alt="{{ producto.nombre }}">
                     <div class="card">
                         <h5>{{ producto.nombre }}</h5>
                         <p>{{ producto.precio_formateado }}</p>

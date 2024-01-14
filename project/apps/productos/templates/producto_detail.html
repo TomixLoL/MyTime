@@ -12,16 +12,16 @@
     <div class="container">
         <ul class="slider">
             <li id="slide1">
-                <img id="prodImg" src="{{ producto.imagen_producto.url }}" alt="PRODUCTO" />
+                <img id="prodImg" src="{{ producto.imagen_producto.url }}" alt="{{ producto.nombre }}" />
             </li>
         </ul>
         <ul id="getImg" class="menu">
             <li>
-                <a><img class="posibleImg" src="{{ producto.imagen_producto.url }}" alt=""></a>
+                <a><img class="posibleImg" src="{{ producto.imagen_producto.url }}" alt="{{ producto.nombre }}"></a>
             </li>
             {% for imagen in producto.imagenes.all %}
                 <li>
-                    <a><img class="posibleImg" src="{{ imagen.imagenes.url }}" alt=""></a>
+                    <a><img class="posibleImg" src="{{ imagen.imagenes.url }}" alt="{{ producto.nombre }}"></a>
                 </li>
             {% endfor %}
         </ul> 
@@ -41,38 +41,30 @@
             <input name="producto" type="text" value="Billetera (xEjemplo)" style="display: none;">
             <div class="cantidades">
                 <h4>Cantidad</h4>
-                <button id="restarCant">-</button>
+                <button type="button" id="restarCant">-</button>
                 <input name="Cantidad" id="cant" class="cantidad" value="1" type="number" max="10" min="1">
-                <button id="sumarCant">+</button>
+                <button type="button" id="sumarCant">+</button>
             </div>
-            <div class="opcion">
-                <h4>Color</h4>
-                <div class="especifico">
-                    <label>
-                        Rojo
-                        <input value="Rojo" required type="radio" name="Color">
-                    </label>
-                    <label>
-                        Azul
-                        <input value="Azul" type="radio" name="Color">
-                    </label>
-                    <label>
-                        Amarillo
-                        <input value="Amarillo" type="radio" name="Color">
-                    </label>
-                    <label>
-                        Verde
-                        <input value="Verde" type="radio" name="Color">
-                    </label>
-                    <label>
-                        Naranja
-                        <input value="Naranja" type="radio" name="Color">
-                    </label>
+
+            {% if opciones_disponibles %}
+                <div class="opcion">
+                    <h4>Modelo</h4>
+
+                    {% for opcion in opciones %}
+                        <div class="especifico">
+                            <label>
+                                {{ opcion.opciones }}
+                                <input value="{{ opcion.opciones }}" required type="radio" name="Color">
+                            </label>
+                        </div>
+                    {% endfor %}
                 </div>
-            </div>
-            
+            {% endif %}
+
             <a href="{% url 'carrito:Add' producto.id %}">
-                <input id="enviar" class="enviar" type="submit" value="Añadir al carrito">
+                <button id="enviar" class="enviar" type="submit" value="Añadir al carrito">
+                    Añadir al carrito
+                </button>
             </a>
         </form>
     </div>

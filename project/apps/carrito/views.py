@@ -1,5 +1,4 @@
-from django.db.models import Count
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from babel.numbers import format_currency
 import locale
 
@@ -14,7 +13,9 @@ def agregar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.agregar(producto)
-    return redirect("carrito:carrito")
+    
+    referer = request.META.get('HTTP_REFERER')
+    return redirect(referer or reverse('carrito:carrito'))
 
 def eliminar_producto(request, producto_id):
     carrito = Carrito(request)

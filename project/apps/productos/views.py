@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-from .models import Producto, ProductoCategoria
+from .models import Producto, ProductoCategoria, Opcion
 from django.db.models import Q
 
 from . import models
@@ -10,11 +10,20 @@ class ProductoDetail(DetailView):
     model = models.Producto
     template_name = 'producto_detail.html'
     
-    """def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categorias'] = ProductoCategoria.objects.all()
-        return context"""
+        # Obtén el producto actual
+        producto_actual = self.get_object()
 
+        # Verifica si hay opciones para el producto actual
+        opciones_disponibles = producto_actual.opciones.exists()
+        
+        # Agrega las opciones al contexto solo si existen
+        if opciones_disponibles:
+            context['opciones'] = producto_actual.opciones.all()
+            context['opciones_disponibles'] = producto_actual.opciones.exists()
+
+        return context
 class ProductoListView(ListView):
     # Define la clase para mostrar una lista de productos
     model = Producto  # Utiliza el modelo Producto para esta vista
@@ -48,5 +57,6 @@ class ProductoListView(ListView):
         context['categoria_seleccionada'] = self.request.GET.get('categoria', '')  # Valor de 'categoria'
         context['categorias'] = ProductoCategoria.objects.all()  # Todas las categorías disponibles
         context['productos_destacados'] = Producto.objects.filter(destacado=True)
+        context['productos_opciones'] = Producto.objects.filter()
 
         return context  # Retorna el contexto actualizado con las variables adicionales

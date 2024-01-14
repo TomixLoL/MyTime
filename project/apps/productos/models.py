@@ -6,7 +6,6 @@ class ProductoCategoria(models.Model):
 
     nombre = models.CharField(max_length=15, unique=True)
     descripcion = models.CharField(max_length=250, null=True, blank=True, verbose_name="descripción")
-    imagen_categoria = models.ImageField(upload_to="imagen-categoria/", verbose_name="imagen")
 
     class Meta:
         verbose_name = "categoria"
@@ -24,8 +23,8 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     cantidad = models.FloatField()
     precio = models.IntegerField()
-    descripcion = models.CharField(max_length=250, blank=True, null=True, verbose_name="descripción")
-    imagen_producto = models.ImageField(upload_to="imagen-producto/", verbose_name="imagen")
+    descripcion = models.TextField(blank=True, null=True, verbose_name="descripción")
+    imagen_producto = models.ImageField(upload_to="imagen-producto/", verbose_name="portada")
     destacado = models.BooleanField(default=False, verbose_name="destacado")
 
     class Meta:
@@ -42,3 +41,7 @@ class Producto(models.Model):
 class ImagenProducto(models.Model):
     imagenes = models.ImageField(upload_to="imagenes-producto/")
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="imagenes")
+
+class Opcion(models.Model):
+    opciones = models.CharField(max_length=50, null=True)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="opciones", null=True)
