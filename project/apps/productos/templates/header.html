@@ -15,7 +15,7 @@
         <h1><a href="{% url 'productos:index' %}">My Time<a></a></h1>
         <a class="carrito" href= "{% url 'carrito:carrito' %}">
             <img src="{% static 'img/carrito.png' %}" alt="carrito" srcset="">
-            <span class="circulo">{{ request.session.carrito.items|length }}</span>
+            <span id="numeroCarrito" class="circulo">{{ request.session.carrito.items|length }}</span>
         </a>
     </header>
     

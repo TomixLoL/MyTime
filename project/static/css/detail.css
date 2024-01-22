@@ -20,7 +20,7 @@ html{
 main {
     width: 95%;
     margin: auto;
-    padding: 20px 0px;
+    padding: 10px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -135,6 +135,7 @@ h3{
 
 .descripcion{
     font-family: 'Cantarell';
+    width: 100%;
 }
 
 .opciones {

@@ -2,13 +2,10 @@
 
 {% load static %}
 
-{% block message %}
+{% block content %}
         <div class="MensajeCarrito" id="MODAL">
             <p>El producto fue agregado al carrito</p>
         </div>
-{% endblock message %}
-
-{% block content %}
     <div class="container">
         <ul class="slider">
             <li id="slide1">
@@ -26,7 +23,7 @@
             {% endfor %}
         </ul> 
     </div>
-    <div class="info">
+    <form id="formulario" class="info">
         <h2 id="nameProd">
             {{ producto.nombre }}
         </h2>
@@ -36,9 +33,10 @@
         <h3>Descripción</h3>
         <p class="descripcion">{{ producto.descripcion }}</p>
 
-        <h3>Opciones</h3>
-        <form class="opciones" id="formulario">
-            <input name="producto" type="text" value="Billetera (xEjemplo)" style="display: none;">
+        <div class="opciones" >
+         <h3>Opciones</h3>
+            <input name="producto" type="text" value="{{ producto.nombre }}" style="display: none;">
+            <input name="precio" type="text" value="{{ producto.precio_formateado }}" style="display: none;">
             <div class="cantidades">
                 <h4>Cantidad</h4>
                 <button type="button" id="restarCant">-</button>
@@ -66,8 +64,8 @@
                     Añadir al carrito
                 </button>
             </a>
-        </form>
-    </div>
+        </div>
+    </form>
 
 <script src="{% static 'js/detail.js' %}"></script>
 

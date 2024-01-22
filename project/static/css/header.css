@@ -45,6 +45,8 @@ header svg{
     fill: var(--secundario);
     box-shadow: 0PX 0px 1px var(--primario);
     z-index: 500;
+    display: flex;
+    align-items: center;
 }
 
 header img{
@@ -58,7 +60,7 @@ header h1 a{
     color: var(--secundario);
     font-family: 'Nunito';
     font-size: 36px;
-    width: 30%;
+    width: 100%;
     text-align: center;
     z-index: 500;
 }
@@ -182,10 +184,21 @@ footer div.contacto{
         width: 20%;
     }
     header h1{
-        width: 60%;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
     }
-    div.carrito{
+    a.carrito{
         width: 20%;
+    }
+    header{
+        padding: 15px 12px;
+    }
+    header h1 a{
+        font-size: 26px;
+        width: 100%;
     }
 
     footer a{

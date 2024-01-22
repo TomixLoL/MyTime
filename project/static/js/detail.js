@@ -25,27 +25,6 @@ cantidad.addEventListener("keyup", (e)=>{
         cantidad.value = 1
     }
 })
-const modal = document.getElementById("MODAL")
-
-const formulario = document.getElementById("formulario")
-
-formulario.addEventListener("submit", (e)=>{
-    e.preventDefault();
-
-    // capturamos los datos del formulario
-    var formData = new FormData(formulario);
-    let datos = [];
-
-    // Mostramos las [claves, valores] capturados en consola
-    for(var pair of formData.entries()) {
-        datos.push(pair[0]+ ': '+ pair[1])
-    }
-    
-    modal.style.display = "flex"
-    setTimeout(() => {
-    modal.style.display = "none "
-    }, 2000);
-})
 
 
 const imgP = document.getElementById("prodImg")

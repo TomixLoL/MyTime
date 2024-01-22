@@ -14,7 +14,7 @@
 main {
     width: 95%;
     margin: auto;
-    padding: 20px 0px;
+    padding: 10px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -168,7 +168,7 @@ select.categorias-select::-ms-expand {
     text-overflow: ellipsis;
 }
 
-p.precio {
+p.precios {
     margin-top: 5px;
     text-align: left;
     color: var(--terciario);
@@ -210,8 +210,8 @@ section.todosProd {
     width: fit-content;
     min-width: 88%;
     max-width: 88%;
-    min-height: 260px;
-    max-height: 260px;
+    min-height: 290px;
+    max-height: 290px;
     display: flex;
     flex-direction: column;
     align-items: center;

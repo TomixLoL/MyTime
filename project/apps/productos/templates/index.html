@@ -5,6 +5,8 @@
 {% block content %}
 
     <section class="bienvenida">
+
+        <h2 style="margin-bottom: 45px; font-size: 30px;">¡ Bienvenido a la tienda de MY TIME !</h2>
         <!-- Filtro y buscador -->
         <form class="buscador-form" method="get" action="">
 
@@ -33,7 +35,7 @@
                         <div class="producto-destacado-info">
                             <h5>{{ producto_destacado.nombre }}</h5>
                             <p class="descripcion">{{ producto_destacado.descripcion }}</p>
-                            <p class="precio">${{ producto_destacado.precio }}</p>
+                            <p class="precios">${{ producto_destacado.precio }}</p>
                             <button>Comprar</button>
                         </div>
                 </a>
