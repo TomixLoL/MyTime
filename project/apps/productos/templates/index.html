@@ -2,6 +2,26 @@
 
 {% load static %}
 
+{% block head %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Time</title>
+
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
+    </style>
+</head>
+{% endblock head %}
+
 {% block content %}
 
     <section class="bienvenida">

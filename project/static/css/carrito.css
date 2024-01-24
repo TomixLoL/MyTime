@@ -107,8 +107,16 @@ input[type=number]::-webkit-outer-spin-button {
 .cantidades{
     display: flex;
     align-items: center;
-    gap: 20px   ;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
 }
+
+.cant1{
+    display: flex;
+    gap: 10px;
+}
+
 
 .cantidades button{
     background-color: #262626;
@@ -123,6 +131,12 @@ input[type=number]::-webkit-outer-spin-button {
     border: none;
 }
 
+
+.delete{
+    width: 100% !important;
+    background-color: rgb(165, 27, 27) !important;
+}
+
 .cantidad{
     border: none;
     outline: none;
@@ -132,8 +146,6 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
     font-family: 'Cantarell';
 }
-
-
 
 .checkout{
     width: 25%;
