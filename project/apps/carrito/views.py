@@ -46,3 +46,12 @@ def tienda(request):
     total_carrito = format_currency(total_carrito, 'ARS', locale='es_AR')
 
     return render(request, "carrito.html", {'productos': productos, 'total_carrito': total_carrito,})
+
+
+def ver_carrito(request):
+    ids_productos = request.COOKIES.get('carrito', '').split(',')
+
+    productos_carrito = Producto.objects.filter(id__in=ids_productos)
+    print(ids_productos)
+
+    return render(request, 'ver_carrito.html', {'productos_carrito': productos_carrito})

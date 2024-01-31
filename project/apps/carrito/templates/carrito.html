@@ -5,96 +5,88 @@
 {% block head %}
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Time</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Time</title>
 
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
 
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
-    </style>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
-    </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
+  </style>
 </head>
 {% endblock head %}
 
 {% block content %}
-
-<script>
-    let productos = [
-      {
-        productos: "Neceser",
-        img : "necers.jpg"
-      }
-    ]
-  </script>
 <div class="productos-carrito">
-    <h1>Productos en carrito</h1>
+  <h1>Productos en carrito</h1>
 
-    {% for producto in productos}
-
-    <a name="001" class="producto-carrito" >
-      <div class="izq">
-        <img src="{% static img/{{ producto_img }} %}" alt="ejemplo">
-        <div class="detalle">
-          <h2>Nombre Producto</h2>
-          <h3>
-            Detalles: <br>
-          </h3>
+  {% for producto in productos_en_carrito %}
+  <a name="{{ producto.nombre }}" class="producto-carrito">
+    <div class="izq">
+      <img src="{{ producto.imagen_producto.url }} " alt="ejemplo">
+      <div class="detalle">
+        <h2>{{ producto.nombre}}</h2>
+        <h3>
+          Detalles: <br>
+        </h3>
+        <ul>
+          <li>
+            Color: Rojo
+          </li>
+          <li>
+            Nose: 2$
+          </li>
+          <li>
+            Nose: 2$
+          </li>
+          <li>
+            Nose: 2$
+          </li>
           <ul>
-            <li>
-              Color: Rojo
-            </li>
-            <li>
-              Nose: 2$
-            </li>
-            <li>
-              Nose: 2$
-            </li>
-            <li>
-              Nose: 2$
-            </li>
-          <ul>
-        </div>
       </div>
-      <div class="cantidades">
-        <div class="cant1">
-            <button name="001" id="restarCant">-</button>
-            <input name="Cantidad" id="001" class="cantidad" value="1" type="number" max="10" min="1">
-            <button name="001" id="sumarCant">+</button>
-        </div>
-        <button class="delete" id="delete">Eliminar</button>
+    </div>
+    <div class="cantidades">
+      <div class="cant1">
+        <button name="001" id="restarCant">-</button>
+        <input name="Cantidad" id="001" class="cantidad" value="1" type="number" max="10" min="1">
+        <button name="001" id="sumarCant">+</button>
       </div>
-    </a>
+      <button class="delete" id="delete">Eliminar</button>
+    </div>
+  </a>
+  {% endfor %}
 
+
+</div>
+
+<form class="checkout">
+  <h1>Checkout</h1>
+  <div class="card-check">
+    <ul>
+      <li class="prod-check">Producto <span>$33</span></li>
+      <li class="prod-check">Producto <span>$33</span></li>
+      <li class="prod-check">Producto <span>$34</span></li>
+    </ul>
+    <h3>Total <span name="totalPagar">$100</span></h3>
   </div>
-  
-  <form class="checkout">
-    <h1>Checkout</h1>
-    <div class="card-check">
-      <ul>
-        <li class="prod-check">Producto <span>$33</span></li>
-        <li class="prod-check">Producto <span>$33</span></li>
-        <li class="prod-check">Producto <span>$34</span></li>
-      </ul>
-      <h3>Total <span name="totalPagar">$100</span></h3>
-    </div>
-    <div class="pagos">
-      <label>
-        <img src="{% static 'img/efectivo.png' %}" alt="Efectivo">
-        Efectivo
-        <input value="Efectivo" required type="radio" name="pago">
-      </label>
-      <label>
-        <img src="{% static 'img/mercadopago.png' %}" alt="MercadoPago">
-        Mercado Pago
-        <input value="MercadoPago" required type="radio" name="pago">
-      </label>
-    </div>
-    <button class="but-check">Ir a pagar</button>
-  </form>
+  <div class="pagos">
+    <label>
+      <img src="{% static 'img/efectivo.png' %}" alt="Efectivo">
+      Efectivo
+      <input value="Efectivo" required type="radio" name="pago">
+    </label>
+    <label>
+      <img src="{% static 'img/mercadopago.png' %}" alt="MercadoPago">
+      Mercado Pago
+      <input value="MercadoPago" required type="radio" name="pago">
+    </label>
+  </div>
+  <button class="but-check">Ir a pagar</button>
+</form>
 {% endblock content %}
