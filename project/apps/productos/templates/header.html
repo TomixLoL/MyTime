@@ -18,9 +18,9 @@
         <li class="token-menu"><a href="{% url 'productos:index' %}">Inicio</a></li>
         <li class="token-menu">
             <Details class="token-menu">
-            <summary class="token-menu">Categorias</summary>
+            <summary class="token-menu" style="margin-bottom: 5px;">Categorias</summary>
             {% for categoria in categorias %}
-                <p class="token-menu">
+                <p class="token-menu" style="margin-left: 5px;">
                     <a href="{% url 'productos:index' %}?categoria={{ categoria.id }}">{{ categoria.nombre }}</a>
                 </p>
             {% endfor %}

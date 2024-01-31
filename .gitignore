@@ -11,5 +11,5 @@
 # Ignora la base de datos
 **/db.sqlite3
 
-# Iganora las imagenes
+# Ignora las imagenes
 **/media

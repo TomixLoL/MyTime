@@ -54,7 +54,8 @@
         <p class="descripcion">{{ producto.descripcion }}</p>
 
         <div class="opciones" >
-         <h3>Opciones</h3>
+        <h3>Opciones</h3>
+            <input name="id" type="text" value="{{ producto.id }}" style="display: none;">
             <input name="producto" type="text" value="{{ producto.nombre }}" style="display: none;">
             <input name="precio" type="text" value="{{ producto.precio_formateado }}" style="display: none;">
             <div class="cantidades">
@@ -79,7 +80,7 @@
                 </div>
             {% endif %}
 
-            <a href="{% url 'carrito:Add' producto.id %}">
+            <a style="cursor: pointer; margin-top: 20px;">
                 <button id="enviar" class="enviar" type="submit" value="Añadir al carrito">
                     Añadir al carrito
                 </button>
