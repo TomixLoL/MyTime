@@ -27,18 +27,19 @@
     <h1>Productos en carrito</h1>
 
     {% if validacion %}
-      {% for producto in productos_carrito %}
-        <a name="{{ producto.nombre }}" class="producto-carrito">
+      {% for item in productos_carrito %}
+        <a name="{{ item.producto.nombre }}" class="producto-carrito">
           <div class="izq">
-            <img src="{{ producto.imagen_producto.url }} " alt="ejemplo">
+            <img src="{{ item.producto.imagen_producto.url }} " alt="ejemplo">
             <div class="detalle">
-              <h2>{{ producto.nombre }}</h2>
+              <h2>{{ item.producto.nombre }}</h2>
               <h3>
                 Detalle: <br>
               </h3>
               <ul>
                 <li>
-                  Modelo: Rojo
+                  Modelo: {{ item.modelo }}
+                  Cantidad: {{ item.cantidad }}
                 </li>
                 <ul>
             </div>
@@ -46,7 +47,7 @@
           <div class="cantidades">
             <div class="cant1">
               <button name="001" id="restarCant">-</button>
-              <input name="Cantidad" id="001" class="cantidad" value="1" type="number" max="10" min="1">
+              <input name="Cantidad" id="001" class="cantidad" value="{{ item.cantidad }}" type="number" max="10" min="1">
               <button name="001" id="sumarCant">+</button>
             </div>
             <button class="delete" id="delete">Eliminar</button>
@@ -56,7 +57,6 @@
     {% else %}
       <p class="no_productos">No hay productos en el carrito</p>
     {% endif %}
-
   </div>
 
   <form class="checkout">
@@ -64,16 +64,12 @@
     <h3 class="pagos-titulo">Total a Pagar</h3>
     <div class="card-check">
       <ul>
-        {% if validacion %}
-        {% for producto in productos_carrito %}
-          <li class="prod-check">{{ producto.nombre }}<span name="precioProductos">{{ producto.precio_formateado}}</span></li>
+        {% for item in productos_carrito %}
+          <li class="prod-check">{{ item.producto.nombre }} x{{ item.cantidad }}<span name="precioProductos">{{ item.producto.precio_formateado }}</span></li>
         {% endfor %}
-        {% else %}
-        <li class="prod-check">No hay productos<span name="precioProductos">$0,00</span></li>
-        {% endif %}
         
       </ul>
-      <h4 class="total">Total <span id="totalPagar" name="totalPagar">$100</span></h4>
+      <h4 class="total">Total <span id="totalPagar" name="totalPagar">$0</span></h4>
     </div>
     <h3 class="pagos-titulo">Forma de Pago</h3>
     <div class="pagos">
