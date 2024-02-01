@@ -40,6 +40,9 @@ function deleteCookie(name) {
 
 let numeroCarrito = document.getElementById("numeroCarrito");
 let carrito  = "";
+let cantidades = "";
+let modelos = "";
+let max_age = 20000
 
 
 
@@ -65,17 +68,27 @@ if (formulario != null) {
             console.log(datos)
         }
 
-        let nameProducto = datos[0].split(":")[1]
+        let idProducto = datos[0].split(":")[1]
+        let cantidadProducto = datos[3].split(":")[1]
+        let modeloProducto
+        if (datos.length > 4){
+            modeloProducto = datos[4].split(":")[1]
+        }
 
         if (carrito == "") {
-            carrito = [nameProducto]
+            carrito = [idProducto]
+            cantidades = [cantidadProducto]
+            modelos = [modeloProducto]
             numeroCarrito.innerHTML = carrito.length
         } else {
-            carrito = [...carrito, nameProducto]
+            carrito = [...carrito, idProducto]
+            cantidades = [...cantidades, cantidadProducto]
+            modelos = [...modelos, modeloProducto]
             numeroCarrito.innerHTML = carrito.length
         }
-        setCookie("carrito", carrito, { secure: true, "max-age": 100 })
-
+        setCookie("carrito", carrito, { secure: true, "max-age": max_age })
+        setCookie("cantidades", cantidades, { secure: true, "max-age": max_age })
+        setCookie("modelos", modelos, { secure: true, "max-age": max_age })
         modal.style.display = "flex"
         setTimeout(() => {
             modal.style.display = "none "
@@ -94,18 +107,22 @@ if (formulario != null) {
 if (getCookie("used") == undefined) {
     setCookie('used', "true", { secure: true, 'max-age': 86.400 })
     setCookie("carrito", [""], { secure: true, "max-age": 86.400 })
+    setCookie("cantidades", [""], { secure: true, "max-age": 86.400 })
+    setCookie("modelos", [""], { secure: true, "max-age": 86.400 })
     console.log("1");
 }
 else if (getCookie("used") == "true" && getCookie("carrito") == "") {
     numeroCarrito.innerHTML = "0"
     carrito = ""
+    cantidades = ""
+    modelos = ""
     console.log(2);
 }
 else if (getCookie("used") == "true" && getCookie("carrito") != undefined) {
     carrito = getCookie("carrito").split(",")
+    cantidades = getCookie("cantidades").split(",")
+    modelos = getCookie("modelos").split(",")
     numeroCarrito.innerHTML = carrito.length
     console.log(3);
 }
-
-
 
