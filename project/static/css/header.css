@@ -173,7 +173,7 @@ footer div.contacto{
 }
 
 .aside-menu ul li details p {
-    margin-bottom: 4px;
+    margin-top: 4px;
 
 }
 
@@ -208,6 +208,6 @@ footer div.contacto{
 
 @media (max-width: 250px){
     footer a{
-        font-size: 16px;
+        font-size: 10px;
     }
 }

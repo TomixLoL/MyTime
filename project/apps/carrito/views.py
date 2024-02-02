@@ -41,6 +41,7 @@ def pago(request):
     ids_productos = request.COOKIES.get('carrito', '').split('%2C')
     cantidades = request.COOKIES.get('cantidades', '').split('%2C')
     modelos = request.COOKIES.get('modelos', '').split('%2C')
+    forma_pago = request.COOKIES.get('formaDePago','')
     validacion = False
 
     if ids_productos != ['']:
@@ -64,7 +65,7 @@ def pago(request):
                 })
                 contador = int(contador) + 100
                 
-            return render(request, 'pago.html', {'productos_carrito': productos_carrito, 'validacion': validacion})
+            return render(request, 'pago.html', {'productos_carrito': productos_carrito, 'validacion': validacion, 'forma_pago' : forma_pago})
         else:
             return render(request, 'pago.html', {'validacion': validacion})
     else:

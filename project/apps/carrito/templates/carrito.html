@@ -91,10 +91,10 @@
     <label>
       <img src="{% static 'img/mercadopago.png' %}" alt="MercadoPago">
       Mercado Pago
-      <input value="MercadoPago" type="checkbox" name="pago">
+      <input value="Mercado Pago" type="checkbox" name="pago">
     </label>
   </div>
-  <a href=" {% url 'carrito:pago' %}" class="but-check">IR A PAGAR</a>
+  <a href="{% url 'carrito:pago' %}" id="botonPagar" class="but-check">IR A PAGAR</a>
 </form>
 
 <script type="module">

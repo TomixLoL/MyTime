@@ -1,0 +1,99 @@
+main{
+    padding: 20px 160px;
+    min-height: 100vh;
+}
+
+h1{
+    font-family: 'Sora';
+    color: var(--primario);
+    margin-bottom: 5px;
+}
+
+p{
+    font-family: 'cantarell';
+    font-size: 18px;
+    width: 90%;
+}
+
+.container_mensaje_whats{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-color: rgb(51, 65, 80);
+    padding: 10px;
+    display: flex;
+    align-items:center;
+    justify-content: flex-end;
+}
+
+.mensaje_whats {
+    border-radius: 5px;
+    width: 50%;
+    padding: 15px 20px;
+    background-color: #00a884;
+    color: var(--secundario);
+}
+
+#redirectWsp{
+    display: flex;
+    background-color: var(--primario);
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-family: 'Sora';
+    justify-content: center;
+}
+
+@media (max-width: 900px) {
+    main{
+        padding: 20px 70px;
+    }
+}
+
+@media (max-width: 700px) {
+    main{
+        padding: 20px 50px;
+    }
+}
+
+@media (max-width: 620px) {
+    main{
+        padding: 20px 50px;
+    }
+    .mensaje_whats{
+        width: 80%;
+        font-size: 16px;
+    }
+    p{
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 420px) {
+    main{
+        padding: 20px 20px;
+    }
+    .mensaje_whats{
+        width: 90%;
+        font-size: 16px;
+    }
+    p{
+        width: 100%;
+    }
+}
+
+@media (max-width: 250px) {
+    main{
+        padding: 20px 15px;
+    }
+    .mensaje_whats{
+        width: 100%;
+        font-size: 15px;
+        overflow-x: hidden;
+    }
+    p{
+        width: 100%;
+    }
+}

@@ -3,18 +3,46 @@
 {% load static %}
 
 {% block head %}
-    
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Time</title>
+
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pago.css' %}">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
+  </style>
+</head>
 {% endblock head%}
 
 {% block content %}
-    <div>
-        {% for item in productos_carrito %}
-            <span name="nombreProducto">{{ item.producto.nombre }}</span>
-            <span name="precioProducto">{{ item.producto.precio_formateado }}</span>
-            <span name="cantidadProducto">{{ item.cantidad }}</span>
-            <span name="modeloProducto">{{ item.modelo }}</span>
-        {% endfor %}
-        <span name="formaPagoProducto">{{ producto.forma_pago }}</span>
-        
-    </div>
+<div style="display: none;">
+  {% for item in productos_carrito %}
+  <span name="productos">{{ item.producto.nombre }};{{ item.producto.precio_formateado }};{{ item.cantidad }};{{ item.modelo }}</span>
+  {% endfor %}
+  <span id="formaPagoProducto">{{ forma_pago }}</span>
+</div>
+<h1>¿Cómo realizar el pago?</h1>
+<p>A continuación será redirigido a la aplicación de WhatsApp para ponerse en contacto con nosotros. Usted ya tendrá
+  escrito el mensaje que se muestra debajo, solo deberá enviarlo y le responderemos a la brevedad.</p>
+
+<div class="container_mensaje_whats">
+
+  <p class="mensaje_whats" id="mensajeWhats"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt delectus
+    iure tempore. Est, in eius reprehenderit eveniet consequatur illum sint, molestiae quidem fugit, impedit vero cumque
+    repellat dicta expedita ratione!</p>
+</div>
+
+<p>En caso de que lo requiera podrá escribirnos cualquier duda o corrección que quiera realizar. Le agradeceremos que
+  inicie la conversación con el mensaje predeterminado que le otorgamos para facilitar las cosas.</p>
+
+<a id="redirectWsp" href="">Haga click aquí para enviar mensaje</a>
+
+<script src="{% static 'js/pago.js' %}"></script>
 {% endblock content %}

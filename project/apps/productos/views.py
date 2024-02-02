@@ -2,6 +2,7 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from .models import Producto, ProductoCategoria, Opcion
 from django.db.models import Q
+from django.shortcuts import render
 
 from . import models
 
@@ -60,3 +61,7 @@ class ProductoListView(ListView):
         context['productos_opciones'] = Producto.objects.filter()
 
         return context  # Retorna el contexto actualizado con las variables adicionales
+    
+def estampados(request):
+    hola = 1
+    return render(request, 'estampados.html' , { 'hola' : hola})

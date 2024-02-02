@@ -5,11 +5,15 @@ const buttsCant = document.getElementsByClassName('000001')
 inputPago[0].addEventListener('click', ()=>{
     if(inputPago[1].checked){
         inputPago[1].checked = false
+    }else if(inputPago[0].checked == false){
+        inputPago[0].checked = true
     }
 })
 inputPago[1].addEventListener('click', ()=>{
     if(inputPago[0].checked){
         inputPago[0].checked = false
+    }else if(inputPago[1].checked == false){
+        inputPago[1].checked = true
     }
 })
 

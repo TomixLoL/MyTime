@@ -133,11 +133,11 @@ else if (getCookie("used") == "true" && getCookie("carrito") != undefined) {
 
 
 let carritoForm = document.getElementById("carritoForm")
+let butPagar = document.getElementById('botonPagar')
 let formaDePago = '';
 
 if (carritoForm != null) {
-    carritoForm.addEventListener("submit", (e) => {
-        e.preventDefault();
+    butPagar.addEventListener("click", (e) => {
 
         // capturamos los datos del formulario
         let formData = new FormData(carritoForm);
@@ -148,6 +148,7 @@ if (carritoForm != null) {
             datos.push(pair[0] + ':' + pair[1])
 
         }
+        console.log('hola');
         formaDePago = datos[0].split(':')[1]
         setCookie('formaDePago' , formaDePago , {secure : true, 'max-age' : max_age})
     })
