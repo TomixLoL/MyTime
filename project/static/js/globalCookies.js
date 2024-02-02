@@ -109,20 +109,24 @@ if (getCookie("used") == undefined) {
     setCookie("carrito", [""], { secure: true, "max-age": 86.400 })
     setCookie("cantidades", [""], { secure: true, "max-age": 86.400 })
     setCookie("modelos", [""], { secure: true, "max-age": 86.400 })
-    console.log("1");
+
 }
 else if (getCookie("used") == "true" && getCookie("carrito") == "") {
     numeroCarrito.innerHTML = "0"
     carrito = ""
     cantidades = ""
     modelos = ""
-    console.log(2);
+    setCookie('used', "true", { secure: true, 'max-age': 86.400 })
+    setCookie("carrito", [""], { secure: true, "max-age": 86.400 })
+    setCookie("cantidades", [""], { secure: true, "max-age": 86.400 })
+    setCookie("modelos", [""], { secure: true, "max-age": 86.400 })
+
 }
 else if (getCookie("used") == "true" && getCookie("carrito") != undefined) {
     carrito = getCookie("carrito").split(",")
     cantidades = getCookie("cantidades").split(",")
     modelos = getCookie("modelos").split(",")
     numeroCarrito.innerHTML = carrito.length
-    console.log(3);
+
 }
 

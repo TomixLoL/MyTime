@@ -14,7 +14,8 @@ def carrito(request):
         validacion = True
         if len(ids_productos) == len(cantidades) == len(modelos):
             productos_carrito = []
-
+            contador = '000'
+            ceContador = '0000'
             for id_producto, cantidad, modelo in zip(ids_productos, cantidades, modelos):
                 producto = Producto.objects.get(id=id_producto)
                 
@@ -24,11 +25,12 @@ def carrito(request):
 
                 
                 productos_carrito.append({
+                    'contador' : contador,
                     'producto': producto,
                     'cantidad': cantidad,
                     'modelo': modelo,
                 })
-
+                contador = int(contador) + 100
                 
             return render(request, 'carrito.html', {'productos_carrito': productos_carrito, 'validacion': validacion})
         else:

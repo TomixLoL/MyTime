@@ -23,79 +23,89 @@
 {% endblock head %}
 
 {% block content %}
-  <div class="productos-carrito">
-    <h1>Productos en carrito</h1>
+<div class="productos-carrito">
+  <h1>Productos en carrito</h1>
 
-    {% if validacion %}
-      {% for item in productos_carrito %}
-        <a name="{{ item.producto.nombre }}" class="producto-carrito">
-          <div class="izq">
-            <img src="{{ item.producto.imagen_producto.url }} " alt="ejemplo">
-            <div class="detalle">
-              <h2>{{ item.producto.nombre }}</h2>
-              <h3>
-                Detalle: <br>
-              </h3>
-              <ul>
-                <li>
-                  Modelo: {{ item.modelo }}
-                  Cantidad: {{ item.cantidad }}
-                </li>
-                <ul>
-            </div>
-          </div>
-          <div class="cantidades">
-            <div class="cant1">
-              <button name="001" id="restarCant">-</button>
-              <input name="Cantidad" id="001" class="cantidad" value="{{ item.cantidad }}" type="number" max="10" min="1">
-              <button name="001" id="sumarCant">+</button>
-            </div>
-            <button class="delete" id="delete">Eliminar</button>
-          </div>
-        </a>
-      {% endfor %}
-    {% else %}
-      <p class="no_productos">No hay productos en el carrito</p>
-    {% endif %}
+  {% if validacion %}
+  <p name="mensaje_no_productos" style="display: none;" class="no_productos">No hay productos en el carrito</p>
+  {% for item in productos_carrito %}
+  <div name="producto_carrito" class="producto-carrito {{ item.contador }}">
+    <div class="izq">
+      <img src="{{ item.producto.imagen_producto.url }} " alt="ejemplo">
+      <div class="detalle">
+        <h2>{{ item.producto.nombre }}</h2>
+        <h3>
+          Detalle: <br>
+        </h3>
+        <ul>
+          <li>
+            Modelo: {{ item.modelo }}
+          </li>
+          <ul>
+      </div>
+    </div>
+    <div class="cantidades">
+      <div class="cant1">
+        <button name="{{ item.contador }}" class="000001" id="restarCant">-</button>
+        <input name="Cantidad" id="{{ item.contador }}" class="cantidad" value="{{ item.cantidad }}" type="number"
+          max="10" min="1">
+        <button name="{{ item.contador }}" class="000001" id="sumarCant">+</button>
+      </div>
+      <button class="delete 000001" name="{{ item.contador }}" id="delete">Eliminar</button>
+    </div>
   </div>
+  {% endfor %}
+  {% else %}
+  <p class="no_productos">No hay productos en el carrito</p>
+  {% endif %}
+</div>
 
-  <form class="checkout">
-    <h1>Checkout</h1>
-    <h3 class="pagos-titulo">Total a Pagar</h3>
-    <div class="card-check">
-      <ul>
+<form class="checkout">
+  <h1>Checkout</h1>
+  <h3 class="pagos-titulo">Total a Pagar</h3>
+  <div class="card-check">
+    <ul>
+      {% if validacion %}
+        <li style="display: none;" class="prod-check" name="mensaje_no_productos">No hay productos en el carrito
+       </li>
         {% for item in productos_carrito %}
-          <li class="prod-check">{{ item.producto.nombre }} x{{ item.cantidad }}<span name="precioProductos">{{ item.producto.precio_formateado }}</span></li>
+          <li name="productos_checkout" class="prod-check">
+          <div>{{ item.producto.nombre }} x<span name="todas_las_cantidades">{{ item.cantidad }}</span></div><span
+          name="todos_los_precios">{{ item.producto.precio_formateado }}</span>
+          </li>
         {% endfor %}
-        
-      </ul>
-      <h4 class="total">Total <span id="totalPagar" name="totalPagar">$0</span></h4>
-    </div>
-    <h3 class="pagos-titulo">Forma de Pago</h3>
-    <div class="pagos">
-      <label>
-        <img src="{% static 'img/efectivo.png' %}" alt="Efectivo">
-        Efectivo
-        <input value="Efectivo" checked type="checkbox" name="pago">
-      </label>
-      <label>
-        <img src="{% static 'img/mercadopago.png' %}" alt="MercadoPago">
-        Mercado Pago
-        <input value="MercadoPago" type="checkbox"  name="pago">
-      </label>
-    </div>
-    <button class="but-check">Ir a pagar</button>
-  </form>
-  <script type="text/javascript">
-    function downloadJSAtOnload() {
+      {% else %}
+        <li class="prod-check" name="mensaje_no_productos">No hay productos en el carrito
+        </li>
+      {% endif %}
+    </ul>
+    <h4 class="total">Total <span id="totalPagar" name="totalPagar">$0</span></h4>
+  </div>
+  <h3 class="pagos-titulo">Forma de Pago</h3>
+  <div class="pagos">
+    <label>
+      <img src="{% static 'img/efectivo.png' %}" alt="Efectivo">
+      Efectivo
+      <input value="Efectivo" checked type="checkbox" name="pago">
+    </label>
+    <label>
+      <img src="{% static 'img/mercadopago.png' %}" alt="MercadoPago">
+      Mercado Pago
+      <input value="MercadoPago" type="checkbox" name="pago">
+    </label>
+  </div>
+  <button class="but-check">Ir a pagar</button>
+</form>
+<script type="module">
+  function downloadJSAtOnload() {
     var element = document.createElement("script");
     element.src = "{% static 'js/carrito.js' %}";
     document.body.appendChild(element);
-    }
-    if (window.addEventListener)
+  }
+  if (window.addEventListener)
     window.addEventListener("load", downloadJSAtOnload, false);
-    else if (window.attachEvent)
+  else if (window.attachEvent)
     window.attachEvent("onload", downloadJSAtOnload);
-    else window.onload = downloadJSAtOnload;
-    </script>
+  else window.onload = downloadJSAtOnload;
+</script>
 {% endblock content %}
