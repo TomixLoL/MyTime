@@ -59,7 +59,7 @@ if (formulario != null) {
         e.preventDefault();
 
         // capturamos los datos del formulario
-        var formData = new FormData(formulario);
+        let formData = new FormData(formulario);
         let datos = [];
 
         // Mostramos las [claves, valores] capturados en consola
@@ -129,4 +129,27 @@ else if (getCookie("used") == "true" && getCookie("carrito") != undefined) {
     numeroCarrito.innerHTML = carrito.length
 
 }
+
+
+
+let carritoForm = document.getElementById("carritoForm")
+let formaDePago = '';
+
+if (carritoForm != null) {
+    carritoForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // capturamos los datos del formulario
+        let formData = new FormData(carritoForm);
+        let datos = [];
+
+        // Mostramos las [claves, valores] capturados en consola
+        for (var pair of formData.entries()) {
+            datos.push(pair[0] + ':' + pair[1])
+
+        }
+        formaDePago = datos[0].split(':')[1]
+        setCookie('formaDePago' , formaDePago , {secure : true, 'max-age' : max_age})
+    })
+}                       
 
