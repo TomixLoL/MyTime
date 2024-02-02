@@ -67,7 +67,7 @@
     <ul>
       {% if validacion %}
         <li style="display: none;" class="prod-check" name="mensaje_no_productos">No hay productos en el carrito
-       </li>
+        </li>
         {% for item in productos_carrito %}
           <li name="productos_checkout" class="prod-check">
           <div>{{ item.producto.nombre }} x<span name="todas_las_cantidades">{{ item.cantidad }}</span></div><span
@@ -94,8 +94,9 @@
       <input value="MercadoPago" type="checkbox" name="pago">
     </label>
   </div>
-  <input type="submit" class="but-check" value="IR A PAGAR">
+  <a href=" {% url 'carrito:pago' %}" class="but-check">IR A PAGAR</a>
 </form>
+
 <script type="module">
   function downloadJSAtOnload() {
     var element = document.createElement("script");

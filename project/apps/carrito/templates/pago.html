@@ -4,5 +4,17 @@
 
 {% block head %}
     
+{% endblock head%}
 
+{% block content %}
+    <div>
+        {% for item in productos_carrito %}
+            <span name="nombreProducto">{{ item.producto.nombre }}</span>
+            <span name="precioProducto">{{ item.producto.precio_formateado }}</span>
+            <span name="cantidadProducto">{{ item.cantidad }}</span>
+            <span name="modeloProducto">{{ item.modelo }}</span>
+        {% endfor %}
+        <span name="formaPagoProducto">{{ producto.forma_pago }}</span>
+        
+    </div>
 {% endblock content %}
