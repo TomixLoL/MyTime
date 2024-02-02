@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Producto, ImagenProducto, ProductoCategoria, Opcion
+from .models import Producto, ImagenProducto, ProductoCategoria, Opcion, Estampado
 
 admin.site.site_title = "Administracion"
 admin.site.site_header = "MyTime"
@@ -39,3 +39,7 @@ class ProductoAdmin(admin.ModelAdmin):
         ImagenProductoAdmin,
         OpcionAdmin
     ]
+
+@admin.register(Estampado)
+class  EstampadoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'estampado_imagen')

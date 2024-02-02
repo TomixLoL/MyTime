@@ -45,3 +45,7 @@ class ImagenProducto(models.Model):
 class Opcion(models.Model):
     opciones = models.CharField(max_length=50, null=True)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="opciones", null=True)
+
+class Estampado(models.Model):
+    nombre = models.CharField(max_length=50)
+    estampado_imagen = models.ImageField(upload_to="estampados/")

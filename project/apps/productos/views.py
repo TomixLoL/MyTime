@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-from .models import Producto, ProductoCategoria, Opcion
+from .models import Producto, ProductoCategoria, Opcion, Estampado
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -25,6 +25,7 @@ class ProductoDetail(DetailView):
             context['opciones_disponibles'] = producto_actual.opciones.exists()
 
         return context
+
 class ProductoListView(ListView):
     # Define la clase para mostrar una lista de productos
     model = Producto  # Utiliza el modelo Producto para esta vista
@@ -60,8 +61,13 @@ class ProductoListView(ListView):
         context['productos_destacados'] = Producto.objects.filter(destacado=True)
         context['productos_opciones'] = Producto.objects.filter()
 
+        if not context['object_list']:
+            context['no_resultados'] = "No hay productos con esas características."
+
         return context  # Retorna el contexto actualizado con las variables adicionales
-    
+
 def estampados(request):
-    hola = 1
-    return render(request, 'estampados.html' , { 'hola' : hola})
+    model = Estampado
+    estampados = Estampado.objects.all()
+
+    return render(request, 'estampados.html' , { 'estampados' : estampados})

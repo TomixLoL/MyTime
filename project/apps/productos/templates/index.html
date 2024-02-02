@@ -46,37 +46,44 @@
         </form>
         
         <!-- Productos destacados -->
-        {% if productos_destacados %}
-        <h2>¡Productos destacados!</h2>
-        <div class="productos-destacados">
-            {% for producto_destacado in productos_destacados %}
-                <a class="producto-destacado" href="{% url 'productos:producto_detail' producto_destacado.id %}">
-                        <img src="{{ producto_destacado.imagen_producto.url }}" alt="{{ producto_destacado.nombre }}">
-                        <div class="producto-destacado-info">
-                            <h5>{{ producto_destacado.nombre }}</h5>
-                            <p class="descripcion">{{ producto_destacado.descripcion }}</p>
-                            <p class="precios">${{ producto_destacado.precio }}</p>
-                            <button>Comprar</button>
-                        </div>
-                </a>
-            {% endfor %}
-        </div>
-    {% endif %}
+        {% if not categoria_seleccionada and not queryset %}
+            {% if productos_destacados %}
+                <h2>¡Productos destacados!</h2>
+                <div class="productos-destacados">
+                    {% for producto_destacado in productos_destacados %}
+                        <a class="producto-destacado" href="{% url 'productos:producto_detail' producto_destacado.id %}">
+                                <img src="{{ producto_destacado.imagen_producto.url }}" alt="{{ producto_destacado.nombre }}">
+                                <div class="producto-destacado-info">
+                                    <h5>{{ producto_destacado.nombre }}</h5>
+                                    <p class="descripcion">{{ producto_destacado.descripcion }}</p>
+                                    <p class="precios">${{ producto_destacado.precio }}</p>
+                                    <button>Comprar</button>
+                                </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endif %}
     </section>
 
     <!-- Productos generales -->
     <section class="todosProd">
         {% for producto in object_list %}
-                <a href="{% url 'productos:producto_detail' producto.id %}" class="producto">
-                    <img src="{{ producto.imagen_producto.url }}" alt="{{ producto.nombre }}">
-                    <div class="card">
-                        <h5>{{ producto.nombre }}</h5>
-                        <p>{{ producto.precio_formateado }}</p>
-                        <button>Añadir</button>
-                    </div>
-                </a>
-            
+            <a href="{% url 'productos:producto_detail' producto.id %}" class="producto">
+                <img src="{{ producto.imagen_producto.url }}" alt="{{ producto.nombre }}">
+                <div class="card">
+                    <h5>{{ producto.nombre }}</h5>
+                    <p>{{ producto.precio_formateado }}</p>
+                    <button>Añadir</button>
+                </div>
+            </a>
+
+
         {% endfor %}
+
+        {% if no_resultados %}
+            <p>No hay productos con esas caracteristicas.</p>
+        {% endif %}
     </section>
 
 {% endblock content%}

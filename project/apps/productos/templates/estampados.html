@@ -3,60 +3,34 @@
 {% load static %}
 
 {% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Time</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Time</title>
-
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/estampados.css' %}">
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'css/estampados.css' %}">
 
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
-    </style>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
-    </style>
-</head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
+        </style>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
+        </style>
+    </head>
 {% endblock head %}
 
 {% block content %}
+    <h1 class="titulo">¡AQUÍ ESTÁN TODOS NUESTROS ESTAMPADOS!</h1>
+    <p class="subtitulo">Presioná los estampados para ver mejor su nombre</p>
+    <div class="container_estampados">
 
-<h1 class="titulo">¡AQUÍ ESTÁN TODOS NUESTROS ESTAMPADOS!</h1>
-<p class="subtitulo">Presioná los estampados para ver mejor su nombre</p>
-<div class="container_estampados">
-    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp.jpg' %}" alt="">
+        {% for estampado in estampados %}
+            <div class="container_estampa">
+                <p class="nombre">{{ estampado.nombre }}</p>
+                <img src="{{ estampado.estampado_imagen.url }}" alt="">
+            </div>
+        {% endfor %}
     </div>
-    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp1.jpg' %}" alt="">
-    </div>
-    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp.jpg' %}" alt="">
-    </div>
-    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp1.jpg' %}" alt="">
-    </div>    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp.jpg' %}" alt="">
-    </div>
-    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp1.jpg' %}" alt="">
-    </div>    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp.jpg' %}" alt="">
-    </div>
-    <div class="container_estampa">
-        <p class="nombre">estampado</p>
-        <img src="{% static 'img/estamp1.jpg' %}" alt="">
-    </div>
-</div>
-
 {% endblock content %}
