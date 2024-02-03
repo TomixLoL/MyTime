@@ -1,4 +1,4 @@
-<form method="get" action="">
+<form id="searchForm" action="">
     <select name="categoria">
         <option value="" {% if not categoria_seleccionada %}selected{% endif %}>Todas las categorías</option>
         {% for categoria in categorias %}

@@ -3,7 +3,6 @@ from django.views.generic import DetailView
 from .models import Producto, ProductoCategoria, Opcion, Estampado
 from django.db.models import Q
 from django.shortcuts import render
-from django.db import connection
 
 from . import models
 
@@ -27,57 +26,60 @@ class ProductoDetail(DetailView):
 
         return context
 
+from django.db.models import Q
+from django.views.generic import ListView
+from .models import Producto, ProductoCategoria
+
 class ProductoListView(ListView):
-    # Define la clase para mostrar una lista de productos
-    model = Producto  # Utiliza el modelo Producto para esta vista
-    template_name = 'index.html'  # La plantilla HTML asociada a esta vista
+    model = Producto
+    template_name = 'index.html'
 
     def get_queryset(self):
-        # Método que retorna el conjunto de datos (QuerySet) de productos a mostrar
-        queryset = super().get_queryset()  # Obtiene el QuerySet base definido por el modelo
-        search_query = self.request.GET.get('buscar', '')  # Obtiene el valor del parámetro 'buscar' de la URL
-        categoria_id = self.request.GET.get('categoria', '')  # Obtiene el valor del parámetro 'categoria' de la URL
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('buscar', '')
+        categoria_id = self.request.GET.get('categoria', '')
 
         if search_query:
-            # Si hay un valor en 'buscar', filtra los productos por nombre o descripción
             queryset = queryset.filter(
                 Q(nombre__icontains=search_query) |
                 Q(descripcion__icontains=search_query)
             ).distinct()
 
         if categoria_id:
-            # Si hay un valor en 'categoria', filtra los productos por esa categoría
             queryset = queryset.filter(categoria=categoria_id)
 
-        return queryset  # Retorna el QuerySet resultante después de aplicar los filtros
+        return queryset
 
     def get_context_data(self, **kwargs):
-        # Método para agregar datos adicionales al contexto de la plantilla
-        context = super().get_context_data(**kwargs)  # Obtiene el contexto base
-
-        # Agrega las siguientes variables al contexto
-        context['queryset'] = self.request.GET.get('buscar', '')  # Valor de 'buscar'
-        context['categoria_seleccionada'] = self.request.GET.get('categoria', '')  # Valor de 'categoria'
-        context['categorias'] = ProductoCategoria.objects.all()  # Todas las categorías disponibles
+        context = super().get_context_data(**kwargs)
+        context['queryset'] = self.request.GET.get('buscar', '')
+        context['categoria_seleccionada'] = self.request.GET.get('categoria', '')
+        context['categorias'] = ProductoCategoria.objects.all()
         context['productos_destacados'] = Producto.objects.filter(destacado=True)
         context['productos_opciones'] = Producto.objects.filter()
 
         if not context['object_list']:
             context['no_resultados'] = "No hay productos con esas características."
 
-        return context  # Retorna el contexto actualizado con las variables adicionales
+        return context
 
-def Estampados(request):
-    # Obtener la lista de nombres de tablas
-    tablas_existentes = connection.introspection.table_names()
-    validacion = False
-    # Comprobar si la tabla 'productos_estampado' existe
-    if 'Estampado' in tablas_existentes:
-        model = Estampado
-        estampados = Estampado.objects.all()
-        validacion = True
-        return render(request, 'estampados.html' , { 'estampados' : estampados, 'validacion' : validacion })
-    # Ahora puedes realizar operaciones en la tabla, ya que sabes que existe.
-    else:
-        validacion = False
-    return render(request, 'estampados.html' , {'validacion' : validacion })
+    def get(self, request, *args, **kwargs):
+        # Antes de procesar la solicitud, verificamos si se ha cambiado la categoría
+        categoria_anterior = request.session.get('categoria_seleccionada', '')
+        nueva_categoria = request.GET.get('categoria', '')
+
+        if categoria_anterior != nueva_categoria:
+            # La categoría ha sido cambiada, eliminamos la búsqueda
+            request.session['categoria_seleccionada'] = nueva_categoria
+            request.GET = request.GET.copy()  # Copiamos el QueryDict para que sea mutable
+            request.GET['buscar'] = ''  # Establecemos la búsqueda en blanco
+            request._get = None  # Forzamos la reconstrucción del QueryDict
+
+        return super().get(request, *args, **kwargs)
+
+
+def estampados(request):
+    model = Estampado
+    estampados = Estampado.objects.all()
+
+    return render(request, 'estampados.html' , { 'estampados' : estampados})

@@ -25,13 +25,12 @@
     <h1 class="titulo">¡AQUÍ ESTÁN TODOS NUESTROS ESTAMPADOS!</h1>
     <p class="subtitulo">Presioná los estampados para ver mejor su nombre</p>
     <div class="container_estampados">
-    {% if validacion %}
+
         {% for estampado in estampados %}
             <div class="container_estampa">
                 <p class="nombre">{{ estampado.nombre }}</p>
                 <img src="{{ estampado.estampado_imagen.url }}" alt="">
             </div>
         {% endfor %}
-    {% endif %}
     </div>
 {% endblock content %}
