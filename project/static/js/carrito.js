@@ -116,14 +116,9 @@ for (i = 0; i < buttsCant.length; i++){
             //Borrar del CheckOut
             CheckOutProd[indexOfProd].style.display = 'none'
             preciosBase[indexOfProd] = 0
-            multiplicarPrecios()
+            location.reload()
             
-            if(document.getElementsByName('producto_carrito').length == 0){
-                let mensajes = document.getElementsByName('mensaje_no_productos')
-                mensajes.forEach((mens)=>{
-                    mens.style.display = 'block'
-                })
-            }
+
         }
 
     })

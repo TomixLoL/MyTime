@@ -67,7 +67,7 @@ function crearMensajeWsp() {
 
     
     console.log(mensaje);
-    redirectWsp.href = `https://api.whatsapp.com/send?phone=541134661603&text=${mensaje}`
+    redirectWsp.href = `https://api.whatsapp.com/send?phone=541157482810&text=${mensaje}`
 }
 
 crearMensajeWsp()   
