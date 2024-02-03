@@ -3,6 +3,7 @@ from django.views.generic import DetailView
 from .models import Producto, ProductoCategoria, Opcion, Estampado
 from django.db.models import Q
 from django.shortcuts import render
+from django.db import connection
 
 from . import models
 
@@ -66,8 +67,17 @@ class ProductoListView(ListView):
 
         return context  # Retorna el contexto actualizado con las variables adicionales
 
-def estampados(request):
-    model = Estampado
-    estampados = Estampado.objects.all()
-
-    return render(request, 'estampados.html' , { 'estampados' : estampados})
+def Estampados(request):
+    # Obtener la lista de nombres de tablas
+    tablas_existentes = connection.introspection.table_names()
+    validacion = False
+    # Comprobar si la tabla 'productos_estampado' existe
+    if 'Estampado' in tablas_existentes:
+        model = Estampado
+        estampados = Estampado.objects.all()
+        validacion = True
+        return render(request, 'estampados.html' , { 'estampados' : estampados, 'validacion' : validacion })
+    # Ahora puedes realizar operaciones en la tabla, ya que sabes que existe.
+    else:
+        validacion = False
+    return render(request, 'estampados.html' , {'validacion' : validacion })

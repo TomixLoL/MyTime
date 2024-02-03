@@ -16,6 +16,7 @@ main {
     margin: auto;
     padding: 10px 0px;
     display: flex;
+    min-height: 100vh;
     flex-direction: column;
     align-items: center;
 
@@ -36,7 +37,8 @@ section.bienvenida {
 }
 
 h2 {
-    font-size: 22px;
+
+    font-size: 30px;
     width: 100%;
     font-family: 'Sora', sans-serif;
     font-weight: bolder;
@@ -79,6 +81,8 @@ h2 {
     outline: none;
     border: none;
     font-size: 18px;
+    font-family: 'Sora';
+    color: #727171;
 }
 
 #bienvenida-encontrar {
@@ -268,7 +272,16 @@ section.todosProd {
     margin-top: 10px;
 }
 
-@media (min-width:225px) {
+.no_resultados{
+    font-size: 16px;
+    font-family: 'cantarell';
+
+}
+
+
+
+@media (min-width:215px) {
+
     .producto-destacado h5 {
         font-size: 14px;
     }
@@ -280,43 +293,81 @@ section.todosProd {
         min-height: 300px;
     }
 
+    .producto-destacado{
+        flex-direction: column;
+        height: fit-content;
+        align-items: center;
+    }
+
+    .producto-destacado-info{
+        align-items: center;
+        max-height: 150px;
+        width: 90%;
+    }
+
+    .producto-destacado img{
+        width: 170px;
+        height: 170px;
+        object-fit: contain;
+    }
+
     .producto img {
         max-height: 170px;
         min-height: 170px;
+        object-fit: contain;
     }
     
 }
 
 @media (min-width:425px) {
 
+    h2 {
+        font-size: 24px;
+    }
+    
+
     .producto-destacado h5 {
         font-size: 14px;
     }
 
+    
+    .producto-destacado{
+        flex-direction: row;
+        height: none    ;
+    }
+
 
     .producto-destacado img {
-        width: 230px;
-        height: 100%;
+        width: 180px;
+        height: 180px;
+        object-fit: contain;
     }
 
 
     .producto {
         min-width: 80%;
-        max-width: 80%;
-        margin-bottom: 15px;
-        min-height: 270px;
-    }
+            max-width: 80%;
+            margin-bottom: 15px;
+            min-height: 270px;
+        }
 
-    .producto img {
-        max-height: 170px;
-        min-height: 170px;
-    }
+        .producto-destacado-info{
+            align-items: flex-start;
+            max-height: 150px;
+            width: 40%;
+        }
 
-    h2 {
-        font-size: 20px;
+
+        .producto img {
+            max-height: 170px;
+            min-height: 170px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+        
     }
-    
-}
 
 
 
@@ -330,6 +381,11 @@ section.todosProd {
         width: 250px;
         height: 110%;
     }
+
+    h2 {
+        font-size: 30px;
+    }
+    
 }
 
 
@@ -406,9 +462,18 @@ section.todosProd {
         width: 250px;
         height: 110%;
     }
+    
+    .descripcion::-webkit-scrollbar {
+        display: none;
+    }
+    .productos-destacados {
+        flex-direction: row;
+        margin-bottom: 50px;
+
+    }
 }
 
-@media (min-width:1670px) {
+@media (min-width:1270px) {
 
     main {
         padding: 20px 20px;

@@ -29,7 +29,7 @@ let total = 0;
 
 function obtenerPrecios(){
     preciosProd.forEach((producto)=>{
-        preciosBase.push( parseFloat(producto.innerHTML.replace('$','').replace('.','').replace(',', '.')))})
+        preciosBase.push( parseFloat(producto.innerHTML.replace('$','').replace(/\./g ,'').replace(',', '.')))})
 
 }
 
@@ -56,9 +56,9 @@ function calcularTotal(){
     total = 0
     preciosProd.forEach((prod)=>{
         if(total != 0){
-            total = parseFloat(total.replace('$', '').replace('.','').replace(',', '.'))
+            total = parseFloat(total.replace('$', '').replace(/\./g, "").replace(',', '.'))
         }
-        total += parseFloat(prod.innerHTML.replace('$', '').replace('.',''))
+        total += parseFloat(prod.innerHTML.replace('$', '').replace(/\./g,''))
         total = new Intl.NumberFormat("de-DE", { style: "currency", currency: "ARS" }).format(total)
         totalAPagar.innerHTML = '$' + total.replace('ARS','')
     })
@@ -118,7 +118,7 @@ for (i = 0; i < buttsCant.length; i++){
             preciosBase[indexOfProd] = 0
             multiplicarPrecios()
             
-            if(document.getElementsByName('productos_carrito').length == 0){
+            if(document.getElementsByName('producto_carrito').length == 0){
                 let mensajes = document.getElementsByName('mensaje_no_productos')
                 mensajes.forEach((mens)=>{
                     mens.style.display = 'block'
@@ -129,3 +129,8 @@ for (i = 0; i < buttsCant.length; i++){
     })
 }
 
+const modelosFormatear = document.getElementsByName('modelos_formatear')
+
+modelosFormatear.forEach((modelo)=>{
+    modelo.innerHTML = modelo.innerHTML.replace(/\%20/g, ' ')
+})

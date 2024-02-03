@@ -33,12 +33,12 @@
     <div class="izq">
       <img src="{{ item.producto.imagen_producto.url }} " alt="ejemplo">
       <div class="detalle">
-        <h2>{{ item.producto.nombre }}</h2>
+        <a href="{% url 'productos:producto_detail' item.producto.id %}"><h2>{{ item.producto.nombre }}</h2></a>
         <h3>
           Detalle: <br>
         </h3>
         <ul>
-          <li>
+          <li name="modelos_formatear">
             Modelo: {{ item.modelo }}
           </li>
           <ul>
@@ -70,7 +70,7 @@
         </li>
         {% for item in productos_carrito %}
           <li name="productos_checkout" class="prod-check">
-          <div>{{ item.producto.nombre }} x<span name="todas_las_cantidades">{{ item.cantidad }}</span></div><span
+          <div class="prod-check-izq"><p>{{ item.producto.nombre }}</p> x<span name="todas_las_cantidades">{{ item.cantidad }}</span></div><span
           name="todos_los_precios">{{ item.producto.precio_formateado }}</span>
           </li>
         {% endfor %}

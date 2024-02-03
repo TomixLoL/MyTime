@@ -48,7 +48,8 @@ main {
     margin-bottom: 35px;
 }
 
-.producto-carrito h2 {
+.detalle a  {
+    color: black;
     font-family: 'Sora';
     font-weight: 200px;
 }
@@ -188,6 +189,16 @@ input[type=number]::-webkit-outer-spin-button {
     align-content: center;
     width: 100%;
     justify-content: space-between;
+}
+
+.prod-check-izq{
+    display: flex;
+    width: 60%;
+    flex-wrap: nowrap;
+}
+
+.prod-check-izq p{
+    margin-right: 2px;
 }
 
 .but-check {
@@ -353,6 +364,24 @@ input[type=number]::-webkit-outer-spin-button {
     }
     .checkout {
         width: 100%;
+    }
+    .prod-check{
+        flex-wrap: wrap;
+        font-size: 12px;
+    }
+    h4.total{
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 12px;
+    }
+    .pagos label{
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+    }
+    .pagos label img{
+        width: 12px;
+        height: 12px;
     }
 }
 

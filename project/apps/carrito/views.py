@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from babel.numbers import format_currency
 import locale
+import re
 
 from productos.models import Producto
 
@@ -14,10 +15,12 @@ def carrito(request):
         validacion = True
         if len(ids_productos) == len(cantidades) == len(modelos):
             productos_carrito = []
-            contador = '000'
+            contador = '0'
+            firsNum = '0'
             for id_producto, cantidad, modelo in zip(ids_productos, cantidades, modelos):
                 producto = Producto.objects.get(id=id_producto)
-                
+                contador = str(firsNum) + '00'
+                firsNum = int(firsNum) + 1    
                 
                 if not modelo:
                     modelo = "Unico"
@@ -29,8 +32,8 @@ def carrito(request):
                     'cantidad': cantidad,
                     'modelo': modelo,
                 })
-                contador = int(contador) + 100
-                
+
+
             return render(request, 'carrito.html', {'productos_carrito': productos_carrito, 'validacion': validacion})
         else:
             return render(request, 'carrito.html', {'validacion': validacion})
@@ -55,7 +58,6 @@ def pago(request):
                 
                 if not modelo:
                     modelo = "Unico"
-
                 
                 productos_carrito.append({
                     'contador' : contador,
@@ -65,9 +67,9 @@ def pago(request):
                 })
                 contador = int(contador) + 100
                 
-            return render(request, 'pago.html', {'productos_carrito': productos_carrito, 'validacion': validacion, 'forma_pago' : forma_pago})
+            return render(request, 'pago.html', {'productos_carrito': productos_carrito,'validacion': validacion, 'forma_pago' : forma_pago})
         else:
-            return render(request, 'pago.html', {'validacion': validacion})
+            return render(request, 'pago.html', {'validacion': validacion, })
     else:
-        return render(request, 'pago.html', {'validacion': validacion})
+        return render(request, 'pago.html', {'validacion': validacion, 'modelos': modelos})
 
