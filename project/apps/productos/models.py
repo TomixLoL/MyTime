@@ -21,7 +21,6 @@ class Producto(models.Model):
 
     categoria = models.ForeignKey(ProductoCategoria, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="categoría")
     nombre = models.CharField(max_length=100)
-    cantidad = models.FloatField()
     precio = models.IntegerField()
     descripcion = models.TextField(blank=True, null=True, verbose_name="descripción")
     imagen_producto = models.ImageField(upload_to="imagen-producto/", verbose_name="portada")

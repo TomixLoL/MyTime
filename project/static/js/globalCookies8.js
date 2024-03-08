@@ -1,5 +1,6 @@
-// devuelve la cookie con el nombre dado,
+ // devuelve la cookie con el nombre dado,
 // o undefined si no la encuentra
+
 function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -28,7 +29,6 @@ function setCookie(name, value, options = {}) {
             updatedCookie += "=" + optionValue;
         }
     }
-
     document.cookie = updatedCookie;
 }
 
@@ -38,11 +38,27 @@ function deleteCookie(name) {
     })
 }
 
-let numeroCarrito = document.getElementById("numeroCarrito");
-let carrito  = "";
-let cantidades = "";
-let modelos = "";
-let max_age = 20000
+try{
+var numeroCarrito = document.getElementById("numeroCarrito");
+}catch (e){
+}
+try{
+var carrito  = "";
+}catch(e){
+}
+try{
+var cantidades = "";
+}catch(e){
+}
+try{
+var modelos = "";
+}catch(e){
+}
+
+
+if(typeof max_age == undefined){
+var max_age = 604.800
+}
 
 
 
@@ -50,13 +66,17 @@ let max_age = 20000
     ESTO ES PARA LA PAGINA DE DETAILS, PARA PODER CARGAR LA INFORMACIÓN AL CARRITO
 */
 
-let formulario = document.getElementById("formulario")
-let modal = document.getElementById("MODAL")
-
+try{
+var formulario = document.getElementById("formulario")
+var modal = document.getElementById("MODAL")
+}catch(e){
+}
 
 if (formulario != null) {
-    formulario.addEventListener("submit", (e) => {
-        e.preventDefault();
+	console.log('Capturo  algo')    
+formulario.addEventListener("submit", (e) => {
+        
+	e.preventDefault();
 
         // capturamos los datos del formulario
         let formData = new FormData(formulario);
@@ -65,7 +85,6 @@ if (formulario != null) {
         // Mostramos las [claves, valores] capturados en consola
         for (var pair of formData.entries()) {
             datos.push(pair[0] + ':' + pair[1])
-            console.log(datos)
         }
 
         let idProducto = datos[0].split(":")[1]
@@ -94,9 +113,7 @@ if (formulario != null) {
             modal.style.display = "none "
         }, 2000);
     })
-}                                                                               
-
-
+}                       
 /*
     ACA TERMINA EL APARTADO
 */
@@ -131,14 +148,15 @@ else if (getCookie("used") == "true" && getCookie("carrito") != undefined) {
 }
 
 
+try{
+var carritoForm = document.getElementById("carritoForm")
+var butPagar = document.getElementById('botonPagar')
+var formaDePago = '';
+}catch(e){}
 
-let carritoForm = document.getElementById("carritoForm")
-let butPagar = document.getElementById('botonPagar')
-let formaDePago = '';
-
-if (carritoForm != null) {
-    butPagar.addEventListener("click", (e) => {
-
+try {
+	if (carritoForm != null) {
+    	butPagar.addEventListener("click", (e) => {
         // capturamos los datos del formulario
         let formData = new FormData(carritoForm);
         let datos = [];
@@ -148,9 +166,9 @@ if (carritoForm != null) {
             datos.push(pair[0] + ':' + pair[1])
 
         }
-        console.log('hola');
         formaDePago = datos[0].split(':')[1]
         setCookie('formaDePago' , formaDePago , {secure : true, 'max-age' : max_age})
-    })
-}                       
-
+    })}
+}
+catch(e) {
+}
