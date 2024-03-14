@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 ]
 
-INSTALLED_APPS += ['productos', 'carrito']
+INSTALLED_APPS += ['productos', 'carrito', 'administracion']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'productos' / 'templates', BASE_DIR / 'carrito' / 'templates'],
+        'DIRS': [BASE_DIR / 'productos' / 'templates', BASE_DIR / 'carrito' / 'templates', BASE_DIR / 'administracion' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,3 +148,10 @@ MEDIA_URL = 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ['https://mytime.ar','https://85.31.61.152']
+
+# Login Config
+
+LOGIN_URL = reverse_lazy("administracion:login")
+LOGIN_REDIRECT_URL = reverse_lazy("administracion:administracion")
+
+LOGOUT_REDIRECT_URL = reverse_lazy("administracion:login")

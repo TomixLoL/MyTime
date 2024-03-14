@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    Hace lo tuyo lauti
+{% endblock head %}
+
+{% block content %}
+    <h1>PANEL RE FACHA MAL</h1>
+    <a href="{% url 'administracion:logout' %}" class="btn btn-danger">Cerrar Sesión</a>
+
+    <!-- Productos -->
+    <H1>Crear producto</H1>
+    <form action="post">
+        {% csrf_token %}
+        {{ formProducto }}
+    </form>
+    
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    Hace lo tuyo lauti
+{% endblock head %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-grid gap-3">
+            <button type="submit" class="btn btn-success">Iniciar sesión</button>
+        </div>
+    </form>
+{% endblock content %}
