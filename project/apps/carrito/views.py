@@ -18,7 +18,6 @@ def carrito(request):
             for id_producto, cantidad, modelo in zip(ids_productos, cantidades, modelos):
                 producto = Producto.objects.get(id=id_producto)
                 
-                
                 if not modelo:
                     modelo = "Unico"
 

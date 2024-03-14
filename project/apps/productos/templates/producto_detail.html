@@ -51,7 +51,7 @@
             {{ producto.precio_formateado }}
         </p>
         <h3>Descripción</h3>
-        <p class="descripcion">{{ producto.descripcion }}</p>
+        <div class="descripcion">{{ producto.descripcion|linebreaks }}</div>
 
         <div class="opciones" >
         <h3>Opciones</h3>
