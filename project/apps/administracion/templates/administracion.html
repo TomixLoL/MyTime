@@ -10,11 +10,23 @@
     <h1>PANEL RE FACHA MAL</h1>
     <a href="{% url 'administracion:logout' %}" class="btn btn-danger">Cerrar Sesión</a>
 
-    <!-- Productos -->
-    <H1>Crear producto</H1>
-    <form action="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ formProducto }}
+        {{ producto_form.as_p }}
+        {{ imagen_formset.management_form }}
+        {{ opcion_formset.management_form }}
+        <h3>Imágenes</h3>
+        {% for form in imagen_formset %}
+            {{ form.imagenes }}
+            <button type="button" class="btn btn-danger" onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+            <br>
+        {% endfor %}
+        <h3>Opciones</h3>
+        {% for form in opcion_formset %}
+            {{ form.opciones }}
+            <button type="button" class="btn btn-danger" onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+            <br>
+        {% endfor %}
+        <button type="submit">Guardar</button>
     </form>
-    
 {% endblock content %}

@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-from .models import Producto, ProductoCategoria, Opcion, Estampado
+from .models import Producto, ProductoCategoria, Estampado
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -25,10 +25,6 @@ class ProductoDetail(DetailView):
             context['opciones_disponibles'] = producto_actual.opciones.exists()
 
         return context
-
-from django.db.models import Q
-from django.views.generic import ListView
-from .models import Producto, ProductoCategoria
 
 class ProductoListView(ListView):
     model = Producto
