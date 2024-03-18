@@ -1,0 +1,152 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --primario: #04264c;
+    --secundario: white;
+    --terciario: #000000e1;
+    --cuarto: #336fb3;
+    --quinto: #636363;
+
+
+    --primario: white;
+    --secundario: #04264c;
+    --terciario: #000000e1;
+    --cuarto: #bbbaba;
+    --quinto: #336fb3;
+
+}
+    
+
+
+body,html{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secundario);
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 10px 20px;
+    background-color: var(--secundario);
+    border-bottom: 1px solid var(--primario);
+    margin-bottom: 50px;
+}
+
+header h1{
+    font-family: 'Poppins', sans-serif;
+    color: var(--primario);
+}
+
+.header-div{
+    display: flex;
+    width: fit-content;
+    gap: 30px   ;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-div a{
+    text-decoration: none;
+    color: var(--cuarto);
+    font-family: 'Poppins';
+    text-align: center;
+}
+
+/* 720px */
+@media (max-width:720px) {
+    header h1{
+        font-size: 26px;
+    }
+}
+/* 620px */
+@media (max-width:720px) {
+    header h1{
+        font-size: 20px;
+    }
+    .header-div{
+        gap: 10px;
+    }
+    .header-div a{
+        font-size: 14px;
+    }
+}
+/* 500px */
+@media (max-width:500px) {
+    main{
+        display: none;
+    }
+    header{
+        flex-direction: column;
+        padding: 10px 10px 10px 10px;
+    }
+    header h1{
+        text-align: center;
+    }
+    .header-div{
+        gap: 20px;
+    }
+}
+/* 190px */
+@media (max-width:190px) {
+    header{
+        flex-direction: column;
+        padding: 10px 10px 10px 10px;
+    }
+    header h1{
+        text-align: center;
+        font-size: 18px;
+    }
+    .header-div{
+        gap: 20px;
+    }
+    .header-div a{
+        font-size: 12px;
+    }
+}
+
+
+main{
+    background-color: var(--secundario);
+    min-height: 70vh;
+    width: 90%;
+    margin: auto;
+    display: flex;
+}
+
+aside{
+    width: 20%;
+}
+
+aside ul li{
+    min-width: fit-content;
+    padding-bottom: 4px;
+    width: 70%;
+    color: var(--primario);
+    font-family: 'Sora';
+    border-bottom: 1px solid var(--primario);
+}
+
+aside ul{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    list-style-type: none;
+    
+}
+
+section{
+    width: 80%;
+    height: 80%;
+    overflow-y: scroll;
+}
+
+/* SECTION PRODUCTO */

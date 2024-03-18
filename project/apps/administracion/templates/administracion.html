@@ -1,32 +1,68 @@
-{% extends 'base.html' %}
+{% extends 'baseAdm.html' %}
 
 {% load static %}
 
 {% block head %}
-    Hace lo tuyo lauti
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de administación</title>
+    <link rel="stylesheet" href="{% static 'css/administracion.css' %}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Nunito:wght@700&family=Sora:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+</head>
 {% endblock head %}
 
 {% block content %}
-    <h1>PANEL RE FACHA MAL</h1>
-    <a href="{% url 'administracion:logout' %}" class="btn btn-danger">Cerrar Sesión</a>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ producto_form.as_p }}
-        {{ imagen_formset.management_form }}
-        {{ opcion_formset.management_form }}
-        <h3>Imágenes</h3>
+<header>
+    <h1>Panel de administracion</h1>
+    <div class="header-div">
+        <a href="{% url 'productos:index' %}">Volver al sitio</a>
+        <a href="{% url 'administracion:logout' %}" class="btn btn-danger">Cerrar Sesión</a>
+    </div>
+</header>
+<main>
+    <aside>
+        <ul>
+            <li>Usuarios</li>
+            <li>Categorias</li>
+            <li>Productos</li>
+            <li>Estampados</li>
+        </ul>
+    </aside>
+    <section>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ producto_form.as_p }}
+            {{ imagen_formset.management_form }}
+            {{ opcion_formset.management_form }}
+            <h3>Imágenes</h3>
         {% for form in imagen_formset %}
-            {{ form.imagenes }}
-            <button type="button" class="btn btn-danger" onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-            <br>
+        {{ form.imagenes }}
+        <button type="button" class="btn btn-danger"
+        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+        <br>
         {% endfor %}
         <h3>Opciones</h3>
         {% for form in opcion_formset %}
-            {{ form.opciones }}
-            <button type="button" class="btn btn-danger" onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-            <br>
+        {{ form.opciones }}
+        <button type="button" class="btn btn-danger"
+        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+        <br>
         {% endfor %}
         <button type="submit">Guardar</button>
     </form>
+</section>
+</main>
 {% endblock content %}
