@@ -1,8 +1,9 @@
-{% extends 'baseAdm.html' %}
-
 {% load static %}
 
-{% block head %}
+<!DOCTYPE html>
+<html lang="es">
+
+
 
 <head>
     <meta charset="UTF-8">
@@ -19,50 +20,34 @@
     <title>Login</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    {% block head %}
+    {% endblock head %}
 </head>
-{% endblock head %}
 
-{% block content %}
 
+
+<body>
 <header>
     <h1>Panel de administracion</h1>
     <div class="header-div">
         <a href="{% url 'productos:index' %}">Volver al sitio</a>
-        <a href="{% url 'administracion:logout' %}" class="btn btn-danger">Cerrar Sesión</a>
+        <form action="{% url 'administracion:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Cerrar Sesion</button>
+        </form>
     </div>
-</header>
-<main>
+    </header>
+    <main>
     <aside>
-        <ul>
-            <li>Usuarios</li>
-            <li>Categorias</li>
-            <li>Productos</li>
-            <li>Estampados</li>
-        </ul>
+        {% block aside %}
+        {% endblock aside %}
     </aside>
     <section>
-        
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ producto_form.as_p }}
-            {{ imagen_formset.management_form }}
-            {{ opcion_formset.management_form }}
-            <h3>Imágenes</h3>
-        {% for form in imagen_formset %}
-        {{ form.imagenes }}
-        <button type="button" class="btn btn-danger"
-        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-        <br>
-        {% endfor %}
-        <h3>Opciones</h3>
-        {% for form in opcion_formset %}
-        {{ form.opciones }}
-        <button type="button" class="btn btn-danger"
-        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-        <br>
-        {% endfor %}
-        <button type="submit">Guardar</button>
-    </form>
+        {% block content %}
+        {% endblock content %}
 </section>
 </main>
-{% endblock content %}
+
+</body>
+
+</html>

@@ -161,6 +161,6 @@ CSRF_TRUSTED_ORIGINS = ['https://mytime.ar','https://85.31.61.152']
 # Login Config
 
 LOGIN_URL = reverse_lazy("administracion:login")
-LOGIN_REDIRECT_URL = reverse_lazy("administracion:administracion")
+LOGIN_REDIRECT_URL = reverse_lazy("administracion:adm-producto")
 
 LOGOUT_REDIRECT_URL = reverse_lazy("administracion:login")

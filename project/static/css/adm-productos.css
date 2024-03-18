@@ -1,0 +1,22 @@
+table{
+    background-color: var(--quinto);
+    padding: 10px 10px;
+    width: 100%;
+    border-spacing: 4px;
+}
+table th{
+    text-align: left;
+    padding: 5px;
+    color: var(--primario);
+    font-family: 'Sora';
+}
+
+table .producto{
+    border: 1px solid var(--secundario);
+}
+
+table td{
+    font-family: 'Cantarell';
+    color: var(--primario);
+    padding: 5px;
+}

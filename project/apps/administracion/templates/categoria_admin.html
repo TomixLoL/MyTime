@@ -1,0 +1,21 @@
+{% extends 'administracion.html' %}
+{% load static %}
+
+{% block aside %}
+        <ul>
+               <li class="no-elegido"><a href="">Usuarios</a></li>
+               <li class="elegido"><a href="">Categorias</a></li>
+               <li class="no-elegido"><a href="">Productos</a></li>
+               <li class="no-elegido"><a href="">Estampados</a></li>
+        </ul>
+
+{% endblock aside %}
+
+
+{% block content %}
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ categoria_form.as_p }}
+        <button type="submit">Guardar</button>
+</form>
+{% endblock content %}

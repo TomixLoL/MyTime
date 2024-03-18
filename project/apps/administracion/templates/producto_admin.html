@@ -1,0 +1,64 @@
+{% extends 'administracion.html' %}
+{% load static %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/adm-productos.css' %}">
+{% endblock head %}
+
+{% block aside %}
+<ul>
+        <li class="no-elegido"><a href="">Usuarios</a></li>
+        <li class="no-elegido"><a href="">Categorias</a></li>
+        <li class="elegido"><a href="">Productos</a></li>
+        <li class="no-elegido"><a href="">Estampados</a></li>
+</ul>
+
+{% endblock aside %}
+
+
+{% block content %}
+
+<table class="container-productos">
+        <tr>
+                <th>Categoria</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripción</th>
+        </tr>
+        {% for producto in productos %}
+        <tr class="producto">
+                <td>{{ producto.categoria }}</td>
+                <td> {{ producto.nombre }}</td>
+                <td> {{ producto.precio }}</td>
+                <td> {{ producto.descripcion }}</td>
+        </tr>
+        {% empty %}
+        <p>No hay productos</p>
+        {% endfor %}
+</table>
+
+<div style="display: none;" class="formulario-agregar">
+        <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ producto_form.as_p }}
+                {{ imagen_formset.management_form }}
+                {{ opcion_formset.management_form }}
+                <h3>Imágenes</h3>
+                {% for form in imagen_formset %}
+                {{ form.imagenes }}
+                <button type="button" class="btn btn-danger"
+                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+                <br>
+                {% endfor %}
+                <h3>Opciones</h3>
+                {% for form in opcion_formset %}
+                {{ form.opciones }}
+                <button type="button" class="btn btn-danger"
+                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+                <br>
+                {% endfor %}
+                <button type="submit">Guardar</button>
+        </form>
+</div>
+{% endblock content %}
