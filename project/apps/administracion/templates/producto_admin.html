@@ -1,9 +1,10 @@
 {% extends 'administracion.html' %}
+
 {% load static %}
 
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/adm-productos.css' %}">
+        <link rel="stylesheet" href="{% static 'css/adm-productos.css' %}">
 {% endblock head %}
 
 {% block aside %}
@@ -13,18 +14,22 @@
         <li class="elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
         <li class="no-elegido"><a href="">Estampados</a></li>
 </ul>
-
 {% endblock aside %}
 
 
 {% block content %}
 
-<table class="container-productos">
+<button class="button-section" id="lookProducto">Ver Productos</button>
+<button class="button-section" id="plusProducto">Añadir Producto</button>
+
+<table id="productosVista" class="container-productos">
         <tr>
                 <th>Categoria</th>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Descripción</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
         </tr>
         {% for producto in productos %}
         <tr class="producto">
@@ -34,15 +39,17 @@
                         <td>{{ producto.categoria }}</td>
                 {% endif %}
                 <td> {{ producto.nombre }}</td>
-                <td> {{ producto.precio }}</td>
-                <td> {{ producto.descripcion }}</td>
+                <td> ${{ producto.precio }}</td>
+                <td> <p>{{ producto.descripcion }}</p></td>
+                <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
+                <td> <button><img src="{% static 'img/basuraICON.png' %}" alt="borrar"></button> </td>
         </tr>
         {% empty %}
         <p>No hay productos</p>
         {% endfor %}
 </table>
 
-<div style="display: none;" class="formulario-agregar">
+<div id="agregarForm" hidden class="formulario-agregar">
         <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ producto_form.as_p }}
@@ -66,3 +73,7 @@
         </form>
 </div>
 {% endblock content %}
+
+{% block jscripts %}
+<script src="{% static 'js/producto-adm.js' %}"></script>
+{% endblock jscripts %}

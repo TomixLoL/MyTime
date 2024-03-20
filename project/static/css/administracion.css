@@ -10,13 +10,14 @@
     --terciario: #000000e1;
     --cuarto: #336fb3;
     --quinto: #636363;
-
+    --sexto: #d1d0d0;
 
     --primario: white;
     --secundario: #04264c;
     --terciario: #000000e1;
     --cuarto: #bbbaba;
-    --quinto: #336fb3;
+    --quinto: #336fb3; 
+    --sexto: #336fb3;
 
 }
     
@@ -37,7 +38,7 @@ header{
     padding: 10px 20px 10px 20px;
     background-color: var(--secundario);
     border-bottom: 1px solid var(--primario);
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 header h1{
@@ -188,12 +189,14 @@ aside ul{
 
 section{
     padding: 10px;
+    padding-right: 25px;
     width: 80%;
     height: 90%;
     overflow-y: scroll;
 }
 
 section::-webkit-scrollbar {
+    height: 70%;
     width: 12px;       /* width of the entire scrollbar */
   }
   

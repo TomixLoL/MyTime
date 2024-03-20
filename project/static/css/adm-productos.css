@@ -1,22 +1,85 @@
+*{
+    box-sizing: border-box;
+}
+
 table{
-    background-color: var(--quinto);
+    background-color: var(--sexto);
     padding: 10px 10px;
     width: 100%;
-    border-spacing: 4px;
+    border-collapse: collapse;
+
 }
 table th{
     text-align: left;
     padding: 5px;
     color: var(--primario);
     font-family: 'Sora';
+    border: 1px solid var(--primario);
 }
 
-table .producto{
-    border: 1px solid var(--secundario);
+table tr{
+    border: 1px solid var(--primario);
+    
 }
+
+table td p{
+    text-overflow: clip;
+    height: 50px;
+    overflow-y: scroll;
+}
+
+table td p::-webkit-scrollbar {
+
+    display: none;   /* width of the entire scrollbar */
+  }
+  
+  table td p::-webkit-scrollbar-track {
+    background: var(--quinto);
+    border-radius: 20px;        /* color of the tracking area */
+  }
+  
+  table td p::-webkit-scrollbar-thumb {
+    background-color: var(--primario);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid var(--primario);  /* creates padding around scroll thumb */
+  }
+
 
 table td{
+
     font-family: 'Cantarell';
     color: var(--primario);
-    padding: 5px;
+    padding: 5px; 
+    border: 1px solid var(--cuarto);
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    text-align: center;
+    width: 100%;
+}
+img{
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0px 0px 12px var(--primario));
+}
+
+
+.button-section{
+    background-color: var(--primario);
+    color: var(--secundario);
+    width: fit-content;
+    padding: 10px;
+    font-family: 'Poppins';
+}
+
+.formulario-agregar{
+    min-height: 100vh;
+}
+
+.container-productos{
+    min-height: 100vh;
 }
