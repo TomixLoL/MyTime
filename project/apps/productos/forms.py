@@ -1,5 +1,5 @@
 from django import forms
-from .models import Producto, ProductoCategoria, ImagenProducto, Opcion
+from .models import Producto, ProductoCategoria, ImagenProducto, Opcion, Estampado
 from django.forms.widgets import ClearableFileInput
 from django.utils.html import format_html
 from django import forms
@@ -55,4 +55,9 @@ class ProductoForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProductoForm, self).__init__(*args, **kwargs)
-        self.fields['imagen_producto'].required = False
+        self.fields['imagen_producto'].required = True
+
+class EstampadoForm(forms.ModelForm):
+    class Meta:
+        model = Estampado
+        fields = '__all__'

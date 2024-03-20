@@ -37,6 +37,12 @@
     {% endfor %}
 </table>
 
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ categoria_form }}
+    <button type="submit">Guardar</button>
+</form>
+
 <form id="categoria_form" method="post" enctype="multipart/form-data" style="display: none;">
     {% csrf_token %}
     <input type="hidden" id="categoria_id" name="categoria_id" value="">

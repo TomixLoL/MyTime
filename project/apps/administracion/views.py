@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from productos.forms import ProductoForm, ImagenProductoFormSet, OpcionFormSet, ProductoCategoriaForm
-from productos.models import Producto, ProductoCategoria
+from productos.forms import ProductoForm, ImagenProductoFormSet, OpcionFormSet, ProductoCategoriaForm, EstampadoForm
+from productos.models import Producto, ProductoCategoria, Estampado
 from django.http import JsonResponse
 
 
@@ -48,6 +48,9 @@ def AdminProducto(request):
 
 @login_required
 def AdminCategoria(request):
+    categorias = ProductoCategoria.objects.all()
+    categoria_form = ProductoCategoriaForm()
+
     if request.method == 'POST':
         categoria_id = request.POST.get('categoria_id')
         nuevo_nombre = request.POST.get('nuevo_nombre')
@@ -59,9 +62,16 @@ def AdminCategoria(request):
                 categoria.save()
                 return JsonResponse({'status': 'ok'})
             except ProductoCategoria.DoesNotExist:
-                return JsonResponse({'status': 'error', 'message': 'Categoría no encontrada'})
+                pass
         else:
-            return JsonResponse({'status': 'error', 'message': 'Datos incompletos'})
-    else:
-        categorias = ProductoCategoria.objects.all()
-        return render(request, 'categoria_admin.html', {'categorias': categorias})
+            categoria_form = ProductoCategoriaForm(request.POST)
+            if categoria_form.is_valid():
+                categoria_form.save()
+                return redirect('administracion:adm-categoria')
+
+    return render(request, 'categoria_admin.html', {'categorias': categorias, 'categoria_form': categoria_form})
+
+@login_required
+def AdminEstampado(request):
+    estampados = Estampado.objects.all()
+    estampados_form = EstampadoForm()

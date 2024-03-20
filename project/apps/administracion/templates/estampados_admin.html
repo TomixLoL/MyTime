@@ -1,0 +1,40 @@
+{% extends 'administracion.html' %}
+
+{% load static %}
+
+{% block aside %}
+        <ul>
+                <li class="no-elegido"><a href="">Usuarios</a></li>
+                <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
+                <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
+                <li class="elegido"><a href="">Estampados</a></li>
+        </ul>
+{% endblock aside %}
+
+{% block content %}
+
+<table class="container-categorias">
+    <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+    </tr>
+
+    {% for categoria in categorias %}
+    <tr class="categoria" data-categoria-id="{{ categoria.id }}">
+        <td class="editable" data-categoria-id="{{ categoria.id }}">
+            <span>{{ categoria.nombre }}</span>
+            <input type="text" class="edit-input" style="display: none;">
+        </td>
+
+        {% if categoria.descripcion %}
+        <td>{{ categoria.descripcion }}</td>
+        {% else %}
+        <td>---</td>
+        {% endif %}
+    </tr>
+    {% empty %}
+    <p>No hay categorías</p>
+    {% endfor %}
+</table>
+
+{% endblock content %}
