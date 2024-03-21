@@ -22,7 +22,7 @@
 <button class="button-section" id="lookProducto">Ver Productos</button>
 <button class="button-section" id="plusProducto">Añadir Producto</button>
 
-<table id="productosVista" class="container-productos">
+<table hidden id="productosVista" class="container-productos">
         <tr>
                 <th>Categoria</th>
                 <th>Nombre</th>
@@ -49,18 +49,25 @@
         {% endfor %}
 </table>
 
-<div id="agregarForm" hidden class="formulario-agregar">
+<div id="agregarForm" class="formulario-agregar">
         <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ producto_form.as_p }}
                 {{ imagen_formset.management_form }}
                 {{ opcion_formset.management_form }}
-                <h3>Imágenes</h3>
-                {% for form in imagen_formset %}
-                {{ form.imagenes }}
-                <button type="button" class="btn btn-danger"
-                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-                <br>
+
+                <div class="sec-img">
+
+                        <h3>Imágenes</h3>
+                        <p>Ingrese imagenes adicionales (Opcional)</p>
+                        {% for form in imagen_formset %}
+                        <div class="input-imagenes">
+                                {{ form.imagenes }}
+                                <button type="button" class="btn btn-danger"
+                                onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+                        </div>
+                </div>
+                        
                 {% endfor %}
                 <h3>Opciones</h3>
                 {% for form in opcion_formset %}
