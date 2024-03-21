@@ -29,11 +29,7 @@ def AdminProducto(request):
             producto_form = ProductoForm()
             imagen_formset = ImagenProductoFormSet(instance=Producto())
             opcion_formset = OpcionFormSet(instance=Producto())
-            return render(request, 'producto_admin.html', {
-                'producto_form': producto_form,
-                'imagen_formset': imagen_formset,
-                'opcion_formset': opcion_formset
-            })
+            return redirect('administracion:adm-producto')
     else:
         producto_form = ProductoForm()
         imagen_formset = ImagenProductoFormSet(instance=Producto())

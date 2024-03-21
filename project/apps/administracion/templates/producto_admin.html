@@ -22,7 +22,7 @@
 <button class="button-section" id="lookProducto">Ver Productos</button>
 <button class="button-section" id="plusProducto">Añadir Producto</button>
 
-<table hidden id="productosVista" class="container-productos">
+<table id="productosVista" class="container-productos">
         <tr>
                 <th>Categoria</th>
                 <th>Nombre</th>
@@ -49,7 +49,7 @@
         {% endfor %}
 </table>
 
-<div id="agregarForm" class="formulario-agregar">
+<div hidden id="agregarForm" class="formulario-agregar">
         <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ producto_form.as_p }}
