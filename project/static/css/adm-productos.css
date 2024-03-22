@@ -82,11 +82,15 @@ img{
 
 .container-productos{
     min-height: 100vh;
+    padding: 10px;
+    background-color: var(--sexto);
 }
 
 .formulario-agregar{
     min-height: 100vh;
-    background-color: var(--quinto);
+
+    padding: 10px;
+    background-color: var(--sexto);
 }
 
 label{
@@ -94,9 +98,15 @@ label{
     font-family: 'Cantarell';
 }
 
+.formulario-agregar form h2{
+    font-family: 'Sora';
+    color: var(--primario);
+}
+
 .formulario-agregar form{
-    padding: 10px 10px;
-    
+    padding: 5px 10px;
+    border: 1px solid var(--primario);
+    background-color: var(--sexto);
 }
 
 
@@ -106,7 +116,7 @@ label{
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--primario);
-    padding: 10px 20px;
+    padding: 10px 0px;
 }
 .formulario-agregar form p label{
     width: 40%;
@@ -196,12 +206,24 @@ table{
     overflow-y: scroll;
 }
 
-.formuario-agregar, .container-productos{
+.formulario-agregar, .container-productos{
     display: none;
 }
 
 .mostrar{
     display: block;
+    animation: aparecer .2s linear 0s 1 normal forwards;
+}
+
+@keyframes aparecer {
+    0%{
+        filter: opacity(0);
+        transform: translate(0 -20px -20px);
+    }
+    100%{
+        filter: opacity(1);
+        transform: translate(0 -20px -20px);
+    }
 }
 
 /* SECTION PRODUCTO */
