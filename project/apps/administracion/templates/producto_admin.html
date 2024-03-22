@@ -69,12 +69,14 @@
                 </div>
                         
                 {% endfor %}
-                <h3>Opciones</h3>
-                {% for form in opcion_formset %}
-                {{ form.opciones }}
-                <button type="button" class="btn btn-danger"
+                <div class="sec-opc">
+                        <h3>Opciones</h3>
+                        <p>Ingrese opciones para este producto (Opcional)</p>
+                        {% for form in opcion_formset %}
+                        {{ form.opciones }}
+                        <button type="button" class="btn btn-danger"
                         onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-                <br>
+                </div>
                 {% endfor %}
                 <button type="submit">Guardar</button>
         </form>

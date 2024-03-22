@@ -157,6 +157,8 @@ label{
 
 .formulario-agregar form .sec-img .input-imagenes{
     display: flex;
+    justify-content: space-between;
+    padding-left: 25px;
 }
 
 .formulario-agregar form .sec-img p{
@@ -165,9 +167,33 @@ label{
     border: none;
 }
 
-
-
 .formulario-agregar form .sec-img input, #id_imagen_producto{
     border: 1px solid var(--primario);
     color: var(--primario);
+}
+
+.formulario-agregar form button.btn.btn-danger{
+    font-family: 'Cantarell';
+    color: var(--primario);
+    background-color: var(--secundario);
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.formulario-agregar form .sec-opc{
+    padding: 20px;
+}
+
+.formulario-agregar form .sec-opc p{
+    font-family: 'Cantarell';
+    color: var(--primario);
+    border: none;
+}
+
+.formulario-agregar form .sec-opc h3{
+
+}
+
+.formulario-agregar form .sec-opc input{
+    
 }
