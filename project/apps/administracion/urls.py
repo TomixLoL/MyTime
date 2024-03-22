@@ -8,5 +8,5 @@ urlpatterns = [
     path("administracion-producto", views.AdminProducto, name="adm-producto"),
     path("administracion-categoria", views.AdminCategoria, name="adm-categoria"),
     path("administracion-estampado", views.AdminEstampado, name="adm-estampado"),
-    path("administracion-usuario", views.AdminEstampado, name="adm-usuario"),
+    path("administracion-usuario", views.AdminUsuario, name="adm-usuario"),
 ]

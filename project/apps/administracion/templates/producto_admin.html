@@ -9,7 +9,7 @@
 
 {% block aside %}
 <ul>
-        <li class="no-elegido"><a href="">Usuarios</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
         <li class="elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
@@ -96,7 +96,7 @@
                                         </div>
                                 </div>
                                 {% endfor %}
-                                <button type="submit" name="crear_producto">Guardar</button>
+                                <button type="submit" name="crear_usuario">Guardar</button>
                         </form>
                 </div>
         </section>

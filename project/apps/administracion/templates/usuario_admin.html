@@ -9,7 +9,7 @@
 
 {% block aside %}
 <ul>
-        <li class="elegido"><a href="">Usuarios</a></li>
+        <li class="elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
@@ -25,27 +25,32 @@
 <table id="productosVista" class="container-productos">
         <tr>
                 <th>Nombre</th>
-                <th>Imagen</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
         </tr>
-        {% for estampado in estampados %}
+        {% for usuario in usuarios %}
         <tr class="producto">
-                <td> {{ estampado.nombre }}</td>
-                <td> <img src="{{ estampado.estampado_imagen.url }}" alt="Imagen de {{ estampado.nombre }}"></img></td>
+                <td> {{ usuario.username }}</td>
                 <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
-                <td> <button><img src="{% static 'img/basuraICON.png' %}" alt="borrar"></button> </td>
+                <td>
+                        <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="eliminar_usuario"
+                                        value="{{ usuario.id }}">
+                                <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                        </form>
+                </td>
         </tr>
         {% empty %}
-        <p>No hay estampados</p>
+        <p>No hay usuarios</p>
         {% endfor %}
 </table>
 
 <div hidden id="agregarForm" class="formulario-agregar">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
                 {% csrf_token %}
-                {{ estampado_form.as_p }}
-                <button type="submit">Guardar</button>
+                {{ usuario_form.as_p }}
+                <button type="submit">Crear usuario</button>
         </form>
 </div>
 {% endblock content %}

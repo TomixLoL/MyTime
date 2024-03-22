@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from productos.forms import ProductoForm, ImagenProductoFormSet, OpcionFormSet, ProductoCategoriaForm, EstampadoForm
 from productos.models import Producto, ProductoCategoria, Estampado
 from django.http import JsonResponse, HttpResponse
@@ -90,15 +92,20 @@ def AdminEstampado(request):
 
 @login_required
 def AdminUsuario(request):
-    estampados = Estampado.objects.all()
+    usuarios = User.objects.all()
+    usuario_form = UserCreationForm()
 
-    if request.method == "POST":
-        estampado_form = EstampadoForm(request.POST, request.FILES)
-
-        if estampado_form.is_valid():
-            estampado_form.save()
-            return redirect('administracion:adm-usuarios')
-    else:
-        estampado_form = EstampadoForm()
-
-    return render(request, 'usuarios_admin.html', {'estampados': estampados, 'estampado_form': estampado_form})
+    if request.method == 'POST':
+        if 'crear_usuario' in request.POST:
+            usuario_form = UserCreationForm(request.POST)
+            if usuario_form.is_valid():
+                usuario_form.save()
+                return redirect('administracion:adm-usuario')
+        
+        elif 'eliminar_usuario' in request.POST:
+                user_id = request.POST.get('eliminar_usuario')
+                if user_id:
+                    user = User.objects.get(id=user_id)
+                    user.delete()
+                    return redirect('administracion:adm-usuario')
+    return render(request, 'usuario_admin.html', {'usuario_form': usuario_form, 'usuarios': usuarios})
