@@ -1,0 +1,57 @@
+{% extends 'administracion.html' %}
+
+{% load static %}
+
+
+{% block head %}
+        <link rel="stylesheet" href="{% static 'css/adm-estampados.css' %}">
+{% endblock head %}
+
+{% block aside %}
+<ul>
+        <li class="no-elegido"><a href="">Usuarios</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
+        <li class="elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
+</ul>
+{% endblock aside %}
+
+
+{% block content %}
+
+<button class="button-section" id="lookProducto">Ver Estampados</button>
+<button class="button-section" id="plusProducto">Añadir Estampado</button>
+
+<div id="productosVista" class="container-productos">
+        <table  >
+        <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+        </tr>
+        {% for estampado in estampados %}
+        <tr class="producto">
+                <td> {{ estampado.nombre }}</td>
+                <td> <img class="img-estampado" src="{{ estampado.estampado_imagen.url }}" alt="Imagen de {{ estampado.nombre }}"></img></td>
+                <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
+                <td> <button><img src="{% static 'img/basuraICON.png' %}" alt="borrar"></button> </td>
+        </tr>
+        {% empty %}
+        <p>No hay estampados</p>
+        {% endfor %}
+        </table>
+</div>
+<div hidden id="agregarForm" class="formulario-agregar">
+        <h2>Añadir un estampado</h2>
+        <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ estampado_form.as_p }}
+                <button type="submit">Guardar</button>
+        </form>
+</div>
+{% endblock content %}
+
+{% block jscripts %}
+<script src="{% static 'js/producto-adm.js' %}"></script>
+{% endblock jscripts %}

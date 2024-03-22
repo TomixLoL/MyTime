@@ -4,7 +4,7 @@
 
 
 {% block head %}
-        <link rel="stylesheet" href="{% static 'css/adm-productos.css' %}">
+<link rel="stylesheet" href="{% static 'css/adm-productos.css' %}">
 {% endblock head %}
 
 {% block aside %}
@@ -12,75 +12,93 @@
         <li class="no-elegido"><a href="">Usuarios</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
         <li class="elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
-        <li class="no-elegido"><a href="">Estampados</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
 </ul>
 {% endblock aside %}
 
 
 {% block content %}
-
-<button class="button-section" id="lookProducto">Ver Productos</button>
-<button class="button-section" id="plusProducto">Añadir Producto</button>
-
-<table id="productosVista" class="container-productos">
-        <tr>
-                <th>Categoria</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Descripción</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
-        </tr>
-        {% for producto in productos %}
-        <tr class="producto">
-                {% if producto.categoria == None %}
-                        <td>---</td>
-                {% else %}
-                        <td>{{ producto.categoria }}</td>
-                {% endif %}
-                <td> {{ producto.nombre }}</td>
-                <td> ${{ producto.precio }}</td>
-                <td> <p>{{ producto.descripcion }}</p></td>
-                <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
-                <td> <button><img src="{% static 'img/basuraICON.png' %}" alt="borrar"></button> </td>
-        </tr>
-        {% empty %}
-        <p>No hay productos</p>
-        {% endfor %}
-</table>
-
-<div hidden id="agregarForm" class="formulario-agregar">
-        <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ producto_form.as_p }}
-                {{ imagen_formset.management_form }}
-                {{ opcion_formset.management_form }}
-
-                <div class="sec-img">
-
-                        <h3>Imágenes</h3>
-                        <p>Ingrese imagenes adicionales (Opcional)</p>
-                        {% for form in imagen_formset %}
-                        <div class="input-imagenes">
-                                {{ form.imagenes }}
-                                <button type="button" class="btn btn-danger"
-                                onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-                        </div>
+<article>
+        <nav>
+                <button class="button-section" id="lookProducto">Ver Productos</button>
+                <button class="button-section" id="plusProducto">Añadir Producto</button>
+        </nav>
+        <section>
+                <div id="productosVista" class="mostrar container-productos">
+                        <table>
+                                <tr>
+                                        <th>Categoria</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Descripción</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                </tr>
+                                {% for producto in productos %}
+                                <tr class="producto">
+                                        {% if producto.categoria == None %}
+                                        <td>---</td>
+                                        {% else %}
+                                        <td>{{ producto.categoria }}</td>
+                                        {% endif %}
+                                        <td> {{ producto.nombre }}</td>
+                                        <td> ${{ producto.precio }}</td>
+                                        <td>
+                                                <p>{{ producto.descripcion }}</p>
+                                        </td>
+                                        <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button>
+                                        </td>
+                                        <td>
+                                                <form method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="eliminar_producto"
+                                                                value="{{ producto.id }}">
+                                                        <button type="submit"><img
+                                                                        src="{% static 'img/basuraICON.png' %}"></button>
+                                                </form>
+                                        </td>
+                                </tr>
+                                {% empty %}
+                                <p>No hay productos</p>
+                                {% endfor %}
+                        </table>
                 </div>
-                        
-                {% endfor %}
-                <div class="sec-opc">
-                        <h3>Opciones</h3>
-                        <p>Ingrese opciones para este producto (Opcional)</p>
-                        {% for form in opcion_formset %}
-                        {{ form.opciones }}
-                        <button type="button" class="btn btn-danger"
-                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+                <div id="agregarForm" class="formulario-agregar">
+                        <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ producto_form.as_p }}
+                                {{ imagen_formset.management_form }}
+                                {{ opcion_formset.management_form }}
+
+                                <div class="sec-img">
+
+                                        <h3>Imágenes</h3>
+                                        <p>Ingrese imagenes adicionales (Opcional)</p>
+                                        {% for form in imagen_formset %}
+                                        <div class="input-imagenes">
+                                                {{ form.imagenes }}
+                                                <button type="button" class="btn btn-danger"
+                                                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+                                        </div>
+                                </div>
+
+                                {% endfor %}
+                                <div class="sec-opc">
+                                        <h3>Opciones</h3>
+                                        <p>Ingrese opciones para este producto (Opcional)</p>
+                                        <div class="input-opciones">
+                                                {% for form in opcion_formset %}
+                                                {{ form.opciones }}
+                                                <button type="button" class="btn btn-danger"
+                                                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+                                        </div>
+                                </div>
+                                {% endfor %}
+                                <button type="submit" name="crear_producto">Guardar</button>
+                        </form>
                 </div>
-                {% endfor %}
-                <button type="submit">Guardar</button>
-        </form>
-</div>
+        </section>
+</article>
 {% endblock content %}
 
 {% block jscripts %}

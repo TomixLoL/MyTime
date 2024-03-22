@@ -2,38 +2,44 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from productos.forms import ProductoForm, ImagenProductoFormSet, OpcionFormSet, ProductoCategoriaForm, EstampadoForm
 from productos.models import Producto, ProductoCategoria, Estampado
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 
 # Create your views here.
 @login_required
 def AdminProducto(request):
     productos = Producto.objects.all()
+    producto_form = ProductoForm()
+    imagen_formset = ImagenProductoFormSet(instance=Producto())
+    opcion_formset = OpcionFormSet(instance=Producto())
+
     if request.method == 'POST':
-        producto_form = ProductoForm(request.POST, request.FILES)
-        imagen_formset = ImagenProductoFormSet(request.POST, request.FILES, instance=Producto())
-        opcion_formset = OpcionFormSet(request.POST, instance=Producto())
+        # Si se envió el formulario para crear un nuevo producto
+        if 'crear_producto' in request.POST:
+            producto_form = ProductoForm(request.POST, request.FILES)
+            imagen_formset = ImagenProductoFormSet(request.POST, request.FILES, instance=Producto())
+            opcion_formset = OpcionFormSet(request.POST, instance=Producto())
 
-        if producto_form.is_valid() and imagen_formset.is_valid() and opcion_formset.is_valid():
-            producto = producto_form.save()
-            imagenes = imagen_formset.save(commit=False)
-            for imagen in imagenes:
-                imagen.producto = producto
-                imagen.save()
-            opciones = opcion_formset.save(commit=False)
-            for opcion in opciones:
-                opcion.producto = producto
-                opcion.save()
+            if producto_form.is_valid() and imagen_formset.is_valid() and opcion_formset.is_valid():
+                producto = producto_form.save()
+                imagenes = imagen_formset.save(commit=False)
+                for imagen in imagenes:
+                    imagen.producto = producto
+                    imagen.save()
+                opciones = opcion_formset.save(commit=False)
+                for opcion in opciones:
+                    opcion.producto = producto
+                    opcion.save()
+                return redirect('administracion:adm-producto')
 
-            # Limpiar los formularios después de haberlos procesado exitosamente
-            producto_form = ProductoForm()
-            imagen_formset = ImagenProductoFormSet(instance=Producto())
-            opcion_formset = OpcionFormSet(instance=Producto())
-            return redirect('administracion:adm-producto')
-    else:
-        producto_form = ProductoForm()
-        imagen_formset = ImagenProductoFormSet(instance=Producto())
-        opcion_formset = OpcionFormSet(instance=Producto())
+        # Si se envió una solicitud para eliminar un producto
+        elif 'eliminar_producto' in request.POST:
+            producto_id = request.POST.get('eliminar_producto')
+            if producto_id:
+                producto = Producto.objects.get(id=producto_id)
+                producto.delete()
+                return redirect('administracion:adm-producto')
+
     return render(request, 'producto_admin.html', {
         'productos': productos,
         'producto_form': producto_form,
@@ -70,4 +76,29 @@ def AdminCategoria(request):
 @login_required
 def AdminEstampado(request):
     estampados = Estampado.objects.all()
-    estampados_form = EstampadoForm()
+
+    if request.method == "POST":
+        estampado_form = EstampadoForm(request.POST, request.FILES)
+
+        if estampado_form.is_valid():
+            estampado_form.save()
+            return redirect('administracion:adm-estampado')
+    else:
+        estampado_form = EstampadoForm()
+
+    return render(request, 'estampado_admin.html', {'estampados': estampados, 'estampado_form': estampado_form})
+
+@login_required
+def AdminUsuario(request):
+    estampados = Estampado.objects.all()
+
+    if request.method == "POST":
+        estampado_form = EstampadoForm(request.POST, request.FILES)
+
+        if estampado_form.is_valid():
+            estampado_form.save()
+            return redirect('administracion:adm-usuarios')
+    else:
+        estampado_form = EstampadoForm()
+
+    return render(request, 'usuarios_admin.html', {'estampados': estampados, 'estampado_form': estampado_form})

@@ -132,12 +132,14 @@ main{
     background-color: var(--secundario);
     min-height: 70vh;
     width: 90%;
-    margin: auto;
+    margin: 0 auto;
     display: flex;
+    height: 70vh;
 }
 
 aside{
     width: 20%;
+    margin-top: 50px    ;
 }
 
 aside ul li{
@@ -187,12 +189,17 @@ aside ul{
     
 }
 
-section{
+article{
     padding: 10px;
     padding-right: 25px;
     width: 80%;
-    height: 90%;
+    height: 100%;
+}
+
+section{
     overflow-y: scroll;
+    height: 90%;
+    padding-right: 20px;
 }
 
 section::-webkit-scrollbar {
@@ -211,4 +218,4 @@ section::-webkit-scrollbar {
     border: 3px solid var(--primario);  /* creates padding around scroll thumb */
   }
 
-/* SECTION PRODUCTO */
+  

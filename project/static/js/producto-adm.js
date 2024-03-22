@@ -4,12 +4,12 @@ const divLook = document.getElementById('productosVista')
 const divPlus = document.getElementById('agregarForm')
 
 butLook.addEventListener('click', ()=>{
-    divPlus.hidden = true
-    divLook.hidden = false
+    divLook.classList.add('mostrar')
+    divPlus.classList.remove('mostrar')
 })
 butPlus.addEventListener('click', ()=>{
-    divLook.hidden = true
-    divPlus.hidden = false
+    divPlus.classList.add('mostrar')
+    divLook.classList.remove('mostrar')
 })
 
 
