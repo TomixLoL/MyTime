@@ -16,6 +16,7 @@ def AdminProducto(request):
     opcion_formset = OpcionFormSet(instance=Producto())
 
     if request.method == 'POST':
+
         # Si se envió el formulario para crear un nuevo producto
         if 'crear_producto' in request.POST:
             producto_form = ProductoForm(request.POST, request.FILES)
@@ -35,12 +36,30 @@ def AdminProducto(request):
                 return redirect('administracion:adm-producto')
 
         # Si se envió una solicitud para eliminar un producto
-        elif 'eliminar_producto' in request.POST:
+        elif 'eliminar_producto' in request.POST:   
+            
             producto_id = request.POST.get('eliminar_producto')
             if producto_id:
                 producto = Producto.objects.get(id=producto_id)
                 producto.delete()
                 return redirect('administracion:adm-producto')
+
+        elif 'modificar_precio' in request.POST:
+            producto_id = request.POST.get('producto_id')
+            nuevo_precio = request.POST.get('nuevo_precio')
+            if producto_id and nuevo_precio:
+                try:
+                    producto = Producto.objects.get(pk=producto_id)
+                    producto.precio = nuevo_precio
+                    producto.save()
+                    return JsonResponse({'status': 'ok'})
+                except Producto.DoesNotExist:
+                    pass
+            else:
+                producto_form = ProductoForm(request.POST)
+                if producto_form.is_valid():
+                    producto_form.save()
+                    return redirect('administracion:adm-producto')
 
     return render(request, 'producto_admin.html', {
         'productos': productos,
@@ -78,16 +97,22 @@ def AdminCategoria(request):
 @login_required
 def AdminEstampado(request):
     estampados = Estampado.objects.all()
+    estampado_form = EstampadoForm()
 
     if request.method == "POST":
         estampado_form = EstampadoForm(request.POST, request.FILES)
 
-        if estampado_form.is_valid():
-            estampado_form.save()
-            return redirect('administracion:adm-estampado')
-    else:
-        estampado_form = EstampadoForm()
+        if 'crear_estampado' in request.POST:
+            if estampado_form.is_valid():
+                estampado_form.save()
+                return redirect('administracion:adm-estampado')
 
+        elif 'eliminar_estampado' in request.POST:
+                estampado_id = request.POST.get('eliminar_estampado')
+                if estampado_id:
+                    estampado = Estampado.objects.get(id=estampado_id)
+                    estampado.delete()
+                    return redirect('administracion:adm-estampado')
     return render(request, 'estampado_admin.html', {'estampados': estampados, 'estampado_form': estampado_form})
 
 @login_required

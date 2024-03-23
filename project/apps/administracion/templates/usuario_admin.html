@@ -4,7 +4,7 @@
 
 
 {% block head %}
-        <link rel="stylesheet" href="{% static 'css/adm-productos.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/adm-usuarios.css' %}">
 {% endblock head %}
 
 {% block aside %}
@@ -19,42 +19,50 @@
 
 {% block content %}
 
-<button class="button-section" id="lookProducto">Ver Productos</button>
-<button class="button-section" id="plusProducto">Añadir Producto</button>
+<article>
 
-<table id="productosVista" class="container-productos">
-        <tr>
-                <th>Nombre</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
-        </tr>
-        {% for usuario in usuarios %}
-        <tr class="producto">
-                <td> {{ usuario.username }}</td>
-                <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
-                <td>
+        <nav>
+                <button class="button-section" id="lookProducto">Ver Productos</button>
+                <button class="button-section" id="plusProducto">Añadir Producto</button>
+        </nav>
+
+        <section>
+
+
+                <table id="productosVista" class="mostrar container-productos">
+                        <tr>
+                                <th>Nombre</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                        </tr>
+                        {% for usuario in usuarios %}
+                        <tr class="producto">
+                                <td> {{ usuario.username }}</td>
+                                <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
+                                <td>
+                                        <form method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="eliminar_usuario" value="{{ usuario.id }}">
+                                                <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                        </form>
+                                </td>
+                        </tr>
+                        {% empty %}
+                        <p>No hay usuarios</p>
+                        {% endfor %}
+                </table>
+
+                <div id="agregarForm" class="formulario-agregar">
                         <form method="post">
                                 {% csrf_token %}
-                                <input type="hidden" name="eliminar_usuario"
-                                        value="{{ usuario.id }}">
-                                <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                {{ usuario_form.as_p }}
+                                <button id="btn-save" type="submit" name="crear_usuario">Crear usuario</button>
                         </form>
-                </td>
-        </tr>
-        {% empty %}
-        <p>No hay usuarios</p>
-        {% endfor %}
-</table>
-
-<div hidden id="agregarForm" class="formulario-agregar">
-        <form method="post">
-                {% csrf_token %}
-                {{ usuario_form.as_p }}
-                <button type="submit">Crear usuario</button>
-        </form>
-</div>
+                </div>
+        </section>
+</article>
 {% endblock content %}
 
 {% block jscripts %}
-<script src="{% static 'js/producto-adm.js' %}"></script>
+<script src="{% static 'admin/js/producto-adm.js' %}"></script>
 {% endblock jscripts %}

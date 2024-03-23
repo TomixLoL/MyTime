@@ -1,15 +1,14 @@
-*{
+* {
     box-sizing: border-box;
 }
-
-table{
+table {
     background-color: var(--sexto);
     padding: 10px 10px;
     width: 100%;
     border-collapse: collapse;
 
 }
-table th{
+table th {
     text-align: left;
     padding: 5px;
     color: var(--primario);
@@ -17,44 +16,41 @@ table th{
     border: 1px solid var(--primario);
     text-align: center;
 }
-
-table tr{
+table tr {
     border: 1px solid var(--primario);
     text-align: center;
 }
-
-table td p{
+table td p {
     text-overflow: clip;
     height: 50px;
     overflow-y: scroll;
 }
-
 table td p::-webkit-scrollbar {
 
-    display: none;   /* width of the entire scrollbar */
-  }
-  
-  table td p::-webkit-scrollbar-track {
+    display: none;
+    /* width of the entire scrollbar */
+}
+table td p::-webkit-scrollbar-track {
     background: var(--quinto);
-    border-radius: 20px;        /* color of the tracking area */
-  }
-  
-  table td p::-webkit-scrollbar-thumb {
-    background-color: var(--primario);    /* color of the scroll thumb */
-    border-radius: 20px;       /* roundness of the scroll thumb */
-    border: 3px solid var(--primario);  /* creates padding around scroll thumb */
-  }
-
-
-table td{
+    border-radius: 20px;
+    /* color of the tracking area */
+}
+table td p::-webkit-scrollbar-thumb {
+    background-color: var(--primario);
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid var(--primario);
+    /* creates padding around scroll thumb */
+}
+table td {
 
     font-family: 'Cantarell';
     color: var(--primario);
-    padding: 5px; 
+    padding: 5px;
     border: 1px solid var(--cuarto);
 }
-
-button{
+button {
     background-color: transparent;
     border: none;
     outline: none;
@@ -62,14 +58,18 @@ button{
     text-align: center;
     width: 100%;
 }
-img{
-    width: 20px;
-    height: 20px;
+img {
+    width: 28px;
+    height: 28px;
     filter: drop-shadow(0px 0px 12px var(--primario));
 }
 
-
-.button-section{
+.img-estampado{
+    filter: none;
+    width: 70px ;
+    height: 70px    ;
+}
+.button-section {
     background-color: var(--primario);
     color: var(--secundario);
     z-index: 200;
@@ -78,39 +78,33 @@ img{
     cursor: pointer;
     font-family: 'Poppins';
 }
-
-
-.container-productos{
+.container-productos {
     min-height: 100vh;
     padding: 10px;
     background-color: var(--sexto);
 }
-
-.formulario-agregar{
+.formulario-agregar {
     min-height: 100vh;
 
     padding: 10px;
     background-color: var(--sexto);
 }
-
-label{
+label {
     color: var(--primario);
     font-family: 'Cantarell';
 }
-
-.formulario-agregar form h2{
+.formulario-agregar form h2 {
     font-family: 'Sora';
     color: var(--primario);
 }
-
-.formulario-agregar form{
+.formulario-agregar form {
     padding: 5px 10px;
     border: 1px solid var(--primario);
     background-color: var(--sexto);
+    display: flex;
+    flex-direction: column;
 }
-
-
-.formulario-agregar form p{
+.formulario-agregar form p {
 
     width: 100%;
     display: flex;
@@ -118,18 +112,17 @@ label{
     border-bottom: 1px solid var(--primario);
     padding: 10px 0px;
 }
-.formulario-agregar form p label{
+.formulario-agregar form p label {
     width: 40%;
 }
-
-.formulario-agregar form p input,.formulario-agregar form p select{
+.formulario-agregar form p input,
+.formulario-agregar form p select {
     width: 60%;
     outline: none;
     padding: 5px;
     border: 1px solid var(--secundario);
 }
-
-.formulario-agregar form p textarea{
+.formulario-agregar form p textarea {
     width: 60%;
     max-width: 60%;
     min-width: 60%;
@@ -139,91 +132,92 @@ label{
     padding: 5px;
     border: 1px solid var(--secundario);
 }
-
-#id_destacado{
+#id_destacado {
     width: 20px;
 }
-
-.formulario-agregar form h3{
+.formulario-agregar form h3 {
     font-family: 'Poppins';
     color: var(--primario);
 }
-
-.formulario-agregar form input{
+.formulario-agregar form input {
     width: 60%;
     outline: none;
     padding: 5px;
     border: 1px solid var(--secundario);
 }
-
-.formulario-agregar form button.btn.btn-danger{
+.formulario-agregar form button.btn.btn-danger {
     display: block;
     width: 20%;
 }
-
-.formulario-agregar form div.sec-img{
+.formulario-agregar form div.sec-img {
     outline: none;
     padding: 20px;
     border-bottom: 1px solid var(--primario);
 }
-
-.formulario-agregar form .sec-img .input-imagenes, .formulario-agregar form .sec-opc .input-opciones{
+.formulario-agregar form .sec-img .input-imagenes,
+.formulario-agregar form .sec-opc .input-opciones {
     display: flex;
     justify-content: space-between;
     padding-left: 25px;
 }
-
-.formulario-agregar form .sec-img p{
+.formulario-agregar form .sec-img p {
     font-family: 'Cantarell';
     color: var(--primario);
     border: none;
 }
-
-.formulario-agregar form .sec-img input, #id_imagen_producto{
+.formulario-agregar form .sec-img input,
+#id_imagen_producto {
     border: 1px solid var(--primario);
     color: var(--primario);
 }
-
-.formulario-agregar form button.btn.btn-danger{
+.formulario-agregar form button.btn.btn-danger {
     font-family: 'Cantarell';
     color: var(--primario);
     background-color: var(--secundario);
     font-size: 16px;
     margin-left: 10px;
 }
-
-.formulario-agregar form .sec-opc{
+.formulario-agregar form .sec-opc {
     padding: 20px;
 }
-
-.formulario-agregar form .sec-opc p{
+.formulario-agregar form .sec-opc p {
     font-family: 'Cantarell';
     color: var(--primario);
     border: none;
 }
-
-table{
+table {
     overflow-y: scroll;
 }
-
-.formulario-agregar, .container-productos{
+.formulario-agregar,
+.container-productos {
     display: none;
 }
-
-.mostrar{
+.mostrar {
     display: block;
     animation: aparecer .2s linear 0s 1 normal forwards;
 }
-
 @keyframes aparecer {
-    0%{
+    0% {
         filter: opacity(0);
         transform: translate(0 -20px -20px);
     }
-    100%{
+
+    100% {
         filter: opacity(1);
         transform: translate(0 -20px -20px);
     }
 }
+#btn-save{
+    background-color: var(--secundario);
+    color: var(--primario);
+    font-family: 'Cantarell';
+    font-size: 16px ;
+    width: 40%;
+    padding: 10px 0px;
+    align-self: center;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: .4s;
+}
 
-/* SECTION PRODUCTO */
+.edit-input{width: 80%;}

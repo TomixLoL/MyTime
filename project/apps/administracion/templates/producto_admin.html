@@ -4,7 +4,7 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/adm-productos.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/adm-productos.css' %}">
 {% endblock head %}
 
 {% block aside %}
@@ -25,7 +25,6 @@
         </nav>
         <section>
                 <div id="productosVista" class="mostrar container-productos">
-
                         <table>
                                 <tr>
                                         <th>Categoria</th>
@@ -36,17 +35,18 @@
                                         <th>Eliminar</th>
                                 </tr>
                                 {% for producto in productos %}
-                                <tr class="producto">
+                                <tr data-categoria-id="{{ producto.id }} class="producto">
                                         {% if producto.categoria == None %}
                                         <td>---</td>
                                         {% else %}
                                         <td>{{ producto.categoria }}</td>
                                         {% endif %}
                                         <td> {{ producto.nombre }}</td>
-                                        <td> ${{ producto.precio }}</td>
-                                        <td>
-                                                <p>{{ producto.descripcion }}</p>
+                                        <td class="editable" data-producto-id="{{ producto.id }}">
+                                                <span>{{ producto.precio }}</span>
+                                                <input type="text" class="edit-input" style="display: none;">
                                         </td>
+                                        <td>{{ producto.descripcion }}</td>
                                         <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button>
                                         </td>
                                         <td>
@@ -54,13 +54,14 @@
                                                         {% csrf_token %}
                                                         <input type="hidden" name="eliminar_producto"
                                                                 value="{{ producto.id }}">
-                                                        <button type="submit"><img
-                                                                        src="{% static 'img/basuraICON.png' %}"></button>
+                                                        <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
                                                 </form>
                                         </td>
                                 </tr>
                                 {% empty %}
-                                <p>No hay productos</p>
+                                <tr colspan="6">
+                                        <td colspan="6">No hay productos</td>
+                                </tr>
                                 {% endfor %}
                         </table>
                 </div>
@@ -94,15 +95,74 @@
                                                 <button type="button" class="btn btn-danger"
                                                         onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
                                         </div>
-                                </div>
+                                </div> 
                                 {% endfor %}
-                                <button type="submit" name="crear_usuario">Guardar</button>
+                                <button id="btn-save" type="submit" name="crear_producto">Guardar</button>
                         </form>
                 </div>
         </section>
+        <form id="producto_form" method="post" enctype="multipart/form-data" style="display: none;">
+                {% csrf_token %}
+                <input type="hidden" id="producto_id" name="producto_id" value="">
+                <input type="hidden" id="nuevo_precio" name="nuevo_precio" value="">
+        </form>
 </article>
+
+
+
+
 {% endblock content %}
 
 {% block jscripts %}
-<script src="{% static 'js/producto-adm.js' %}"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+                const editableCells = document.querySelectorAll('.editable');
+        
+                editableCells.forEach(cell => {
+                cell.addEventListener('dblclick', function () {
+                        const span = cell.querySelector('span');
+                        const input = cell.querySelector('input');
+                        span.style.display = 'none';
+                        input.style.display = 'block';
+                        input.value = span.innerText;
+                        input.focus();
+        
+                    // Set the category ID in the hidden input field when editing the name
+                        const productoId = cell.getAttribute('data-producto-id');
+                        document.querySelector('#producto_id').value = productoId;
+                });
+        
+                cell.querySelector('input').addEventListener('blur', function () {
+                        const span = cell.querySelector('span');
+                        const input = cell.querySelector('input');
+                        span.innerText = input.value;
+                        span.style.display = 'block';
+                        input.style.display = 'none';
+                });
+        
+                // Submit form when saving changes
+                cell.querySelector('input').addEventListener('keyup', function(event) {
+                        if (event.key === 'Enter') {
+                        const formData = new FormData();
+                        formData.append('producto_id', document.querySelector('#producto_id').value);
+                        formData.append('nuevo_precio', this.value);
+        
+                        fetch(window.location.href, {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                                }
+                        })
+                        .then(response => {
+                                if (response.ok) {
+                                window.location.reload(); // Refresh page after successful submission
+                                }
+                        });
+                        }
+                });
+                });
+        });
+        </script>
+<script src="{% static 'admin/js/producto-adm.js' %}"></script>
 {% endblock jscripts %}
