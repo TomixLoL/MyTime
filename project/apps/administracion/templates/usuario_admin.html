@@ -33,19 +33,24 @@
                         <tr>
                                 <th>Nombre</th>
                                 <th>Editar</th>
-                                <th>Eliminar</th>
+                                {% if usuarios.count > 1  %}
+                                        <th>Eliminar</th>
+                                {% endif %}
+                                
                         </tr>
                         {% for usuario in usuarios %}
                         <tr class="producto">
                                 <td> {{ usuario.username }}</td>
                                 <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
-                                <td>
-                                        <form method="post">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="eliminar_usuario" value="{{ usuario.id }}">
-                                                <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
-                                        </form>
-                                </td>
+                                {% if usuarios.count > 1  %}
+                                        <td>
+                                                <form method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="eliminar_usuario" value="{{ usuario.id }}">
+                                                        <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                                </form>
+                                        </td>
+                                {% endif %}
                         </tr>
                         {% empty %}
                         <p>No hay usuarios</p>

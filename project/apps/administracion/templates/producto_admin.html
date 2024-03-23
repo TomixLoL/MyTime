@@ -115,54 +115,47 @@
 
 {% block jscripts %}
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-                const editableCells = document.querySelectorAll('.editable');
-        
-                editableCells.forEach(cell => {
-                cell.addEventListener('dblclick', function () {
-                        const span = cell.querySelector('span');
-                        const input = cell.querySelector('input');
-                        span.style.display = 'none';
-                        input.style.display = 'block';
-                        input.value = span.innerText;
-                        input.focus();
-        
-                    // Set the category ID in the hidden input field when editing the name
-                        const productoId = cell.getAttribute('data-producto-id');
-                        document.querySelector('#producto_id').value = productoId;
-                });
-        
-                cell.querySelector('input').addEventListener('blur', function () {
-                        const span = cell.querySelector('span');
-                        const input = cell.querySelector('input');
-                        span.innerText = input.value;
-                        span.style.display = 'block';
-                        input.style.display = 'none';
-                });
-        
-                // Submit form when saving changes
-                cell.querySelector('input').addEventListener('keyup', function(event) {
-                        if (event.key === 'Enter') {
-                        const formData = new FormData();
-                        formData.append('producto_id', document.querySelector('#producto_id').value);
-                        formData.append('nuevo_precio', this.value);
-        
-                        fetch(window.location.href, {
-                                method: 'POST',
-                                body: formData,
-                                headers: {
-                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                                }
-                        })
-                        .then(response => {
-                                if (response.ok) {
-                                window.location.reload(); // Refresh page after successful submission
-                                }
-                        });
+    document.addEventListener('DOMContentLoaded', function () {
+        const editableCells = document.querySelectorAll('.editable');
+
+        editableCells.forEach(cell => {
+            cell.addEventListener('dblclick', function () {
+                const span = cell.querySelector('span');
+                const input = cell.querySelector('input');
+                span.style.display = 'none';
+                input.style.display = 'block';
+                input.value = span.innerText.replace(/[^\d]/g, ''); // Solo permite números
+                input.focus();
+
+                // Set the product ID in the hidden input field when editing the price
+                const productoId = cell.getAttribute('data-producto-id');
+                document.querySelector('#producto_id').value = productoId;
+            });
+
+            // Submit form when saving changes
+            cell.querySelector('input').addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    const formData = new FormData();
+                    formData.append('producto_id', document.querySelector('#producto_id').value);
+                    formData.append('nuevo_precio', parseFloat(this.value).toFixed(0)); // Sin decimales
+                    formData.append('modificar_precio', 'true');
+
+                    fetch(window.location.href, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                         }
-                });
-                });
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload(); // Refresh page after successful submission
+                        }
+                    });
+                }
+            });
         });
-        </script>
+    });
+</script>
 <script src="{% static 'admin/js/producto-adm.js' %}"></script>
 {% endblock jscripts %}
