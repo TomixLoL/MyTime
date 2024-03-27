@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>Panel de administación</title>
     <link rel="stylesheet" href="{% static 'admin/css/administracion.css' %}">
+    <link rel="stylesheet" id="themeMode" href="{% static 'admin/css/adm-dark.css' %}"> 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -22,6 +23,7 @@
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
     {% block head %}
     {% endblock head %}
+
 </head>
 
 
@@ -30,6 +32,11 @@
 <header>
     <h1>Panel de administracion</h1>
     <div class="header-div">
+        <div id="btnChange" class="circle" title="Cambiar a modo claro">
+            <div class="midCircle">
+
+            </div>
+        </div>
         <a href="{% url 'productos:index' %}">Volver al sitio</a>
         <form action="{% url 'administracion:logout' %}" method="post">
             {% csrf_token %}
@@ -48,6 +55,65 @@
 
     {% block jscripts %}
     {% endblock jscripts %}
+    <script>
+    function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+    function setCookie(name, value, options = {}) { 
+        options = {
+            path: '/',
+            // agregar otros valores predeterminados si es necesario
+            ...options
+        };
+
+        if (options.expires instanceof Date) {
+            options.expires = options.expires.toUTCString();
+        }
+
+        let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+        for (let optionKey in options) {
+            updatedCookie += "; " + optionKey;
+            let optionValue = options[optionKey];
+            if (optionValue !== true) {
+                updatedCookie += "=" + optionValue;
+            }
+        }
+        document.cookie = updatedCookie;
+    }
+    var mode = 'dark'
+
+    if(getCookie('theme') == 'dark'){
+        mode = getCookie('theme')
+        let etiquetaTheme = document.getElementById('themeMode')
+        etiquetaTheme.href = `{% static 'admin/css/adm-dark.css' %}`
+    }
+    if(getCookie('theme') == 'light'){
+        mode = getCookie('theme')
+        let etiquetaTheme = document.getElementById('themeMode')
+        etiquetaTheme.href = `{% static 'admin/css/adm-light.css' %}`
+    }
+    </script>
+    <script>
+        let etiquetaTheme = document.getElementById('themeMode')
+        let btnChange = document.getElementById('btnChange')
+
+        btnChange.addEventListener('click',()=>{
+            if(mode == 'dark'){
+                etiquetaTheme.href = "{% static 'admin/css/adm-light.css' %}"
+                mode = 'light'
+                setCookie('theme', mode, {secure : true, 'max-age': 2000000})
+
+            }else if(mode == 'light'){
+                etiquetaTheme.href = "{% static 'admin/css/adm-dark.css' %}"
+                mode = 'dark'
+                setCookie('theme', mode, {secure : true, 'max-age': 2000000})
+            }
+        })
+    </script>
 
 </body>
 

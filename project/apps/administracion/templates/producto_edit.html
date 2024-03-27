@@ -1,0 +1,57 @@
+{% extends 'administracion.html' %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'admin/css/adm-productos.css' %}">
+<script>
+    function redirect(){
+            location.href= `{% url 'administracion:adm-producto' %}`
+    }
+</script>
+{% endblock head %}
+
+{% block aside %}
+<ul>
+    <li class="no-elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
+    <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorías</a></li>
+    <li class="elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
+    <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
+</ul>
+{% endblock aside %}
+
+{% block content %}
+<article>
+    <nav>
+        <button onclick="redirect()" class="button-section" id="plusProducto">Volver</button>
+    </nav>  
+    <section>
+        <div class="mostrar formulario-agregar">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <!-- Formulario de imágenes -->
+                <h3>Imágenes</h3>
+                {{ imagen_formset.management_form }}
+                <div class="formset">
+                    {% for form in imagen_formset %}
+                    {{ form.as_p }}
+                    {% endfor %}
+                </div>
+
+                <!-- Formulario de opciones -->
+                <h3>Opciones</h3>
+                {{ opcion_formset.management_form }}
+                <div class="formset">
+                    {% for form in opcion_formset %}
+                    {{ form.as_p }}
+                    {% endfor %}
+                </div>
+
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </section>
+    <article>
+        {% endblock content %}

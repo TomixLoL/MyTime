@@ -10,7 +10,7 @@
 {% block aside %}
 <ul>
         <li class="no-elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
-        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorías</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
         <li class="elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
 </ul>
@@ -29,7 +29,6 @@
                         <table>
                                 <thead>
                                         <tr>
-
                                                 <th>Nombre</th>
                                                 <th>Imagen</th>
                                                 <th>Editar</th>
@@ -41,12 +40,14 @@
                                 <tr class="producto">
                                         <td> {{ estampado.nombre }}</td>
                                         <td> <img class="img-estampado" src="{{ estampado.estampado_imagen.url }}" alt="Imagen de {{ estampado.nombre }}"></img></td>
-                                        <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button></td>
+                                        <td> 
+                                                <a href="{% url 'administracion:edit-estampado' estampado.id %}">
+                                                        <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button></td>
+                                                </a>
                                         <td>
                                                 <form method="post">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="eliminar_estampado"
-                                                                value="{{ estampado.id }}">
+                                                        <input type="hidden" name="eliminar_estampado" value="{{ estampado.id }}">
                                                         <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
                                                 </form>
                                         </td>
@@ -59,6 +60,8 @@
                         </tbody>
                         </table>
                 </div>
+
+                <!-- FORMULARIO -->
                 <div id="agregarForm" class="formulario-agregar ">
                         <form method="post" enctype="multipart/form-data">
                                 <h2>Añadir un estampado</h2>

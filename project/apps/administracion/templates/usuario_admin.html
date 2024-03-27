@@ -10,7 +10,7 @@
 {% block aside %}
 <ul>
         <li class="elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
-        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorías</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
 </ul>
@@ -22,8 +22,8 @@
 <article>
 
         <nav>
-                <button class="button-section" id="lookProducto">Ver Productos</button>
-                <button class="button-section" id="plusProducto">Añadir Producto</button>
+                <button class="button-section" id="lookProducto">Ver Usuarios</button>
+                <button class="button-section" id="plusProducto">Añadir Usuario</button>
         </nav>
 
         <section>
@@ -41,7 +41,11 @@
                         {% for usuario in usuarios %}
                         <tr class="producto">
                                 <td> {{ usuario.username }}</td>
-                                <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> </td>
+                                <td>
+                                        <a href="{% url 'administracion:edit-usuario' user.id %}">
+                                                <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button>
+                                        </a>
+                                </td>
                                 {% if usuarios.count > 1  %}
                                         <td>
                                                 <form method="post">
@@ -57,6 +61,7 @@
                         {% endfor %}
                 </table>
 
+                <!-- FORMULARIO -->
                 <div id="agregarForm" class="formulario-agregar">
                         <form method="post">
                                 {% csrf_token %}

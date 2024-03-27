@@ -22,15 +22,12 @@ table tr {
 }
 table td p {
     text-overflow: clip;
-    height: 100%;
-    max-width: 100%;
+    height: 50px;
     overflow-y: scroll;
-    padding: 0px 4px 4px 0px;
 }
 table td p::-webkit-scrollbar {
-    display: block;
-    width: 4px;
-    height: 4px;
+
+    display: none;
     /* width of the entire scrollbar */
 }
 table td p::-webkit-scrollbar-track {
@@ -47,12 +44,12 @@ table td p::-webkit-scrollbar-thumb {
     /* creates padding around scroll thumb */
 }
 table td {
-    height: 60px;
-    max-width: 200px;
+
     font-family: 'Cantarell';
     color: var(--primario);
     padding: 5px;
     border: 1px solid var(--cuarto);
+    width: fit-content;
 }
 button {
     background-color: transparent;
@@ -84,14 +81,13 @@ img {
 }
 .container-productos {
     min-height: 50vh;
-    height: 50vh;
     padding: 10px;
-    min-width: 100%;
-    width: fit-content;
+    overflow: visible;
     background-color: var(--sexto);
 }
 .formulario-agregar {
     min-height: 50vh;
+    overflow: visible;
     padding: 10px;
     background-color: var(--sexto);
 }
@@ -232,7 +228,7 @@ table {
     background-color: var(--primario);
 
     color: var(--secundario);
-    width: 100%     ;
+    width: 200px    ;
     outline: none;
     padding: 5px;
     border: 1px solid var(--secundario);

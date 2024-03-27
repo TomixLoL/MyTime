@@ -10,7 +10,7 @@
 {% block aside %}
 <ul>
         <li class="no-elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
-        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorías</a></li>
         <li class="elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
         <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
 </ul>
@@ -27,7 +27,7 @@
                 <div id="productosVista" class="mostrar container-productos">
                         <table>
                                 <tr>
-                                        <th>Categoria</th>
+                                        <th>Categoría</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
                                         <th>Descripción</th>
@@ -35,7 +35,7 @@
                                         <th>Eliminar</th>
                                 </tr>
                                 {% for producto in productos %}
-                                <tr data-categoria-id="{{ producto.id }} class="producto">
+                                <tr data-categoria-id="{{ producto.id }}" class="producto">
                                         {% if producto.categoria == None %}
                                         <td>---</td>
                                         {% else %}
@@ -46,14 +46,18 @@
                                                 <span>{{ producto.precio }}</span>
                                                 <input type="text" class="edit-input" style="display: none;">
                                         </td>
-                                        <td>{{ producto.descripcion }}</td>
-                                        <td> <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button>
+                                        <td><p>
+                                                {{ producto.descripcion }}
+                                        </p></td>
+                                        <td> 
+                                                <a href="{% url 'administracion:edit-producto' producto.id %}">
+                                                        <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> 
+                                                </a>
                                         </td>
                                         <td>
                                                 <form method="post">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="eliminar_producto"
-                                                                value="{{ producto.id }}">
+                                                        <input type="hidden" name="eliminar_producto" value="{{ producto.id }}">
                                                         <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
                                                 </form>
                                         </td>
@@ -65,6 +69,8 @@
                                 {% endfor %}
                         </table>
                 </div>
+
+                <!-- FORMULARIO -->
                 <div id="agregarForm" class="formulario-agregar">
                         <form method="post" enctype="multipart/form-data">
                                 <h2>Añadir producto</h2>
@@ -101,25 +107,23 @@
                         </form>
                 </div>
         </section>
+
+        <!-- FORMULARIO DE EDICION DE PRECIO -->
         <form id="producto_form" method="post" enctype="multipart/form-data" style="display: none;">
                 {% csrf_token %}
                 <input type="hidden" id="producto_id" name="producto_id" value="">
                 <input type="hidden" id="nuevo_precio" name="nuevo_precio" value="">
         </form>
 </article>
-
-
-
-
 {% endblock content %}
 
 {% block jscripts %}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
         const editableCells = document.querySelectorAll('.editable');
 
         editableCells.forEach(cell => {
-            cell.addEventListener('dblclick', function () {
+                cell.addEventListener('dblclick', function () {
                 const span = cell.querySelector('span');
                 const input = cell.querySelector('input');
                 span.style.display = 'none';
@@ -130,32 +134,33 @@
                 // Set the product ID in the hidden input field when editing the price
                 const productoId = cell.getAttribute('data-producto-id');
                 document.querySelector('#producto_id').value = productoId;
-            });
+                });
 
             // Submit form when saving changes
-            cell.querySelector('input').addEventListener('keyup', function(event) {
+                cell.querySelector('input').addEventListener('keyup', function(event) {
                 if (event.key === 'Enter') {
-                    const formData = new FormData();
-                    formData.append('producto_id', document.querySelector('#producto_id').value);
-                    formData.append('nuevo_precio', parseFloat(this.value).toFixed(0)); // Sin decimales
-                    formData.append('modificar_precio', 'true');
+                        const formData = new FormData();
+                        formData.append('producto_id', document.querySelector('#producto_id').value);
+                        formData.append('nuevo_precio', parseFloat(this.value).toFixed(0)); // Sin decimales
+                        formData.append('modificar_precio', 'true');
 
-                    fetch(window.location.href, {
+                        fetch(window.location.href, {
                         method: 'POST',
                         body: formData,
                         headers: {
-                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                         }
-                    })
-                    .then(response => {
+                        })
+                        .then(response => {
                         if (response.ok) {
                             window.location.reload(); // Refresh page after successful submission
                         }
-                    });
+                        });
                 }
-            });
+                });
         });
-    });
+        });
 </script>
+
 <script src="{% static 'admin/js/producto-adm.js' %}"></script>
 {% endblock jscripts %}

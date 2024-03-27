@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from productos.forms import ProductoForm, ImagenProductoFormSet, OpcionFormSet, ProductoCategoriaForm, EstampadoForm
+from .forms import  UserUpdateForm
 from productos.models import Producto, ProductoCategoria, Estampado
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
+from django.views.generic.edit import UpdateView
 
 
 # Create your views here.
@@ -86,10 +90,17 @@ def AdminCategoria(request):
                 return JsonResponse({'status': 'ok'})
             except ProductoCategoria.DoesNotExist:
                 pass
-        else:
+        elif 'eliminar_categoria' in request.POST:   
+            categoria_id = request.POST.get('eliminar_categoria')
+            if categoria_id:
+                categoria = ProductoCategoria.objects.get(id=categoria_id)
+                categoria.delete()
+                return redirect('administracion:adm-categoria')
+        elif 'crear_categoria' in request.POST:
             categoria_form = ProductoCategoriaForm(request.POST)
+
             if categoria_form.is_valid():
-                categoria_form.save()
+                categoria = categoria_form.save()
                 return redirect('administracion:adm-categoria')
 
     return render(request, 'categoria_admin.html', {'categorias': categorias, 'categoria_form': categoria_form})
@@ -134,3 +145,65 @@ def AdminUsuario(request):
                     user.delete()
                     return redirect('administracion:adm-usuario')
     return render(request, 'usuario_admin.html', {'usuario_form': usuario_form, 'usuarios': usuarios})
+
+# Modificaciones #
+
+class ProductoEdit(UpdateView):
+    model = Producto
+    success_url = reverse_lazy("administracion:adm-producto")
+    form_class = ProductoForm
+    template_name = 'producto_edit.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['imagen_formset'] = ImagenProductoFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            context['opcion_formset'] = OpcionFormSet(self.request.POST, instance=self.object)
+        else:
+            context['imagen_formset'] = ImagenProductoFormSet(instance=self.object)
+            context['opcion_formset'] = OpcionFormSet(instance=self.object)
+        return context
+    
+    def form_valid(self, form):
+        context = self.get_context_data()
+        imagen_formset = context['imagen_formset']
+        opcion_formset = context['opcion_formset']
+        if imagen_formset.is_valid() and opcion_formset.is_valid():
+            self.object = form.save()
+            imagen_formset.instance = self.object
+            imagen_formset.save()
+            opcion_formset.instance = self.object
+            opcion_formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+class EstampadoEdit(UpdateView):
+    model = Estampado
+    success_url = reverse_lazy("administracion:adm-estampado")
+    form_class = EstampadoForm
+    template_name = 'estampado_edit.html'
+
+class CategoriaEdit(UpdateView):
+    model = ProductoCategoria
+    success_url = reverse_lazy("administracion:adm-categoria")
+    form_class = ProductoCategoriaForm
+    template_name = 'categoria_edit.html'
+
+@login_required
+def UsuarioEdit(request):
+    if request.method == 'POST':
+        usuario_form = UserUpdateForm(request.POST, instance=request.user)
+        contraseña_form = PasswordChangeForm(request.user, request.POST)
+        usuario = request.POST.get('usuario_id')
+
+        if usuario_form.is_valid() and contraseña_form.is_valid():
+            user = usuario_form.save()
+            contraseña_form.save()
+            update_session_auth_hash(request, user)  # Actualiza la sesión del usuario después de cambiar la contraseña
+            return redirect('administracion:adm-usuario')
+    else:
+        usuario_form = UserUpdateForm(instance=request.user)
+        contraseña_form = PasswordChangeForm(request.user)
+        
+    return render(request, 'usuario_edit.html', {'usuario_form': usuario_form, 'contraseña_form': contraseña_form})

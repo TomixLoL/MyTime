@@ -1,107 +1,137 @@
 {% extends 'administracion.html' %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'admin/css/adm-categorias.css' %}">
+{% endblock head %}
+
+
 {% block aside %}
-        <ul>
-                <li class="no-elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
-                <li class="elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorias</a></li>
-                <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
-                <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
-        </ul>
+<ul>
+    <li class="no-elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
+    <li class="elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorías</a></li>
+    <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
+    <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
+</ul>
 {% endblock aside %}
 
 
 {% block content %}
 <article>
+    <nav>
+        <button class="button-section" id="lookProducto">Ver Categorías</button>
+        <button class="button-section" id="plusProducto">Añadir Categoria</button>
+    </nav>
+        <section>
+            <div id="productosVista" class="container-productos mostrar">
+                <table class="container-categorias">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
 
+                    {% for categoria in categorias %}
+                    <tr class="categoria" data-categoria-id="{{ categoria.id }}">
+                        <td class="editable" data-categoria-id="{{ categoria.id }}">
+                            <span>{{ categoria.nombre }}</span>
+                            <input type="text" class="edit-input" style="display: none;">
+                        </td>
+                        {% if categoria.descripcion %}
+                        <td>{{ categoria.descripcion }}</td>
+                        {% else %}
+                        <td>---</td>
+                        {% endif %}
+                        <td> 
+                            <a href="{% url 'administracion:edit-categoria' categoria.id %}">
+                                    <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button></td>
+                            </a>
+                        <td>
+                            <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="eliminar_categoria"value="{{ categoria.id }}">
+                                    <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                            </form>
+                    </td>
+                    </tr>
+                    {% empty %}
+                    <p>No hay categorías</p>
+                    {% endfor %}
+                </table>
+            </div>
 
-<table class="container-categorias">
-    <tr>
-        <th>Nombre</th>
-        <th>Descripción</th>
-    </tr>
-
-    {% for categoria in categorias %}
-    <tr class="categoria" data-categoria-id="{{ categoria.id }}">
-        <td class="editable" data-categoria-id="{{ categoria.id }}">
-            <span>{{ categoria.nombre }}</span>
-            <input type="text" class="edit-input" style="display: none;">
-        </td>
-
-        {% if categoria.descripcion %}
-        <td>{{ categoria.descripcion }}</td>
-        {% else %}
-        <td>---</td>
-        {% endif %}
-    </tr>
-    {% empty %}
-    <p>No hay categorías</p>
-    {% endfor %}
-</table>
-
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ categoria_form }}
-    <button type="submit">Guardar</button>
-</form>
-
-<form id="categoria_form" method="post" enctype="multipart/form-data" style="display: none;">
-    {% csrf_token %}
-    <input type="hidden" id="categoria_id" name="categoria_id" value="">
-    <input type="hidden" id="nuevo_nombre" name="nuevo_nombre" value="">
-</form>
+            <div id="agregarForm" class="formulario-agregar ">
+            <!-- FORMULARIO -->
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ categoria_form }}
+                    <button type="submit" name="crear_categoria" id="btn-save">Guardar</button>
+                </form>
+            </div>
+            <!--FORMULARIO CAMBIO DE NOMBRE-->
+            <form id="categoria_form" method="post" enctype="multipart/form-data" style="display: none;">
+                {% csrf_token %}
+                <input type="hidden" id="categoria_id" name="categoria_id" value="">
+                <input type="hidden" id="nuevo_nombre" name="nuevo_nombre" value="">
+            </form>
+        </section>
 </article>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const editableCells = document.querySelectorAll('.editable');
-    
-        editableCells.forEach(cell => {
-            cell.addEventListener('dblclick', function () {
-                const span = cell.querySelector('span');
-                const input = cell.querySelector('input');
-                span.style.display = 'none';
-                input.style.display = 'block';
-                input.value = span.innerText;
-                input.focus();
-    
-                // Set the category ID in the hidden input field when editing the name
-                const categoriaId = cell.getAttribute('data-categoria-id');
-                document.querySelector('#categoria_id').value = categoriaId;
-            });
-    
-            cell.querySelector('input').addEventListener('blur', function () {
-                const span = cell.querySelector('span');
-                const input = cell.querySelector('input');
-                span.innerText = input.value;
-                span.style.display = 'block';
-                input.style.display = 'none';
-            });
-    
-            // Submit form when saving changes
-            cell.querySelector('input').addEventListener('keyup', function(event) {
-                if (event.key === 'Enter') {
-                    const formData = new FormData();
-                    formData.append('categoria_id', document.querySelector('#categoria_id').value);
-                    formData.append('nuevo_nombre', this.value);
-    
-                    fetch(window.location.href, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                        }
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            window.location.reload(); // Refresh page after successful submission
-                        }
-                    });
-                }
+{% block jscripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editableCells = document.querySelectorAll('.editable');
+
+            editableCells.forEach(cell => {
+                cell.addEventListener('dblclick', function () {
+                    const span = cell.querySelector('span');
+                    const input = cell.querySelector('input');
+                    span.style.display = 'none';
+                    input.style.display = 'block';
+                    input.value = span.innerText;
+                    input.focus();
+
+                    // Set the category ID in the hidden input field when editing the name
+                    const categoriaId = cell.getAttribute('data-categoria-id');
+                    document.querySelector('#categoria_id').value = categoriaId;
+                });
+
+                cell.querySelector('input').addEventListener('blur', function () {
+                    const span = cell.querySelector('span');
+                    const input = cell.querySelector('input');
+                    span.innerText = input.value;
+                    span.style.display = 'block';
+                    input.style.display = 'none';
+                });
+
+                // Submit form when saving changes
+                cell.querySelector('input').addEventListener('keyup', function (event) {
+                    if (event.key === 'Enter') {
+                        const formData = new FormData();
+                        formData.append('categoria_id', document.querySelector('#categoria_id').value);
+                        formData.append('nuevo_nombre', this.value);
+
+                        fetch(window.location.href, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    window.location.reload(); // Refresh page after successful submission
+                                }
+                            });
+                    }
+                });
             });
         });
-    });
     </script>
-    
+    <script src="{% static 'admin/js/producto-adm.js' %}">
+
+    </script>
+{% endblock jscripts %}
 
 {% endblock content %}

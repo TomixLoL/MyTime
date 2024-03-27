@@ -1,0 +1,24 @@
+{% extends 'administracion.html' %}
+
+{% load static %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block aside %}
+<ul>
+        <li class="elegido"><a href="{% url 'administracion:adm-usuario' %}">Usuarios</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-categoria' %}">Categorías</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-producto' %}">Productos</a></li>
+        <li class="no-elegido"><a href="{% url 'administracion:adm-estampado' %}">Estampados</a></li>
+</ul>
+{% endblock aside %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+    </form>
+{% endblock content %}

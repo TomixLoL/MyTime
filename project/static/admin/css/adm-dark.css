@@ -1,0 +1,30 @@
+:root{
+    --primario: white;
+    --secundario: #04264c;
+    --terciario: #000000e1;
+    --cuarto: #bbbaba;
+    --quinto: #336fb3; 
+    --sexto: #336fb3;
+
+}
+
+.circle{
+    width: 30px;
+    height: 30px;
+    background-color: var(--primario);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.midCircle{
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border-left: 10px solid var(--secundario);
+    border-radius: 50%;
+    cursor: pointer;
+    transform: rotate3d(0, 1, 0, 0deg);
+}

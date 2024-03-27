@@ -22,12 +22,15 @@ table tr {
 }
 table td p {
     text-overflow: clip;
-    height: 50px;
+    height: 100%;
+    max-width: 100%;
     overflow-y: scroll;
+    padding: 0px 4px 4px 0px;
 }
 table td p::-webkit-scrollbar {
-
-    display: none;
+    display: block;
+    width: 4px;
+    height: 4px;
     /* width of the entire scrollbar */
 }
 table td p::-webkit-scrollbar-track {
@@ -44,7 +47,8 @@ table td p::-webkit-scrollbar-thumb {
     /* creates padding around scroll thumb */
 }
 table td {
-
+    height: 60px;
+    max-width: 200px;
     font-family: 'Cantarell';
     color: var(--primario);
     padding: 5px;
@@ -79,13 +83,16 @@ img {
     font-family: 'Poppins';
 }
 .container-productos {
-    min-height: 100vh;
+    min-height: 50vh;
     padding: 10px;
+    min-width: 100%;
+    width: fit-content;
     background-color: var(--sexto);
+    overflow: visible;
 }
 .formulario-agregar {
-    min-height: 100vh;
-
+    min-height: 50vh;
+    overflow: visible;
     padding: 10px;
     background-color: var(--sexto);
 }
@@ -108,7 +115,6 @@ label {
 
     width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     border-bottom: 1px solid var(--primario);
     padding: 10px 0px;
@@ -148,7 +154,8 @@ label {
 }
 .formulario-agregar form button.btn.btn-danger {
     display: block;
-    width: 20%;
+    width: fit-content;
+    padding: 5px 10px;
 }
 .formulario-agregar form div.sec-img {
     outline: none;
@@ -219,4 +226,17 @@ table {
     margin: 20px 0px;
     cursor: pointer;
     transition: .4s;
+}
+
+
+.edit-input{
+    background-color: var(--primario);
+
+    color: var(--secundario);
+    width: 100%     ;
+    outline: none;
+    padding: 5px;
+    border: 1px solid var(--secundario);
+    font-family: 'Cantarell';
+    margin: 0 auto;
 }
