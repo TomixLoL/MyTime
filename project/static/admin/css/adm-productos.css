@@ -84,10 +84,9 @@ img {
 }
 .container-productos {
     min-height: 50vh;
-    height: 50vh;
+    height: fit-content;
     padding: 10px;
     min-width: 100%;
-    width: fit-content;
     background-color: var(--sexto);
 }
 .formulario-agregar {
@@ -165,7 +164,6 @@ label {
 .formulario-agregar form .sec-opc .input-opciones {
     display: flex;
     justify-content: space-between;
-    padding-left: 25px;
 }
 .formulario-agregar form .sec-img p {
     font-family: 'Cantarell';

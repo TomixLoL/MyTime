@@ -3,7 +3,12 @@
 {% load static %}
 
 {% block head %}
-
+<link rel="stylesheet" href="{% static 'admin/css/adm-categorias.css' %}">
+<script>
+    function redirect(){
+            location.href= `{% url 'administracion:adm-categoria' %}`
+    }
+</script>
 {% endblock head %}
 
 {% block aside %}
@@ -16,9 +21,19 @@
 {% endblock aside %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-    </form>
+<article>
+    <section>
+        <nav>
+
+        </nav>
+        <div class="formulario-agregar mostrar">
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button id="btn-save" type="submit">Guardar</button>
+            </form>
+        </div>
+    </section>
+</article>
 {% endblock content %}

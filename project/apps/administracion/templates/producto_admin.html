@@ -73,7 +73,7 @@
                 <!-- FORMULARIO -->
                 <div id="agregarForm" class="formulario-agregar">
                         <form method="post" enctype="multipart/form-data">
-                                <h2>Añadir producto</h2>
+                                <h2>Añadir Producto</h2>
                                 {% csrf_token %}
                                 {{ producto_form.as_p }}
                                 {{ imagen_formset.management_form }}

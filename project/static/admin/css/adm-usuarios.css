@@ -112,10 +112,10 @@ label {
     flex-direction: column;
 }
 .formulario-agregar form p {
-
+    flex-direction: column;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     border-bottom: 1px solid var(--primario);
     padding: 10px 0px;
 }
@@ -231,7 +231,6 @@ table {
 
 .edit-input{
     background-color: var(--primario);
-
     color: var(--secundario);
     width: 100%     ;
     outline: none;
@@ -239,4 +238,20 @@ table {
     border: 1px solid var(--secundario);
     font-family: 'Cantarell';
     margin: 0 auto;
+}
+
+.helptext{
+    font-family: 'Cantarell';
+    color: var(--cuarto);
+    font-size: 14px;
+}
+
+.formulario-agregar form ul{
+    margin-top: 15px;
+    color: var(--cuarto);
+    list-style-type: none;
+}
+.formulario-agregar form ul li{
+    font-family: 'Cantarell';
+    font-size: 14px;
 }

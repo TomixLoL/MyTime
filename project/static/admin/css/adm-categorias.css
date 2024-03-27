@@ -106,19 +106,18 @@ label {
     display: flex;
     flex-direction: column;
 }
-.formulario-agregar form p {
-
+.formulario-agregar form div,.formulario-agregar form p {
     width: 100%;
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--primario);
     padding: 10px 0px;
 }
-.formulario-agregar form p label {
+.formulario-agregar form div label,.formulario-agregar form p label {
     width: 40%;
 }
-.formulario-agregar form p input,
-.formulario-agregar form p select {
+.formulario-agregar form div input,.formulario-agregar form p input, .formulario-agregar form p select,
+.formulario-agregar form div select {
     width: 60%;
     outline: none;
     padding: 5px;

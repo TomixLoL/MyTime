@@ -270,7 +270,7 @@ section::-webkit-scrollbar-thumb {
         max-height: 80vh;
         font-size: 12px;
     }
-    .formulario-agregar, .container-productos{
+     .container-productos{
         width: fit-content;
         min-width: 100%;
     }
@@ -280,5 +280,8 @@ section::-webkit-scrollbar-thumb {
 @media (max-width:400px){
     aside ul li{
         width: 48%;
+    }
+    section{
+        max-height: 45vh;
     }
 }

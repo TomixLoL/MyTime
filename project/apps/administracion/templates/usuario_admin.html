@@ -64,6 +64,7 @@
                 <!-- FORMULARIO -->
                 <div id="agregarForm" class="formulario-agregar">
                         <form method="post">
+                                <h2>Añadir Usuario</h2>
                                 {% csrf_token %}
                                 {{ usuario_form.as_p }}
                                 <button id="btn-save" type="submit" name="crear_usuario">Crear usuario</button>
