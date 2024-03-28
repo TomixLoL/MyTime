@@ -24,19 +24,24 @@ def AdminProducto(request):
         # Si se envió el formulario para crear un nuevo producto
         if 'crear_producto' in request.POST:
             producto_form = ProductoForm(request.POST, request.FILES)
-            imagen_formset = ImagenProductoFormSet(request.POST, request.FILES, instance=Producto())
-            opcion_formset = OpcionFormSet(request.POST, instance=Producto())
+            imagen_formset = ImagenProductoFormSet(request.POST, request.FILES)
+            opcion_formset = OpcionFormSet(request.POST)
 
             if producto_form.is_valid() and imagen_formset.is_valid() and opcion_formset.is_valid():
                 producto = producto_form.save()
+                
+                # Guardar imágenes asociadas al producto
                 imagenes = imagen_formset.save(commit=False)
                 for imagen in imagenes:
                     imagen.producto = producto
                     imagen.save()
+                
+                # Guardar opciones asociadas al producto
                 opciones = opcion_formset.save(commit=False)
                 for opcion in opciones:
                     opcion.producto = producto
                     opcion.save()
+                
                 return redirect('administracion:adm-producto')
 
         # Si se envió una solicitud para eliminar un producto
@@ -191,19 +196,14 @@ class CategoriaEdit(UpdateView):
     template_name = 'categoria_edit.html'
 
 @login_required
-def UsuarioEdit(request):
+def UsuarioEdit(request, pk):
     if request.method == 'POST':
-        usuario_form = UserUpdateForm(request.POST, instance=request.user)
         contraseña_form = PasswordChangeForm(request.user, request.POST)
-        usuario = request.POST.get('usuario_id')
 
-        if usuario_form.is_valid() and contraseña_form.is_valid():
-            user = usuario_form.save()
-            contraseña_form.save()
-            update_session_auth_hash(request, user)  # Actualiza la sesión del usuario después de cambiar la contraseña
+        if contraseña_form.is_valid():
+            contraseña_form.save()  # Actualiza la sesión del usuario después de cambiar la contraseña
             return redirect('administracion:adm-usuario')
     else:
-        usuario_form = UserUpdateForm(instance=request.user)
         contraseña_form = PasswordChangeForm(request.user)
         
-    return render(request, 'usuario_edit.html', {'usuario_form': usuario_form, 'contraseña_form': contraseña_form})
+    return render(request, 'usuario_edit.html', {'contraseña_form': contraseña_form})

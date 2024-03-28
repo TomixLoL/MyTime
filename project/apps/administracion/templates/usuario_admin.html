@@ -33,26 +33,52 @@
                         <tr>
                                 <th>Nombre</th>
                                 <th>Editar</th>
-                                {% if usuarios.count > 1  %}
-                                        <th>Eliminar</th>
-                                {% endif %}
+                                <th>Eliminar</th>
                                 
                         </tr>
                         {% for usuario in usuarios %}
                         <tr class="producto">
-                                <td> {{ usuario.username }}</td>
-                                <td>
-                                        <a href="{% url 'administracion:edit-usuario' user.id %}">
-                                                <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button>
-                                        </a>
-                                </td>
-                                {% if usuarios.count > 1  %}
+                                {% if usuario == request.user %}
+                                        <td> {{ usuario.username }} (Tú)</td>
+                                {% else %}
+                                        <td> {{ usuario.username }}</td>
+                                {% endif %}
+
+                                {% if usuario == request.user %}
                                         <td>
-                                                <form method="post">
+                                                <a href="{% url 'administracion:edit-usuario' usuario.id %}">
+                                                        <button><img src="{% static 'img/editarICON.png' %}" alt="editar" style="cursor: pointer;"></button>
+                                                </a>
+                                        </td>
+                                {% else %}
+                                        <td>
+                                                <img style="cursor: not-allowed;" src="{% static 'img/editarICON.png' %}" alt="">
+                                        </td>
+                                {% endif %}
+
+                                {% if usuarios.count == 1  %}
+                                        <td>
+                                                <button style="cursor: not-allowed;"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                        </td>
+                                {% elif user.username == 'AltariaAdmin' %}
+                                        <td>
+                                                <form method="post"  style="cursor: pointer;">
                                                         {% csrf_token %}
                                                         <input type="hidden" name="eliminar_usuario" value="{{ usuario.id }}">
-                                                        <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                                        <button type="submit"  style="cursor: pointer;"><img src="{% static 'img/basuraICON.png' %}"></button>
                                                 </form>
+                                        </td>
+                                {% elif usuario == request.user %}
+                                        <td>
+                                                <form method="post"  style="cursor: pointer;">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="eliminar_usuario" value="{{ usuario.id }}">
+                                                        <button type="submit"  style="cursor: pointer;"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                                </form>
+                                        </td>
+                                {% else %}
+                                        <td>
+                                                <button style="cursor: not-allowed;"><img src="{% static 'img/basuraICON.png' %}"></button>
                                         </td>
                                 {% endif %}
                         </tr>

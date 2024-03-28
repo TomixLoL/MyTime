@@ -51,14 +51,14 @@
                                         </p></td>
                                         <td> 
                                                 <a href="{% url 'administracion:edit-producto' producto.id %}">
-                                                        <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> 
+                                                        <button style="cursor: pointer;"><img src="{% static 'img/editarICON.png' %}" alt="editar"></button> 
                                                 </a>
                                         </td>
                                         <td>
                                                 <form method="post">
                                                         {% csrf_token %}
                                                         <input type="hidden" name="eliminar_producto" value="{{ producto.id }}">
-                                                        <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                                        <button type="submit"style="cursor: pointer;" ><img src="{% static 'img/basuraICON.png' %}"></button>
                                                 </form>
                                         </td>
                                 </tr>
@@ -70,7 +70,7 @@
                         </table>
                 </div>
 
-                <!-- FORMULARIO -->
+                <!-- FORMULARIO  -->
                 <div id="agregarForm" class="formulario-agregar">
                         <form method="post" enctype="multipart/form-data">
                                 <h2>Añadir Producto</h2>
@@ -79,36 +79,41 @@
                                 {{ imagen_formset.management_form }}
                                 {{ opcion_formset.management_form }}
 
-                                <div class="sec-img">
+                                <div id="getInputImg" class="sec-img">
 
                                         <h3>Imágenes</h3>
                                         <p>Ingrese imagenes adicionales (Opcional)</p>
                                         {% for form in imagen_formset %}
-                                        <div class="input-imagenes">
-                                                {{ form.imagenes }}
-                                                <button type="button" class="btn btn-danger"
-                                                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
+                                        <div id="inputs-img-container">
+                                                <div class="input-imagenes" name="{{ form.prefix }}">
+                                                        {{ form.imagenes }}
+                                                        <button type="button" id="{{ form.prefix }}" class="btn btn-danger"
+                                                        >Eliminar</button>
+                                                </div>
                                         </div>
+                                        <button id="setInputImgBtn" class="btn btn-agregar">Añadir Imagen</button>
                                 </div>
 
                                 {% endfor %}
                                 <div class="sec-opc">
                                         <h3>Opciones</h3>
                                         <p>Ingrese opciones para este producto (Opcional)</p>
-                                        <div class="input-opciones">
-                                                {% for form in opcion_formset %}
-                                                {{ form.opciones }}
-                                                <button type="button" class="btn btn-danger"
-                                                        onclick="removeFile('id_{{ form.prefix }}-clear_id')">Eliminar</button>
-                                        </div>
+                                        {% for form in opcion_formset %}
+                                        <div id="inputs-opt-container">
+                                                <div class="input-opciones" name="{{ form.prefix }}">
+                                                        {{ form.opciones }}
+                                                        <button type="button" id="{{ form.prefix }}" class="btn btn-danger">Eliminar</button>
+                                                </div>
+                                        </div>                                        
+                                        <button id="setInputOptBtn"  class="btn btn-agregar">Añadir Opción</button>
                                 </div> 
                                 {% endfor %}
-                                <button id="btn-save" type="submit" name="crear_producto">Guardar</button>
+                                <button id="btn-save" name="crear_producto">Guardar</button>
                         </form>
                 </div>
         </section>
 
-        <!-- FORMULARIO DE EDICION DE PRECIO -->
+        <!-- FORMULARIO DE EDICION DE PRECIO  -->
         <form id="producto_form" method="post" enctype="multipart/form-data" style="display: none;">
                 {% csrf_token %}
                 <input type="hidden" id="producto_id" name="producto_id" value="">
@@ -118,49 +123,51 @@
 {% endblock content %}
 
 {% block jscripts %}
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const editableCells = document.querySelectorAll('.editable');
+        <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                const editableCells = document.querySelectorAll('.editable');
 
-        editableCells.forEach(cell => {
-                cell.addEventListener('dblclick', function () {
-                const span = cell.querySelector('span');
-                const input = cell.querySelector('input');
-                span.style.display = 'none';
-                input.style.display = 'block';
-                input.value = span.innerText.replace(/[^\d]/g, ''); // Solo permite números
-                input.focus();
+                editableCells.forEach(cell => {
+                        cell.addEventListener('dblclick', function () {
+                        const span = cell.querySelector('span');
+                        const input = cell.querySelector('input');
+                        span.style.display = 'none';
+                        input.style.display = 'block';
+                        input.value = span.innerText.replace(/[^\d]/g, ''); // Solo permite números
+                        input.focus();
 
-                // Set the product ID in the hidden input field when editing the price
-                const productoId = cell.getAttribute('data-producto-id');
-                document.querySelector('#producto_id').value = productoId;
-                });
+                        // Set the product ID in the hidden input field when editing the price
+                        const productoId = cell.getAttribute('data-producto-id');
+                        document.querySelector('#producto_id').value = productoId;
+                        });
 
-            // Submit form when saving changes
-                cell.querySelector('input').addEventListener('keyup', function(event) {
-                if (event.key === 'Enter') {
-                        const formData = new FormData();
-                        formData.append('producto_id', document.querySelector('#producto_id').value);
-                        formData.append('nuevo_precio', parseFloat(this.value).toFixed(0)); // Sin decimales
-                        formData.append('modificar_precio', 'true');
+                // Submit form when saving changes
+                        cell.querySelector('input').addEventListener('keyup', function(event) {
+                        if (event.key === 'Enter') {
+                                const formData = new FormData();
+                                formData.append('producto_id', document.querySelector('#producto_id').value);
+                                formData.append('nuevo_precio', parseFloat(this.value).toFixed(0)); // Sin decimales
+                                formData.append('modificar_precio', 'true');
 
-                        fetch(window.location.href, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                        }
-                        })
-                        .then(response => {
-                        if (response.ok) {
-                            window.location.reload(); // Refresh page after successful submission
+                                fetch(window.location.href, {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                                }
+                                })
+                                .then(response => {
+                                if (response.ok) {
+                                window.location.reload(); // Refresh page after successful submission
+                                }
+                                });
                         }
                         });
-                }
                 });
-        });
-        });
-</script>
+                });
+                </script>
 
-<script src="{% static 'admin/js/producto-adm.js' %}"></script>
+
+        <script src="{% static 'admin/js/producto-adm.js' %}"></script>
+        <script src="{% static 'admin/js/img-opt.js' %}"></script>
 {% endblock jscripts %}

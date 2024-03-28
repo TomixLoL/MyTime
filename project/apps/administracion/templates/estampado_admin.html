@@ -41,14 +41,14 @@
                                         <td> {{ estampado.nombre }}</td>
                                         <td> <img class="img-estampado" src="{{ estampado.estampado_imagen.url }}" alt="Imagen de {{ estampado.nombre }}"></img></td>
                                         <td> 
-                                                <a href="{% url 'administracion:edit-estampado' estampado.id %}">
-                                                        <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button></td>
+                                                <a href="{% url 'administracion:edit-estampado' estampado.id %}"">
+                                                        <button  style="cursor: pointer;"><img src="{% static 'img/editarICON.png' %}" alt="editar"></button></td>
                                                 </a>
                                         <td>
                                                 <form method="post">
                                                         {% csrf_token %}
                                                         <input type="hidden" name="eliminar_estampado" value="{{ estampado.id }}">
-                                                        <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                                        <button type="submit" style="cursor: pointer;"><img style="cursor: pointer;" src="{% static 'img/basuraICON.png' %}"></button>
                                                 </form>
                                         </td>
                                 </tr>

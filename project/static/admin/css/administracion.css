@@ -194,7 +194,7 @@ article{
 section{
     overflow-y: scroll;
     min-height: fit-content;
-    max-height: 50vh;
+    max-height: 65vh;
 }
 section::-webkit-scrollbar {
     width: 12px;

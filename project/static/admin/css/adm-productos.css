@@ -155,6 +155,22 @@ label {
     width: fit-content;
     padding: 5px 10px;
 }
+#inputs-img-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#setInputOptBtn, #setInputImgBtn {
+    display: block;
+    width: fit-content;
+    padding: 5px 10px;
+    margin-top: 15px;
+    font-family: 'Cantarell';
+    color: var(--primario);
+    background-color: var(--secundario);
+}
+
 .formulario-agregar form div.sec-img {
     outline: none;
     padding: 20px;

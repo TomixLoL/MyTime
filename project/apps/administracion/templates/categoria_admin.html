@@ -45,18 +45,20 @@
                         {% endif %}
                         <td> 
                             <a href="{% url 'administracion:edit-categoria' categoria.id %}">
-                                    <button><img src="{% static 'img/editarICON.png' %}" alt="editar"></button></td>
+                                    <button  style="cursor: pointer;" ><img src="{% static 'img/editarICON.png' %}" alt="editar"></button></td>
                             </a>
                         <td>
                             <form method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="eliminar_categoria"value="{{ categoria.id }}">
-                                    <button type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
+                                    <button  style="cursor: pointer;" type="submit"><img src="{% static 'img/basuraICON.png' %}"></button>
                             </form>
                     </td>
                     </tr>
                     {% empty %}
-                    <p>No hay categorías</p>
+                    <tr colspan="4">
+                        <td colspan="4">No hay productos</td>
+                    </tr>
                     {% endfor %}
                 </table>
             </div>
