@@ -155,7 +155,7 @@ label {
     width: fit-content;
     padding: 5px 10px;
 }
-#inputs-img-container{
+#inputs-img-container,#inputs-opt-container{
     display: flex;
     flex-direction: column;
     gap: 10px;
