@@ -201,7 +201,7 @@ def UsuarioEdit(request, pk):
         contraseña_form = PasswordChangeForm(request.user, request.POST)
 
         if contraseña_form.is_valid():
-            contraseña_form.save()  # Actualiza la sesión del usuario después de cambiar la contraseña
+            contraseña_form.save()
             return redirect('administracion:adm-usuario')
     else:
         contraseña_form = PasswordChangeForm(request.user)
